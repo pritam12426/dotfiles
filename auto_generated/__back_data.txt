@@ -96,10 +96,8 @@ D: capstone-5.0.6
 D: confuse-3.3
 D: libidn2-2.3.8
 D: expat-2.7.3
-f: exportLib
 D: bzip2-1.0.8
 D: opencv-4.11.0
-f: exportlib.sh
 D: libunistring-2.72.0
 D: cJSON-1.7.18
 D: radare2-6.0.4
@@ -161,6 +159,7 @@ CMake.app
 D: scrcpy-v3.3.4
 D: pandoc-3.8.2.1-arm64
 D: ffmpeg
+D: age-v1.3.1
 D: nvim-v0.11.5
 D: go-v1.25.4
 D: ffmpeg-v8.0

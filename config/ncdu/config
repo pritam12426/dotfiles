@@ -12,7 +12,7 @@
 --show-hidden
 --show-itemcount
 --show-percent
---disable-shell
+--enable-shell
 
 # --delete-command trash
 # --color dark-bg

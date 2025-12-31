@@ -6,6 +6,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCxQKHvKbmSzGMvUrVtJYnUA  "~
 https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA  "~YOUTUBE: channel/Brodie Robertson"    youtube vidoes media linux tips
 https://www.youtube.com/feeds/videos.xml?channel_id=UC6biysICWOJ-C3P4Tyeggzg  "~YOUTUBE: channel/Low Level"           youtube vidoes media linux tips
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg  "~YOUTUBE: channel/DistroTube"          youtube vidoes media linux tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UCUvkPEm38w6pq8w5QYgtPPw  "~YOUTUBE: channel/CyberFlow"           youtube vidoes media linux tips
 # ========================================================================================================================
 
 
@@ -22,7 +23,8 @@ https://www.reddit.com/r/indianmemer.rss "~REDDIT:  r/indianmemer" youtube vidoe
 # MISCELLANEOUS ==========================================================================================================
 https://brew.sh/atom.xml                     "~BREW:    brew/blog"        language  rust       coding      dev
 
-https://blog.rust-lang.org/feed.xml          "~RUST:    rust/blog"        ruby      language   mis
+https://blog.rust-lang.org/feed.xml          "~RUST:    rust/blog"        rust      language   mis
+https://zellij.dev/news/index.xml            "~ZELLIJ:  zellij/blog"      rust      language   mis
 
 https://ubuntu.com/rss.xml                   "~LINUX:   ubuntu/news"  linux     os    mis
 https://www.debian.org//News/news            "~LINUX:   debian/news"  linux     os    mis

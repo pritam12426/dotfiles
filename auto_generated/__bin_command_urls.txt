@@ -21,9 +21,11 @@ https://github.com/gitui-org/gitui
 https://github.com/glanceapp/glance
 https://github.com/go-shiori/shiori
 https://github.com/gokcehan/lf
+https://github.com/gopasspw/gopass
 https://github.com/jesseduffield/lazydocker
 https://github.com/jesseduffield/lazygit
 https://github.com/junegunn/fzf
+https://github.com/karol-broda/snitch
 https://github.com/koalaman/shellcheck
 https://github.com/marcosnils/bin
 https://github.com/miniflux/v2

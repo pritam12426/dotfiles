@@ -1,5 +1,12 @@
 # printf "Importing \t %s \n" "$HOME/.zprofile"
 
+# Auto-start Zellij only in Apple Terminal (not VSCode, Zed, SSH, etc)
+# if [[ -o login \
+# 	&& -z "$ZELLIJ" \
+# 	&& "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
+# 		exec ~/.local/github-releases-binary/zellij
+# fi
+
 # ---------------------- Rust ------------------------
 if [[ -n $CARGO_HOME && -d $CARGO_HOME ]]; then
 	# . "/Users/pritam/.local/lib/cargo/env"
