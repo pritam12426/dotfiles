@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>Label</key>
+		<string>local.app.shiori</string>
+		<key>EnvironmentVariables</key>
+		<dict>
+			<key>SHIORI_HTTP_SECRET_KEY</key>
+			<string>70a173f0-d800-11f0-b5e8-bb81530202ef</string>
+
+			<key>SHIORI_HTTP_PORT</key>
+			<string>8873</string>
+		</dict>
+		<key>ProgramArguments</key>
+		<array>
+			<string>/Users/pritam/.local/github-releases-binary/shiori</string>
+			<string>server</string>
+			<string>--access-log</string>
+		</array>
+		<key>RunAtLoad</key>
+		<true/>
+		<key>KeepAlive</key>
+		<true/>
+		<key>ServiceDescription</key>
+		<string>Shiori Bookmarking Service</string>
+		<key>StandardOutPath</key>
+		<string>/tmp/local.app.shiori/shiori.log</string>
+		<key>StandardErrorPath</key>
+		<string>/tmp/local.app.shiori/shiori_error.log</string>
+	</dict>
+</plist>

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# file: /Users/pritam/.config/tig/scripts/tig_add_to_ignore
+
+# $1   => "%(file)" == repo-relative file path to ignore
+# $2   => git root reop  "%(repo:git-dir)/.." == $(git rev-parse --show-toplevel)/.git/..
+
+IGNORE="$2/.gitignore"
+
+grep -qxF "$1" "$IGNORE" 2>/dev/null || printf "\n%s" "$1" >> "$IGNORE"

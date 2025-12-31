@@ -1,0 +1,7 @@
+name = "Sqlite3 browser"
+description = "Macos Sqlite3browser.app config"
+
+configuration_files = [
+	"Library/Preferences/com.sqlitebrowser.sqlitebrowser.plist",
+	"Library/Preferences/net.sourceforge.sqlitebrowser.plist"
+]

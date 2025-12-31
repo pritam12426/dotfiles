@@ -1,0 +1,82 @@
+#!/bin/bash
+# export NNN_PLUG="p:personal/ffplay_playlist"
+#
+# Description: Play multiple media files, one after another in NNN file manager
+#
+# Dependencies: ffplay
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+# The ones you’ll actually use 99 % of the time in scripts:
+GREEN='\033[0;32m'
+BOLD_GREEN='\033[1;32m'
+BRIGHT_GREEN='\033[0;92m'
+
+RED='\033[0;31m'
+BOLD_BRIGHT_RED='\033[1;91m'
+
+YELLOW='\033[0;33m'
+BOLD_BRIGHT_YELLOW='\033[1;93m'
+
+CYAN='\033[0;36m'
+BRIGHT_CYAN='\033[0;96m'      # this is the gorgeous cyan everyone loves
+BOLD_BRIGHT_CYAN='\033[1;96m'
+
+MAGENTA='\033[0;35m'
+BOLD_BRIGHT_MAGENTA='\033[1;95m'
+
+NC='\033[0m'
+
+
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+
+# ───── Selection exists ─────
+targets=()
+total_items=0
+if [ -s "$sel" ]; then
+	while IFS= read -r -d '' i || [ -n "$i" ]; do
+		[[ -f "$i" ]] || continue
+		targets+=("$(readlink -f "$i")")
+		((total_items++))
+	done < "$sel"
+# ───── No selection → current file ($1) ─────
+else
+	[[ -f "$1" ]] || exit 0
+	targets+=("$(readlink -f "$1")")
+	((total_items++))
+fi
+
+# ───── Nothing to play ─────
+if (( total_items == 0 )); then
+	[ -s "$sel" ] && [ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"
+	exit 1
+fi
+
+# ───── If only one file and you want infinite loop (optional) ─────
+# Remove this block completely if you want to play every file once
+if (( total_items == 1 )); then
+	ffplay -loglevel warning -loop 0 -seek_interval 5 "${targets[0]}"
+	exit $?
+fi
+
+# ───── Playlist mode ─────
+_i=1
+printf "The playlist with %d itms:\n" $total_items >&2
+for i in "${targets[@]}"; do
+	printf " \t %d - %s/${BOLD_BRIGHT_YELLOW}%s${NC}\n" $_i "$(dirname "$i")" "$(basename "$i")" >&2
+	(( _i++ ))
+done
+printf '%*s\n' "$(tput cols)" '' | tr ' ' '-' >&2
+
+_i=1
+for i in "${targets[@]}"; do
+	printf "===> [ Playing ( %d/%d )  ${BOLD_BRIGHT_CYAN}%s${NC} ] <=== \n" "$_i" "$total_items" "$(basename "$i")"
+	ffplay -loglevel warning -loop 0 -seek_interval 5 "$i";
+	printf '%*s\n' "$(tput cols)" '' | tr ' ' '-' >&2
+
+	(( _i++ ))
+done
+
+# Clear selection
+[ -s "$sel" ] && [ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"

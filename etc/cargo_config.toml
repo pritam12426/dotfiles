@@ -1,0 +1,20 @@
+# ln -sf $DOT_FILE/cargo_config.toml  $CARGO_HOME/config.toml
+# https://doc.rust-lang.org/cargo/reference/config.html
+
+[cargo-new]
+	vcs = "none"
+
+[alias]
+	b   = "build"
+	dep = "tree --depth 1"
+	br  = "build --release"
+	c   = "check"
+	t   = "test"
+	r   = "run"
+	rr  = "run --release"
+
+[build]
+	jobs = 2
+
+# [install]
+# 	root = "/Users/pritam/.local/rust-install"

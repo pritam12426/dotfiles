@@ -1,0 +1,20 @@
+-t 4
+--si
+--show-itemcount
+--shared-column shared
+--shared-column unique
+--color dark
+--disk-usage
+--enable-refresh
+--group-directories-first
+--no-confirm-quit
+--show-graph
+--show-hidden
+--show-itemcount
+--show-percent
+--disable-shell
+
+# --delete-command trash
+# --color dark-bg
+# --color off
+# --exclude .git

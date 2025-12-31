@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<!-- Label for the service -->
+		<key>Label</key>
+		<string>com.user.aria2</string>
+		<!-- Path to the wireproxy binary -->
+		<key>ProgramArguments</key>
+		<array>
+			<string>/Users/pritam/.local/bin/aria2c</string>
+			<!-- GENERAL OPTIONS -->
+			<!--<string>--no-conf</string>-->
+			<string>--conf-path=/Users/pritam/.config/aria2/__aria2-launchctl-with-BtTracker.conf</string>
+		</array>
+		<!-- Run the service in the background -->
+		<key>RunAtLoad</key>
+		<true/>
+		<!-- Keep the service alive -->
+		<key>KeepAlive</key>
+		<true/>
+		<!-- Standard output and error logs -->
+		<key>StandardOutPath</key>
+		<string>/tmp/com.user.aria2/aria2c.log</string>
+		<key>StandardErrorPath</key>
+		<string>/tmp/com.user.aria2/aria2c_error.log</string>
+
+		<key>ServiceDescription</key>
+		<string>Aria2 download manger server</string>
+	</dict>
+</plist>

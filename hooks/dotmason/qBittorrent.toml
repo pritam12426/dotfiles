@@ -1,0 +1,6 @@
+name = "qBittorrent"
+description = "qBittorrent a gui interface for torrent config"
+
+configuration_files = [
+	"Library/Preferences/org.radare.iaito.plist",
+]

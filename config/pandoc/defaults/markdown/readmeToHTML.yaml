@@ -1,0 +1,44 @@
+# ================================================================
+# Pandoc Defaults – Convert README.md → index.html with template
+# Source:
+#   - https://pandoc-templates.org/template/ashki23-pandoc-bootstrap/
+# ================================================================
+
+from: markdown
+to: html5
+standalone: true
+highlight-style: none
+
+output-file: index.html
+# input-files:
+#   - README.md
+
+# ========== Table of Contents ==========
+toc: true
+toc-depth: 2
+
+# ========== Math Support ==========
+# Disable if not needed
+html-math-method: mathjax
+
+# ========== HTML Template + Includes ==========
+template: /Users/pritam/.config/pandoc/templates/markdown/readmeToHTML-template.html
+
+include-in-header:
+  - /Users/pritam/.config/pandoc/partials/markdown/mdTohtml-header.html
+
+include-after-body:
+  - /Users/pritam/.config/pandoc/partials/markdown/mdTohtml-footer.html
+
+# include-before-body:
+  # - /Users/pritam/.config/pandoc/partials/markdown/mdTohtml-navbar.html
+
+# ========== Extra Variables (Optional) ==========
+# You can override title/meta/css/logo here if template supports it
+metadata:
+  # title: "README"
+  lang: "en"
+  favicon: "favicon.ico"
+
+variables:
+  author: "Pritam"

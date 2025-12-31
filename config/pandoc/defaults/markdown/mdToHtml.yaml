@@ -1,0 +1,17 @@
+from: markdown
+to: html5
+standalone: true
+
+include-in-header: /Users/pritam/.config/pandoc/headers/mdTohtml-header.html
+include-after-body: /Users/pritam/.config/pandoc/headers/mdTohtml-footer.html
+
+css:
+  - /Users/pritam/.config/pandoc/templates/github-markdown-light.css
+  - /Users/pritam/.config/pandoc/templates/github-markdown-dark.css
+
+toc: true
+toc-depth: 3
+
+metadata:
+  author: "Your Name"
+  title: "Document"

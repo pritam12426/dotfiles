@@ -1,0 +1,31 @@
+# ================================================================
+# Pandoc Defaults – Convert README.md → index.html with template
+# Source:
+#   - https://pandoc-templates.org/template/eisvogel/
+#   - https://github.com/Wandmalfarbe/pandoc-latex-template
+#   - https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master/template-multi-file
+# ================================================================
+
+from: markdown
+to: latex
+
+# All output will go into ./build
+output-file: build/main.tex
+
+# Extract images into build/assets
+extract-media: build/assets
+
+# ========== TEX Template + Includes ==========
+template: /Users/pritam/.config/pandoc/templates/markdown/markdown-latex-eisvogel.latex
+
+# ========== Extra Variables (Optional) ==========
+# You can override title/meta/css/logo here if template supports it
+variables:
+  titlepage: true
+  # titlepage-background: "/path/to/background.pdf"   # optional
+  titlepage-text-color: "FFFFFF"                    # optional
+  titlepage-rule-color: "007ACC"                    # optional
+  titlepage-rule-height: 4                          # optional
+
+filters:
+  - /Users/pritam/.config/pandoc/lua-filters/meta.lua

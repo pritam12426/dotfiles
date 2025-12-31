@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# file: ~/.config/tig/scripts/pause_on_error
+# Run a command and pause if it fails
+
+"$@"
+rc=$?
+
+if [ "$rc" -ne 0 ]; then
+	printf "\nCommand failed (exit %s). Press Enter to continue..." "$rc"
+	read -r _
+	exit $rc
+fi
+
+echo "Done..."
+sleep 1
+exit $rc

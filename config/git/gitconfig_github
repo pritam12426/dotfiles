@@ -1,0 +1,10 @@
+[user]
+	name  = Pritam
+	email = 84720825+pritam12426@users.noreply.github.com
+	signingkey = 9D731EE58B357845
+
+[commit]
+	gpgsign = true
+
+[tag]
+	gpgsign = true

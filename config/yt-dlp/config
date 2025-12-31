@@ -1,0 +1,239 @@
+################################################################################
+# yt-dlp Configuration File
+#
+# This file defines:
+#   • Download & format rules
+#   • Authentication behavior
+#   • File metadata embedding
+#   • Alias shortcuts
+#   • Advanced runtime settings
+#
+# NOTE:
+#  - This version improves clarity and organization only.
+#  - No options have been added or removed.
+################################################################################
+
+
+# BASIC SETUP
+
+# ==========================================================================================================
+# ----------------------------------------------------------------------------------------------------------
+# 📥 DOWNLOAD SETTINGS
+# Controls how files are saved and which formats are selected.
+# ----------------------------------------------------------------------------------------------------------
+
+# Output folder + filename structure:
+#   %(extractor_key)s → Site name (e.g., youtube, instagram)
+#   %(title)s         → Video title
+#   %(ext)s           → File extension (mp4, m4a, webm, etc.)
+-o ~/Downloads/yt_dlp/%(extractor_key)s/%(title)s.%(ext)s
+
+# Format selection: Tries to get the best quality video/audio combinations.
+# - 139+140: YouTube 720p video-93k + m4a audio
+# - 299+140: YouTube 720p video-155k + m4a audio
+# - bestvideo*[height=720][ext=mp4][fps<=30]+bestaudio*[ext=m4a] : 720p mp4 video <=30fps + m4a audio
+# - 137+140: YouTube 1080p60 video + m4a audio
+# - bestvideo*[height=1080][ext=mp4][fps<=30]+bestaudio*[ext=m4a]: 1080p mp4 video <=30fps + m4a audio
+# - bestvideo*[height=1080][ext=mp4][fps<=60]+bestaudio*[ext=m4a]: 1080p mp4 video <=60fps + m4a audio
+# - bestvideo*[height<=1080][ext=mp4]+bestaudio*[ext=m4a]: fallback to <=1080p mp4 + m4a audio
+# - bestvideo*[height<=1080]+bestaudio*: fallback to <=1080p any video + any audio
+# - bestvideo*+bestaudio*: fallback to best video + best audio
+
+-f """
+	299+140/
+	137+140/
+	bestvideo*[height=1080][ext=mp4][fps<=30]+bestaudio*[ext=m4a]/
+	bestvideo*[height=1080][ext=mp4][fps<=60]+bestaudio*[ext=m4a]/
+	bestvideo*[height<=1080][ext=mp4]+bestaudio*[ext=m4a]/
+	bestvideo*[height<=1080]+bestaudio*/
+	bestvideo*+bestaudio*
+"""
+# ==========================================================================================================
+
+
+
+# ==========================================================================================================
+# ----------------------------------------------------------------------------------------------------------
+# 🔐 AUTHENTICATION & HEADERS
+# Enables access to locked content and mimics a real browser.
+# ----------------------------------------------------------------------------------------------------------
+
+# Use cookies from Firefox browser for site login.
+--cookies-from-browser 'firefox'
+
+# Custom desktop User-Agent header (helps bypass restrictions).
+--user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+
+# Optional login methods (disabled here, kept for reference).
+# --netrc
+# --netrc-cmd 'gpg --decrypt ~/.authinfo.gpg'
+# ==========================================================================================================
+
+
+
+# ==========================================================================================================
+# ----------------------------------------------------------------------------------------------------------
+# ⚙️ GENERAL DOWNLOAD BEHAVIOR
+# Subtitles, metadata, thumbnails, playlist behavior, and error policies.
+# ----------------------------------------------------------------------------------------------------------
+
+# Embed subtitles automatically when available.
+--embed-subs
+
+# Download only single videos by default (aliases can override).
+--no-playlist
+
+# Use the original upload date as modified time of saved files.
+--mtime
+
+# Restrict filename characters (safer for OS/filesystems).
+--restrict-filenames
+
+# Embed chapters into media files (if available).
+--embed-chapters
+
+# Inject metadata (title, artist, etc.) into the file.
+--embed-metadata
+
+# Embed thumbnail image into video/audio file.
+--embed-thumbnail
+
+# Save automatically generated subtitles (if available).
+--write-auto-subs
+
+# Continue without crashing if formats are missing.
+--ignore-no-formats-error
+
+# Embed the entire JSON metadata inside the media file.
+--embed-info-json
+
+# Create chapters for all SponsorBlock categories except preview.
+--sponsorblock-mark all
+
+# Use aria2c for faster, multi-connection downloads.
+--downloader aria2c --downloader "dash,m3u8:native"
+
+# Extra args passed to aria2 (session handling, overwrite, script).
+--downloader-args aria2c:"""
+						--on-download-complete=/Users/pritam/.config/yt-dlp/aria2_script/write_history.sh
+						--save-session=/Users/pritam/Library/Caches/yt-dlp/yt-dlp_aira2_session.txt
+						--allow-overwrite=true
+						--conditional-get=true
+						--save-session-interval=5
+						--force-save=true
+"""
+
+# Optional (disabled) fragment restrictions.
+# --abort-on-unavailable-fragments
+# --concurrent-fragments 16
+
+# Optional (disabled) prevent downloading “series parts”.
+# --no-part
+
+# Optional (disabled) regex-based chapter removal.
+# --remove-chapters REGEX
+# ==========================================================================================================
+
+
+
+# ==========================================================================================================
+# ----------------------------------------------------------------------------------------------------------
+# ⚡ ALIASES
+# Custom shortcuts for frequent yt-dlp usage patterns.
+# Use anytime, e.g.:   yt-dlp ysong URL
+# ----------------------------------------------------------------------------------------------------------
+
+# Log full details without downloading media.
+--alias log "-s --verbose --no-download --no-write-subs --no-write-thumbnail"
+
+# Advanced “media info” preview (no download).
+--alias info """-s --no-write-subs --no-write-thumbnail --print
+\"URL: %(webpage_url)s
+├── Title: %(title)s
+├── Channel: %(uploader)s (%(channel_url)s)
+├── Uploaded: %(upload_date)s (Status: %(live_status)s)
+├── Duration: %(duration_string)s
+├── Views: %(view_count)s
+├── Likes: %(like_count)s
+│
+├── Metadata:
+│   ├── ID: %(id)s
+│   ├── Age Limit: %(age_limit)s
+│   ├── Tags: %(tags)s
+│   └── Categories: %(categories)s
+│
+├── Playlist:
+│   ├── Title: %(playlist_title)s
+│   ├── ID: %(playlist_id)s
+│   └── Position: %(playlist_index)s of %(n_entries)s
+│
+├── File Info:
+│   ├── Filename: %(filename)s
+│   ├── Thumbnail: %(thumbnail)s
+│   └── Available Subs: %(available_subtitles)s
+│
+└── Formats:
+│   ├── Video: %(vcodec)s (%(dynamic_range)s), %(width)sx%(height)s @ %(fps)s fps, ~%(vbr)sk
+│   ├── Audio: %(acodec)s @ %(asr)s Hz
+│   └── Approx Size: %(filesize_approx)s
+│
+└── Driect URL:
+    ├── Vidoe: %(video_url)s
+    └── Audio: NA\"
+"""
+
+# Download best audio (converted to m4a) into Music folder.
+--alias ysong "-f 'best/bestaudio*' -o '~/Music/local/%(title)s.%(ext)s' --audio-format m4a"
+
+# Download best audio (no conversion).
+--alias savan "-f 'best/bestaudio*' -o '~/Music/local/%(title)s.%(ext)s'"
+
+# Download playlist into organized folder structure.
+--alias pList "--yes-playlist -o '~/Downloads/yt_dlp/%(extractor_key)s/%(playlist)s-%(uploader)s/%(playlist_index)s-%(title)s.%(ext)s'"
+
+# Download into current working directory.
+--alias pwd "-o '%(title)s.%(ext)s'"
+
+# Dump into a hidden folder for temporary/experimental downloads.
+--alias xx "-o '~/Downloads/yt_dlp/.dlpxx/%(extractor_key)s-%(channel)s-%(title)s.%(ext)s'"
+
+# Special alias for shorts/reels (simple rules, no thumbnail/sub embedding).
+--alias st """
+			-o '~/Downloads/yt_dlp/short_vidoes/%(extractor_key)s-%(channel)s-%(id)s-%(uploader_id)s.%(ext)s'
+			-f 'bestvideo*[ext=mp4]+bestaudio*[ext=m4a]/best/bestvideo*+bestaudio*'
+			--no-embed-subs
+			--yes-playlist
+			--no-write-auto-subs
+			--ignore-no-formats-error
+			--no-embed-thumbnail
+"""
+# ==========================================================================================================
+
+
+# ==========================================================================================================
+# ----------------------------------------------------------------------------------------------------------
+# 🧠 ADVANCED RUNTIME & METADATA
+# Cache, description parsing, custom JS engines, etc.
+# ----------------------------------------------------------------------------------------------------------
+
+# Parse description metadata from the video.
+--parse-metadata "video::(?P<description>)"
+
+# Custom cache directory for improved repeat performance.
+--cache-dir ~/Library/Caches/yt-dlp
+
+# Custom plugin directory (extensions/modules).
+--plugin-dirs /Users/pritam/.config/yt-dlp/plugins
+
+# Use Node.js for sites that require runtime JS execution.
+--js-runtimes node
+
+# Optional: Use custom ffmpeg binary (left disabled).
+# --ffmpeg-location /path/to/ffmpeg
+# ==========================================================================================================
+
+
+################################################################################
+# End of yt-dlp Config
+# Modify freely to match your downloading workflow!
+################################################################################

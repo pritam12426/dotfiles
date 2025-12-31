@@ -1,0 +1,53 @@
+#!/bin/bash
+# export NNN_PLUG="r:personal/fix_ugly_name"
+#
+# Description: Fix ugly name of file and folder
+#
+# Dependencies:
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+
+# ───── Get selection or current file ─────
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+prompt=true
+counter=0
+
+# If something is selected in nnn (and .selection is non-empty)
+if [ -s "$sel" ]; then
+	targets=()
+	# Read null-delimited entries (nnn uses \0 as separator)
+	while IFS= read -r -d '' item || [ -n "$item" ]; do
+		targets+=("$item")
+		(( counter++ ))
+	done <"$sel"
+else
+	targets=("$1")
+	counter=1
+fi
+
+# if prompt is true and count is more than 1, show the list of files to be renamed
+if $prompt && [ "$counter" -gt 1 ]; then
+	fix-ugly-name -ns "${targets[@]}"
+	echo
+	printf "Proceed [Yn]? "
+	read -r input
+	case "$input" in
+	y | Y | '')
+		fix-ugly-name "${targets[@]}"
+		;;
+	*)
+		echo "Canceled"
+		exit
+		;;
+	esac
+elif [ "$counter" -eq 1 ]; then
+	fix-ugly-name "${targets[0]}"
+fi
+
+
+# Clear selection
+if [ -s "$sel" ] && [ -p "$NNN_PIPE" ]; then
+	printf "-" >"$NNN_PIPE"
+fi

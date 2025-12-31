@@ -1,0 +1,16 @@
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+**/cache/**
+.LSOverride
+*~
+-.git
+*temp*
+._*
+
+# Shiori
+*-shm
+*-wal
+archive/
+thumb/

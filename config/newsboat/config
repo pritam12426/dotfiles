@@ -1,0 +1,92 @@
+external-url-viewer ~/.config/newsboat/scripts/list-link.sh
+# external-url-viewer "urlview"
+
+# -- feeds ---------------------------------------------------------------------
+#auto-reload yes
+#refresh-on-startup yes
+reload-time 120
+reload-threads 6
+download-retries 4
+download-timeout 10
+prepopulate-query-feeds yes
+max-items 500                  # Prevent endless growth; adjust as needed (0 = unlimited)
+podcast-auto-enqueue yes       # Auto-add podcast enclosures to Podboat queue
+scrolloff 3
+cookie-cache ~/.local/share/newsboat/cookies.txt
+
+# -- display -------------------------------------------------------------------
+show-read-feeds yes
+feed-sort-order unreadarticlecount-asc
+
+# Feed list: show index, unread/total, title, and description if available
+feedlist-format "%4i %n %10u %t %d"
+
+# Article list: nicer format with date, flags, title
+articlelist-format "%4i %f %-10D %t"
+
+include ~/.config/newsboat/theme-dracula
+text-width 100
+display-article-progress yes   # Show % read in article view
+#wrap-scroll yes                # Wrap scrolling at top/bottom
+#show-keymap-hint no            # Cleaner screen (use ? for help when needed)
+
+# -- navigation ----------------------------------------------------------------
+goto-next-feed no
+browser "open -a 'firefox' %u"
+unbind-key ,
+
+bind-key j down
+bind-key k up
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key h quit
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key l open
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls           # Uppercase U shows URL list (with urlview interactivity)
+bind-key x pb-delete
+bind-key T sort
+bind-key ; macro-prefix
+
+# -- bookmarks -----------------------------------------------------------------
+bookmark-cmd ~/.config/newsboat/scripts/bookmark.sh
+bookmark-interactive no
+bookmark-autopilot yes
+
+# -- notifications -------------------------------------------------------------
+notify-xterm yes
+# notify-beep yes                # Audible alert on new articles
+notify-program ~/.local/bin/notify
+notify-format "%f feeds with %n new articles"
+
+# -- misc ----------------------------------------------------------------------
+unbind-key C feedlist          # Free C if you want to bind something else
+confirm-exit no
+cleanup-on-quit no
+download-path "~/Downloads/newsboat/%h/%n"
+save-path "~/Downloads/newsboat/"
+
+# -- format -----------------------------------------------------------
+#articlelist-format  "%4i %f %D %t "
+podlist-format      "%4i [%-5p %%] %-12S %F"
+selecttag-format    "[%2i] |%-10T (%2u)| %3n unread articles in %3f feeds"
+articlelist-format  "%4i %f %D   %?T?|%-45T|  ?%t"
+
+# -- hooks -------------------------------------------------------------
+# Play video/audio in mpv (detached, silent)
+macro w set browser "mpv %u </dev/null >/dev/null 2>&1 &" ; open-in-browser ; set browser "open -a 'firefox' %u" -- "Play in mpv"
+
+# Download with yt-dlp (detached)
+macro d set browser "~/.config/yt-dlp/newsboat/yt-dlp_newsboat-terminal.applescript %u" ; open-in-browser ; set browser "open -a 'firefox' %u" -- "Download with yt-dlp"
+
+#macro t set browser "~/.config/newsboat/scripts/get_thumbnail.sh '%u' < /dev/null > /dev/null 2>&1 &" ; open-in-browser ; set browser "open -a 'firefox' %u" -- "Download thumbnail only with yt-dlp"
+macro t set browser "~/.config/newsboat/scripts/get_thumbnail.sh '%u'" ; open-in-browser ; set browser "open -a 'firefox' %u" -- "Download thumbnail only with yt-dlp"
+# ------------------------------------------------------------------

@@ -1,0 +1,7 @@
+name = "Keepassxc"
+description = "Macos Keepassxc password manager config"
+
+configuration_files = [
+	"Library/Application Support/keepassxc/keepassxc.ini",
+	"Library/Preferences/org.keepassxc.keepassxc.plist"
+]

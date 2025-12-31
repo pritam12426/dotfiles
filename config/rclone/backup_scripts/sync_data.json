@@ -1,0 +1,37 @@
+[
+	{
+		"name": "Shell Config",
+		"local": "~/.zshenv",
+		"remote": "zsh/",
+		"remote_name": "Gdrive",
+		"mode": "sync",
+		"enabled": true,
+		"exclude": "~/.config/rclone/excludes/shell.txt",
+		"bwlimit": "4M",
+		"delete": false,
+		"dry_run": false,
+		"checksum": false,
+		"ignore_existing": true,
+		"description": "Critical shell configuration"
+	},
+	{
+		"name": "Shiori Bookmarks",
+		"local": "~/Library/Application Support/shiori/",
+		"remote": "Shiori/",
+		"mode": "sync",
+		"exclude": "~/.config/rclone/excludes/shiori.txt",
+		"enabled": true,
+		"delete": false,
+		"description": "Some bookmarks from shiori"
+	},
+		{
+		"name": "Keepassxc Passwords",
+		"local": "~/.local/share/keepassxc",
+		"remote": "keepassxc/",
+		"mode": "sync",
+		"exclude": "~/.config/rclone/excludes/keepassxc.txt",
+		"enabled": true,
+		"delete": false,
+		"description": "Keepassxc password data"
+	}
+]

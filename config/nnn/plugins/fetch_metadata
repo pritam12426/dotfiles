@@ -1,0 +1,25 @@
+#!/bin/bash
+# export NNN_PLUG="e:personal/fetch_metadata"
+
+# Description: Push files and folders to Android device via adb
+#
+# Dependencies: exiftool, mediainfo
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+target="$1"
+(
+	if [[ -e $target ]]; then
+		lower_target=$(printf '%s\n' "$target" | tr '[:upper:]' '[:lower:]')
+
+		case "$lower_target" in
+		*.mp3 | *.mp4 | *.mkv | *.avi | *.flac | *.wav | *.mov | *.webm)
+			mediainfo -f "$target"
+			;;
+		*)
+			exiftool -sort "$target"
+			;;
+		esac
+	fi
+) | less
