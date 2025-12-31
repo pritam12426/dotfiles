@@ -52,7 +52,6 @@ vim.keymap.set("n", ":q", ":q!")
 vim.keymap.set("n", "mm", ":execute '!zed ' . expand('%') . ':' . line('.') . ':' . col('.') <CR> <ESC> :q! ")
 vim.keymap.set("n", "mn", ":Explore <CR>")
 vim.keymap.set("n", "mt", ":terminal <CR>")
-vim.keymap.set("n", "nn", ":NnnPicker %:p:h<CR>")
 
 -- Open the like in browser
 vim.keymap.set('n', 'gl', function()
