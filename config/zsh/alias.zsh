@@ -46,7 +46,7 @@ alias .dir="cd $DOT_FILE"                              # Navigate To your dotfil
 
 # --- Firefox aliases ---
 # alias firefox="open -a /Applications/Firefox.app"   # Launch Firefox
-alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
+# alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias firefox-p="firefox --private-window"          # Launch Firefox in private mode
 
 alias firefox-clean="rm -fv ~/Library/Application\ Support/Firefox/Profiles/*/formhistory.sqlite ; \
@@ -74,8 +74,10 @@ alias mv="mv -vi"        # Move with interactive prompt
 alias du="du -hs"        # Display disk usage in human-readable format
 alias bc="bc --quiet -l" # The command like cal Calculator
 alias df='df -h'
+alias mime='file --mime --mime-type'
 alias scp='scp -pr'
 alias nl='nl -ba'
+alias af='alias | grep -i '
 # ---------------------------------------------------------
 
 

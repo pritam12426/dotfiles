@@ -69,6 +69,7 @@
 			"dotmason.py": "dotmason",
 			"extract-cookies.sh": "extract-cookies",
 			"f.sh": "f",
+			"firefox": "firefox",
 			"ff.py": "ff",
 			"fff.py": "fff",
 			"fix-ugly-name.py": "rrr",
