@@ -1,0 +1,12 @@
+# FZF_DEFAULT_OPTS
+--smart-case
+--layout=reverse
+
+# FZF previews for file selection
+#--preview 'bat --color=always -n --line-range :100 {}'
+
+--border=none
+--header-border=sharp
+--input-border=bottom
+# --footer-border=sharp
+--list-border=none

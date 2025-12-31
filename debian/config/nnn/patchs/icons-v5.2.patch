@@ -1,0 +1,137 @@
+diff --git a/src/icons.h b/src/icons.h
+index cc10cb26..e134049e 100644
+--- a/src/icons.h
++++ b/src/icons.h
+@@ -63,6 +63,7 @@
+ #define ICON_CPLUSPLUS     ICON_STR(MFIZZ_CPLUSPLUS, "", ICON_C)
+ #define ICON_DATABASE      ICON_STR(MFIZZ_DATABASE_ALT2, "󰆼", "🗃️ ")
+ #define ICON_DESKTOP       ICON_STR(FA_DESKTOP, "󰟀", "🖥️ ")
++#define ICON_DEVELOPER     ICON_STR(FA_DOWNLOAD, "󱌣", "🛠️ ")
+ #define ICON_DJVU          ICON_STR(FA_PAPERCLIP, "", "📎")
+ #define ICON_DOCUMENT      ICON_STR(FA_FILE_TEXT_O, "󰈙", "🗒 ")
+ #define ICON_DOWNLOADS     ICON_STR(FA_DOWNLOAD, "󰃘", "📥")
+@@ -70,7 +71,8 @@
+ #define ICON_ENCRYPT       ICON_STR("", "󰌆", "🔒")
+ #define ICON_FSHARP        ICON_STR(DEV_FSHARP, "", "")
+ #define ICON_FONT          ICON_STR(FILE_FONT, "", "🔤")
+-#define ICON_GIT           ICON_STR(FA_GIT, "", "🌱")
++#define ICON_GIT           ICON_STR(FA_GIT, "", "🔨")
++#define ICON_GITHUB        ICON_STR(FA_GIT, "", "🐙")
+ #define ICON_HASKELL       ICON_STR("", "", "")
+ #define ICON_HTML          ICON_STR(FA_FILE_CODE_O, "󰌝", "🌍")
+ #define ICON_JAVA          ICON_STR(MFIZZ_JAVA, "", "☕")
+@@ -103,14 +105,16 @@
+ #define ICON_VIDEOS        ICON_STR(FA_FILM, "󰈰", "🎬")
+ #define ICON_VIM           ICON_STR(DEV_VIM, "", "")
+ #define ICON_WORDDOC       ICON_STR(FILE_WORD, "󰈬", "📘")
++#define ICON_ZIG           ICON_STR("", "", "🦎")
+ 
+ #define ICON_EXT_ASM       ICON_STR(FILE_NASM, "", "")
++#define ICON_APPLE_SCRIPT  ICON_STR(" ", " ", "🍎")
+ #define ICON_EXT_BIN       ICON_STR(OCT_FILE_BINARY, "", "📓")
+ #define ICON_EXT_COFFEE    ICON_STR(MFIZZ_COFFEE_BEAN, "", ICON_JAVASCRIPT)
+ #define ICON_EXT_CSS       ICON_STR(MFIZZ_CSS3, "", "🦋")
+ #define ICON_EXT_DEB       ICON_STR(MFIZZ_DEBIAN, "", "🍥")
+ #define ICON_EXT_DIFF      ICON_STR(FILE_DIFF, "", "📋")
+-#define ICON_EXT_GO        ICON_STR(MFIZZ_GO, "󰟓", "")
++#define ICON_EXT_GO        ICON_STR(MFIZZ_GO, "󰟓", "𝗚𝗢")
+ #define ICON_EXT_JSON      ICON_STR(ICON_JAVASCRIPT, "", ICON_JAVASCRIPT)
+ #define ICON_EXT_LUA       ICON_STR(FILE_LUA, "", "🌘")
+ #define ICON_EXT_M         ICON_STR("", "󰠞", "📊")
+@@ -181,6 +185,7 @@ static const struct icon exec_icon = {ICON_EXEC, 0};
+ 
+ static const struct icon_pair icons_name[] = {
+ 	{".git",        ICON_GIT,       0},
++	{".github",     ICON_GITHUB,    0},
+ 	{"Desktop",     ICON_DESKTOP,   0},
+ 	{"Documents",   ICON_BRIEFCASE, 0},
+ 	{"Downloads",   ICON_DOWNLOADS, 0},
+@@ -193,6 +198,55 @@ static const struct icon_pair icons_name[] = {
+ 	{"configure",   ICON_CONFIGURE, 0},
+ 	{"License",     ICON_LICENSE,   COLOR_DOCS},
+ 	{"Makefile",    ICON_MAKEFILE,  0},
++
++
++	{"Developer",      ICON_DEVELOPER, 0},
++	{"yt_dlp",         ICON_VIDEOS,    0},
++	{"git_repository", ICON_GIT,       0},
++
++
++	{"java",        ICON_JAVA,      0},
++	{"Java",        ICON_JAVA,      0},
++	{"java_lang",   ICON_JAVA,      0},
++
++	{"go",          ICON_EXT_GO,    0},
++	{"Go",          ICON_EXT_GO,    0},
++	{"go_lang",     ICON_EXT_GO,    0},
++
++	{"rust",        ICON_RUST,      0},
++	{"Rust",        ICON_RUST,      0},
++	{"rust_lang",   ICON_RUST,      0},
++
++	{"python",      ICON_PYTHON,    0},
++	{"Python",      ICON_PYTHON,    0},
++	{"Python_lang", ICON_PYTHON,    0},
++
++	{"c",           ICON_C,         0},
++	{"C",           ICON_C,         0},
++	{"c_lang",      ICON_C,         0},
++
++	{"c++",         ICON_CPLUSPLUS, 0},
++	{"C++",         ICON_CPLUSPLUS, 0},
++	{"c++_lang",    ICON_CPLUSPLUS, 0},
++
++	{"cpp",         ICON_CPLUSPLUS, 0},
++	{"CPP",         ICON_CPLUSPLUS, 0},
++	{"cpp_lang",    ICON_CPLUSPLUS, 0},
++
++	{"cxx",         ICON_CPLUSPLUS, 0},
++	{"CXX",         ICON_CPLUSPLUS, 0},
++	{"cxx_lang",    ICON_CPLUSPLUS, 0},
++
++	{"sql",         ICON_DATABASE,  0},
++	{"SQL",         ICON_DATABASE,  0},
++	{"sql_lang",    ICON_DATABASE,  0},
++
++	{"zig",         ICON_ZIG,       0},
++	{"ZIG",         ICON_ZIG,       0},
++	{"zig_lang",    ICON_ZIG,       0},
++
++	{"AppleScript", ICON_APPLE_SCRIPT, 0},
++	{"applescript", ICON_APPLE_SCRIPT, 0},
+ };
+ 
+ #ifdef ICONS_GENERATE
+@@ -214,12 +268,14 @@ static const struct icon_pair icons_ext[] = { /* All entries are case-insensitiv
+ 	/* A */
+ 	{"a",          ICON_MANUAL,         0},
+ 	{"apk",        ICON_ARCHIVE,        COLOR_ARCHIVE},
++	{"applescript",ICON_APPLE_SCRIPT,   COLOR_SHELL},
+ 	{"asm",        ICON_EXT_ASM,        0},
+ 	{"aup",        ICON_MUSICFILE,      COLOR_AUDIO},
+ 	{"avi",        ICON_VIDEOFILE,      COLOR_VIDEO},
+ 
+ 	/* B */
+ 	{"bat",        ICON_SCRIPT,         0},
++	{"bash",       ICON_SCRIPT,         COLOR_SHELL},
+ 	{"bib",        ICON_TEX,            0},
+ 	{"bin",        ICON_EXT_BIN,        0},
+ 	{"bmp",        ICON_PICTUREFILE,    COLOR_IMAGE},
+@@ -281,6 +337,9 @@ static const struct icon_pair icons_ext[] = { /* All entries are case-insensitiv
+ 	/* G */
+ 	{"gem",        ICON_RUBY,           COLOR_RUBY},
+ 	{"gif",        ICON_PICTUREFILE,    COLOR_IMAGE},
++	{"gitignore",  ICON_GIT,            COLOR_DOCUMENT},
++	{"gitconfig",  ICON_GIT,            COLOR_DOCUMENT},
++ {"gitattributes", ICON_GIT,            COLOR_DOCUMENT},
+ 	{"go",         ICON_EXT_GO,         COLOR_C},
+ 	{"gpg",        ICON_ENCRYPT,        COLOR_ARCHIVE},
+ 	{"gz",         ICON_ARCHIVE,        COLOR_ARCHIVE},
+@@ -440,6 +499,7 @@ static const struct icon_pair icons_ext[] = { /* All entries are case-insensitiv
+ 	{"zip",        ICON_ARCHIVE,        COLOR_ARCHIVE},
+ 	{"zsh",        ICON_SCRIPT,         COLOR_SHELL},
+ 	{"zst",        ICON_ARCHIVE,        COLOR_ARCHIVE},
++	{"zig",        ICON_ZIG,            COLOR_LUA},
+ 
+ 	/* Other */
+ };

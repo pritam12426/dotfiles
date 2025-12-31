@@ -1,0 +1,38 @@
+#!/bin/bash
+# export NNN_PLUG="m:personal/mpv_playlist"
+#
+# Description: Play multiple media files, one after another in NNN file manager
+#
+# Dependencies: mpv
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+
+# ───── Selection exists ─────
+targets=()
+total_items=0
+if [ -s "$sel" ]; then
+	while IFS= read -r -d '' i || [ -n "$i" ]; do
+		[[ -f "$i" ]] || continue
+		targets+=("$(readlink -f "$i")")
+		((total_items++))
+	done < "$sel"
+# ───── No selection → current file ($1) ─────
+else
+	[[ -f "$1" ]] || exit 0
+	targets+=("$(readlink -f "$1")")
+	((total_items++))
+fi
+
+# ───── Nothing to play ─────
+if (( total_items == 0 )); then
+	[ -s "$sel" ] && [ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"
+	exit 1
+fi
+
+# Clear selection
+[ -s "$sel" ] && [ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"
+
+nohup mpv --force-window=immediate "${targets[@]}" > /dev/null 2>&1 &

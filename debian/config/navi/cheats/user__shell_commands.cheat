@@ -1,0 +1,13 @@
+% launchctl, service
+
+# Reload aria2
+launchctl unload ~/Library/LaunchAgents/com.user.aria2.plist && launchctl load ~/Library/LaunchAgents/com.user.aria2.plist
+
+# Disable aria2
+launchctl disable ~/Library/LaunchAgents/com.user.aria2.plist
+
+# Disable aria2
+launchctl disable ~/Library/LaunchAgents/com.user.aria2.plist
+
+# Reload shiori
+launchctl unload ~/Library/LaunchAgents/local.app.shiori.plist && launchctl load ~/Library/LaunchAgents/local.app.shiori.plist

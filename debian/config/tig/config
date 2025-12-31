@@ -1,0 +1,84 @@
+# === Global ===
+set line-graphics = ascii
+set editor-line-number = true
+set history-size = 100
+set refresh-mode = auto
+set tab-size = 4
+set wrap-lines = false
+set horizontal-scroll = 30%
+set commit-order = topo
+set show-untracked = true
+set status-show-untracked-dirs = true
+set vertical-split = false
+set split-view-width = 80%
+set split-view-height = 80%
+set focus-child = true
+set truncation-delimiter = utf-8
+# color cursor black white bold
+bind generic S :source ~/.config/tig/config
+bind generic Y @sh -c "printf '%(commit)' | pbcopy"
+
+# === Main-view ===
+color main-commit  244 default
+set main-view = \
+	date:custom \
+	date:relative \
+	author:abbreviated \
+	id:yes,color \
+	commit-title:graph=yes,refs=yes,overflow=50
+bind main H ?git checkout "%(prompt Enter branch name: )"
+#bind main p >git push origin %(repo:head)
+#bind main P >git push --force-with-lease origin %(repo:head)
+bind main I :toggle id
+bind main R ?git reset --hard %(commit)
+
+
+# === Blame-view ===
+set blame-view = \
+	date:custom \
+	author:full \
+	file-name:auto \
+	id:yes,color \
+	line-number:yes,interval=1 \
+	text
+
+# === Tree-view ===
+set tree-view = \
+	date:relative \
+	id:yes,color \
+	line-number:no,interval=5 \
+	mode author:abbreviated \
+	file-size:units \
+	file-name
+
+
+
+# === Status-view ===
+set status-view = \
+	status:long \
+	file-name:yes
+bind status U @git add --all
+bind status I @/Users/pritam/.config/tig/scripts/tig_add_to_ignore "%(file)" "%(repo:git-dir)/.."
+bind status x ?git restore --staged %(file)
+bind status A @git commit --amend --no-edit
+bind status p >git push origin %(repo:head)
+bind status P >git push origin %(repo:head) --force-with-lease
+bind status f >git fetch origin
+bind status F >git pull origin %(repo:head)
+bind status r >git pull --rebase origin %(repo:head)
+bind status Z ?git restore --source=HEAD --staged --worktree %(repo:file)
+bind status D ?git clean -fd
+
+
+# === Diff-view ===
+set diff-view = \
+	line-number:yes,interval=1 \
+	text
+
+
+bind stage <Enter> :/^@@
+
+# === Pager-view ===
+set pager-view = \
+	line-number:yes,interval=10 \
+	text

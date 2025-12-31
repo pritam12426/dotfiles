@@ -1,0 +1,29 @@
+[
+	{
+		"label": "External Terminal",
+		"command": "open -a",
+		"args": [
+			"Terminal",
+			"$ZED_WORKTREE_ROOT"
+		],
+		"reveal": "never",
+		"hide": "always",
+		"shell": "system"
+	},
+
+	{
+		"label": "Create class",
+		// "command": "nohup /Users/pritam/Developer/git_repository/dotfiles/darwin/bin/create-class.sh > /dev/null 2>&1 &" ,
+		"command": "/Users/pritam/Developer/git_repository/dotfiles/darwin/bin/create-class.sh",
+		"reveal": "never",
+		"hide": "always",
+		"shell": "system"
+	},
+
+	{
+		"label": "Run Current file",
+		"command": "rr $ZED_FILE",
+		"show_command": false,
+		"shell": "system"
+	}
+]

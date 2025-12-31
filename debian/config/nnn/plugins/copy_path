@@ -1,0 +1,35 @@
+#!/bin/bash
+# export NNN_PLUG="C:personal/copy_path"
+
+# Description: Push media files with "shortcuts run ..." else with qlmanage -p
+#
+# Dependencies: qlmanage, "shortcuts.app macos"
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+
+# ───── Selection exists ─────
+targets=()
+total_items=0
+if [ -s "$sel" ]; then
+	while IFS= read -r -d '' i || [ -n "$i" ]; do
+		targets+=("$(readlink -f "$i")")
+		((total_items++))
+	done < "$sel"
+# ───── No selection → current file ($1) ─────
+else
+	targets+=("$(readlink -f "$1")")
+	((total_items++))
+fi
+
+if (( total_items == 1 )); then
+	 printf "%s" "${targets[0]}" | pbcopy
+	exit $?
+fi
+
+printf "%s " "${targets[@]}" | pbcopy
+
+# Clear selection
+[ -s "$sel" ] && [ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"

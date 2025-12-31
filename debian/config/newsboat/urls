@@ -1,0 +1,55 @@
+# YOUTUBE ================================================================================================================
+https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ  "~YOUTUBE: channel/Chris Titus Tech"    youtube vidoes media linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCEbYhDd6c6vngsF5PQpFVWg  "~YOUTUBE: channel/Tsoding"             youtube vidoes media dev coding
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw  "~YOUTUBE: channel/Linus Tech Tips"     youtube vidoes media tech tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UCxQKHvKbmSzGMvUrVtJYnUA  "~YOUTUBE: channel/Learn Linux TV"      youtube vidoes media linux tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA  "~YOUTUBE: channel/Brodie Robertson"    youtube vidoes media linux tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UC6biysICWOJ-C3P4Tyeggzg  "~YOUTUBE: channel/Low Level"           youtube vidoes media linux tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg  "~YOUTUBE: channel/DistroTube"          youtube vidoes media linux tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UCUvkPEm38w6pq8w5QYgtPPw  "~YOUTUBE: channel/CyberFlow"           youtube vidoes media linux tips
+# ========================================================================================================================
+
+
+# REDDIT =================================================================================================================
+https://www.reddit.com/r/indianmemer.rss "~REDDIT:  r/indianmemer" youtube vidoes post media
+# ========================================================================================================================
+
+# NEWS ===================================================================================================================
+#https://www.reddit.com/r/rss/comments/1hco1ur/best_rss_links_for_news/
+#https://timesofindia.indiatimes.com/rss.cms
+# ========================================================================================================================
+
+
+# MISCELLANEOUS ==========================================================================================================
+https://brew.sh/atom.xml                     "~BREW:    brew/blog"        language  rust       coding      dev
+
+https://blog.rust-lang.org/feed.xml          "~RUST:    rust/blog"        rust      language   mis
+https://zellij.dev/news/index.xml            "~ZELLIJ:  zellij/blog"      rust      language   mis
+
+https://ubuntu.com/rss.xml                   "~LINUX:   ubuntu/news"  linux     os    mis
+https://www.debian.org//News/news            "~LINUX:   debian/news"  linux     os    mis
+https://archlinux.org/feeds/news             "~LINUX:   arch/news"    linux     os    mis
+
+https://www.kernel.org/feeds/all.atom.xml    "~LINUX:   kernel/archive-releases"    linux     os    mis
+# ========================================================================================================================
+
+
+# GITHUB =================================================================================================================
+https://github.com/yt-dlp/yt-dlp/releases.atom                  "~GITHUB:  repo/releases/yt-dlp"          github python cli coding
+https://github.com/newsboat/newsboat/releases.atom              "~GITHUB:  repo/releases/newsboat"        github c++    cli coding
+https://github.com/pkgxdev/pkgx/releases.atom                   "~GITHUB:  repo/releases/pkgx"            github rust   cli coding
+https://github.com/astral-sh/uv/releases.atom                   "~GITHUB:  repo/releases/uv"              github python cli coding
+https://neovim.io/./news.xml                                    "~GITHUB:  repo/releases/neovim"          github c      cli coding
+https://github.com/pemistahl/grex/releases.atom                 "~GITHUB:  repo/releases/grex"            github rust   cli coding
+https://www.ffmpeg.org/main.rss                                 "~GITHUB:  repo/releases/ffmpeg"          github c      cli coding
+https://github.com/jarun/nnn/releases.atom                      "~GITHUB:  repo/releases/nnn"             github c      cli coding
+https://github.com/rust-lang/rust/releases.atom                 "~GITHUB:  repo/releases/rust"            github rust   cli coding
+https://github.com/junegunn/fzf/releases.atom                   "~GITHUB:  repo/releases/fzf"             github golang cli coding
+https://github.com/jesseduffield/lazygit/releases.atom          "~GITHUB:  repo/releases/lazygit"         github golang cli coding
+https://github.com/Genymobile/scrcpy/releases.atom              "~GITHUB:  repo/releases/scrcpy"          github c      cli coding
+https://github.com/fastfetch-cli/fastfetch/releases.atom        "~GITHUB:  repo/releases/fastfetch-cli"   github c++    cli coding
+https://helix-editor.com/atom.xml                               "~GITHUB:  repo/releases/helix"           github rust   cli coding
+https://github.com/jgm/pandoc/releases.atom                     "~GITHUB:  repo/releases/pandoc"          github c      cli coding
+https://github.com/undergroundwires/privacy.sexy/releases.atom  "~GITHUB:  repo/releases/privacy.sexy"    github c++    cli coding
+https://github.com/aria2/aria2/releases.atom                    "~GITHUB:  repo/releases/aria2"           github c++    cli coding
+# ========================================================================================================================
