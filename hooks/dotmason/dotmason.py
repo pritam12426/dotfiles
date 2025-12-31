@@ -31,11 +31,11 @@ parser.add_argument("--tree", action="store_true", help="Preview file operations
 parser.add_argument("--no-hooks", action="store_true", help="Do not run any hooks")
 args = parser.parse_args()
 
-DRY_RUN = args.dry_run
-RESTORE = args.action == "restore"
-DOCTOR = args.action == "doctor"
-FORCE: bool = args.no_hooks
-ONLY_GROUPS = set(args.groups)
+DRY_RUN: bool = args.dry_run
+RESTORE: bool = args.action == "restore"
+DOCTOR: bool = args.action == "doctor"
+FORCE: bool = args.force
+ONLY_GROUPS: set = set(args.groups)
 NO_RUN_HOOKS: bool = False
 
 WORKING_DIR: Path = Path(path[0])
@@ -43,51 +43,85 @@ CONFIGURATION_FILES_DATA: list[dict] = []
 
 DOT_ENV = environ.get("DOT_FILE")
 if not DOT_ENV:
-	 parser.error("❌ DOT_FILE environment variable not set")
+	parser.error("❌ DOT_FILE environment variable not set")
 
 DOT_FILES_DIR = Path(DOT_ENV).expanduser()
+
 
 def restore_confnig_file(data: dict) -> None:
 	SOURCE_ROOT = Path(DOT_FILES_DIR) / "dotmason"
 	TARGET_ROOT = Path("~").expanduser()
 
 	for rel in data["configuration_files"]:
-		source_file = SOURCE_ROOT / rel
-		target_file = TARGET_ROOT / rel
+		source_file: Path = SOURCE_ROOT / rel
+		target_file: Path = TARGET_ROOT / rel
 
 		if not source_file.is_file():
-			print(f"[Skip] Missing backup file `{data['name']}`  $DOT_FILE/dotmason/{rel}")
+			print(
+				f"[Skip] Missing backup file `{data['name']}`  $DOT_FILE/dotmason/{rel}"
+			)
 			continue
 
 		if DRY_RUN:
-			print(f'[Dry] Restoring `{data["name"]}` $DOT_FILE/{rel}')
+			print(f"[Dry] Restoring `{data['name']}` $DOT_FILE/{rel}")
 			continue
 
 		target_file.parent.mkdir(parents=True, exist_ok=True)
-		print(f'Restoring `{data["name"]}` $DOT_FILE/{rel}')
-		copy2(source_file, target_file)
-		# Todo: add try catch
+		print(f"Restoring `{data['name']}` $DOT_FILE/{rel}")
+
+		# Perform the actual backup
+		try:
+			target_file.parent.mkdir(parents=True, exist_ok=True)
+			copy2(source_file, target_file)
+			print(f"✅ Backed up `{data['name']}`: ~/{rel}")
+		except Exception as e:
+			print(f"❌ Error backing up {rel}: {e}")
 
 
-def backup_confnig_file(data: dict) -> None:
+def backup_config_file(data: dict) -> None:
 	SOURCE_ROOT = Path("~").expanduser()
 	TARGET_ROOT = Path(DOT_FILES_DIR) / "dotmason"
 
+	# We use this to track if we should skip the rest of THIS package
+	decision: bool | None = None
+
 	for rel in data["configuration_files"]:
-		source_file = SOURCE_ROOT / rel
-		target_file = TARGET_ROOT / rel
+		source_file: Path = SOURCE_ROOT / rel
+		target_file: Path = TARGET_ROOT / rel
 
+		# 1. Check if source exists
 		if not source_file.is_file():
-			print(f"[Skip] Missing file `{data['name']}`  ~/{rel}")
+			print(f"❌ [Skip] Missing source: ~/{rel}")
 			continue
 
+		# 2. Handle Dry Run
 		if DRY_RUN:
-			print(f'[Dry] Backing up `{data["name"]}` ~/{rel}')
+			print(f"🔍 [Dry] Would backup ~/{rel}")
 			continue
 
-		target_file.parent.mkdir(parents=True, exist_ok=True)
-		print(f'Backing up `{data["name"]}` ~/{rel}')
-		copy2(source_file, target_file)
+		# 3. Handle Overwrite Logic
+		if target_file.exists() and not FORCE:
+			# If we already decided to skip all for this package
+			if decision is False:
+				print(f"⏭️  Skipping ~/{rel}")
+				continue
+
+		# If we haven't asked yet, ask now
+		if decision is None and not FORCE:
+			resp = input(f"⚠️  Files for '{data['name']}' already exist. Overwrite all? [y/N]: ").lower()
+			decision = (resp == "y")
+
+			if not decision:
+				print(f"⏭️  Skipping ~/{rel}")
+				continue
+
+		# 4. Perform the actual backup
+		try:
+			target_file.parent.mkdir(parents=True, exist_ok=True)
+			copy2(source_file, target_file)
+			print(f"✅ Backed up `{data['name']}`: ~/{rel}")
+		except Exception as e:
+			print(f"❌ Error backing up {rel}: {e}")
 
 
 def doctor(data: dict):
@@ -168,28 +202,32 @@ if args.no_hooks:
 # ────────────────────────────────────────────────────────────────
 # Main execution loop — processes every TOML config
 # ────────────────────────────────────────────────────────────────
-for cfg in CONFIGURATION_FILES_DATA:
-	if description := cfg.get("description"):
-		print(f"\nConfig description: \"{description}\"")
+try:
+	for cfg in CONFIGURATION_FILES_DATA:
+		if description := cfg.get("description"):
+			print(f'\nConfig description: "{description}"')
 
-	# Tree preview mode — no filesystem changes
-	if args.tree:
-		print_tree(cfg)
-		continue
+		# Tree preview mode — no filesystem changes
+		if args.tree:
+			print_tree(cfg)
+			continue
 
-	# Doctor mode — only validate system health
-	if DOCTOR:
-		doctor(cfg)
-		continue
+		# Doctor mode — only validate system health
+		if DOCTOR:
+			doctor(cfg)
+			continue
 
-	# Backup mode
-	if not RESTORE:
-		run_hooks(cfg, "pre_backup")
-		backup_confnig_file(cfg)
-		run_hooks(cfg, "post_backup")
+		# Backup mode
+		if not RESTORE:
+			run_hooks(cfg, "pre_backup")
+			backup_config_file(cfg)
+			run_hooks(cfg, "post_backup")
 
-	# Restore mode
-	else:
-		run_hooks(cfg, "pre_restore")
-		restore_confnig_file(cfg)
-		run_hooks(cfg, "post_restore")
+		# Restore mode
+		else:
+			run_hooks(cfg, "pre_restore")
+			restore_confnig_file(cfg)
+			run_hooks(cfg, "post_restore")
+except KeyboardInterrupt:
+	print("\n\n🛑 Operation cancelled by user. 👋 Goodbye! ...")
+	exit(130)

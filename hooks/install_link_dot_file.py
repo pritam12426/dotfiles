@@ -21,7 +21,7 @@ def make_link(source: Path, target: Path) -> None:
 
 	if target.is_symlink():
 		if target.resolve() == source.resolve():
-			print(f"✔️  Already linked: {target}")
+			# print(f"✔️  Already linked: {target}")
 			return
 
 		if not DRY_RUN:

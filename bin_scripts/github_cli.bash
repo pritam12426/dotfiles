@@ -1,48 +1,80 @@
 #!/bin/bash
 
-case "$@" in
-"init")
-	GIT_DIR="$(git rev-parse --git-dir)"
+# Check if GitHub CLI is installed
+if ! type gh &> /dev/null; then
+	echo "❌ Error: 'gh' CLI is not installed."
+	exit 1
+fi
 
-	if [[ ! -d $GIT_DIR ]]; then
-		echo "❌ Not a git repository. Run: git init"
+case "$1" in
+"init")
+	# Get the root directory of the git project
+	# This works even if you are in a subdirectory
+	PROJ_ROOT=$(git rev-parse --show-toplevel 2> /dev/null)
+
+	if [[ -z $PROJ_ROOT ]]; then
+		echo "❌ fatal: not a git repository (or any of the parent directories): .git"
 		exit 1
 	fi
 
-	GIT_DIR
+	# Get the name of the root directory for the repo name
+	REPO_NAME=$(basename "$PROJ_ROOT")
 
-	echo "📦 Public or Private? [ p/P=public 🔒 ] or [ any key=private 🛜 ]"
+	echo "📦 Public or Private? [ p/P=public 🔓 ] or [ Enter=private 🛜 ]"
 	read -r choice
 	privacy="--private"
-	if [[ $choice =~ ^[pP]$ ]]; then
-		privacy="--public"
-	fi
+	[[ $choice =~ ^[pP]$ ]] && privacy="--public"
 
 	echo "📝 Enter repository description (or leave empty):"
 	read -r description
-	desc_flag=""
+
+	# Construct arguments array to avoid empty string issues
+	GH_ARGS=("$REPO_NAME" "$privacy" "--source=$PROJ_ROOT" "--remote=origin" "--push" "--disable-wiki" "--disable-issues")
+
+	# Only add description flag if it's not empty
 	if [[ -n $description ]]; then
-		desc_flag="--description=$description "
+		GH_ARGS+=("--description" "$description")
 	fi
 
-	echo "Making a new repo to github "
-	repo_name=$(basename "$")
-	command gh repo create "$repo_name" "$desc_flag" "$privacy" --source . --remote=origin --push --disable-wiki --disable-issues
-	echo "🚀 Done! Linked and pushed to GitHub."
+	echo "🚀 Creating $privacy repository: $REPO_NAME ..."
 
-	;;
-"info")
-	command gh repo view "$(pbpaste)" --json name,description,stargazerCount
-	exit $?
-	;;
-"--help")
-	command gh --help
-	echo "User define options"
-	echo "  --export-cookies or -E  export the saved cookies of firefox to ~/.cache/firefox_cookies.txt"
-	echo "  --clean or -C           Open the Browser Console."
+	# Check for commits
+	if [ -z "$(git log -1 2> /dev/null)" ]; then
+		echo "⚠️  Note: No commits found. GitHub requires at least one commit to initialize with --push."
+	fi
 
+	gh repo create "${GH_ARGS[@]}"
+
+	echo "✅ Done! Repository created and linked."
 	exit 0
 	;;
-esac
 
-command gh "$@"
+"info")
+	target=$(pbpaste)
+	# Check if clipboard looks like a 'user/repo' or a URL
+	if [[ -z $target || ! $target =~ "/" ]]; then
+		echo "ℹ️  Showing info for current directory repo:"
+		gh repo view --json name,description,stargazerCount,url
+	else
+		echo "ℹ️  Showing info for: $target"
+		gh repo view "$target" --json name,description,stargazerCount,url
+	fi
+	exit 0
+	;;
+
+"--help")
+	echo "Custom GH Wrapper"
+	echo "-------------------"
+	echo "Usage: $(basename "$0") [command]"
+	echo ""
+	echo "Commands:"
+	echo "  init    - Create a GitHub repo from current project root and push"
+	echo "  info    - View info for repo in clipboard (or current folder)"
+	echo "  * - All other commands pass through to 'gh' CLI"
+	exit 0
+	;;
+
+*)
+	# exec gh "$@"
+	;;
+esac

@@ -223,63 +223,73 @@ function gg() {
 
 # ------------ Link Executables Function -------
 # Function to create symbolic links for executables in a target directory
-function link_item() {
+function dot-deploy() {
 	local mode="all"
 	local target_dir
-
-	if [[ $1 == "--help" ]]; then
-		# mode="bin"
-		return 0
-	fi
+	local dry_run=false # Default to false
 
 	# ---- option parsing ----
-	if [[ $1 == "--bin" ]]; then
-		mode="bin"
-		shift
-	fi
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		--bin)
+			mode="bin"
+			shift
+			;;
+		-n | --dry-run)
+			dry_run=true
+			shift
+			;;
+		--help)
+			echo "Usage: dot-link [--bin] [-d|--dry-run] [target_directory]"
+			return 0
+			;;
+		*)
+			target_dir="$1"
+			shift
+			;;
+		esac
+	done
 
-	# ---- target directory ----
-	if [[ -n $1 ]]; then
-		target_dir="$1"
-	elif [[ $mode == "bin" ]]; then
+	# ---- default target directory ----
+	if [[ -z $target_dir && $mode == "bin" ]]; then
 		target_dir="$HOME/.local/bin"
 	fi
 
-	# ---- validate input ----
 	if [[ -z $target_dir ]]; then
-		echo "Usage:"
-		echo "  link_item <target_directory>"
-		echo "  link_item --bin [target_directory]"
+		echo "❌ Error: Target directory not specified."
 		return 1
 	fi
 
-	# ---- ensure target directory exists ----
-	mkdir -p "$target_dir" || {
-		echo "Error: could not create '$target_dir'"
-		return 1
-	}
+	# ---- dry run announcement ----
+	if [[ $dry_run == true ]]; then
+		echo -e "\033[1;35m🔍 DRY RUN MODE: No changes will be made.\033[0m"
+	fi
 
-	# ---- choose find rule ----
-	local find_cmd
-	if [[ $mode == "bin" ]]; then
-		find_cmd=(find . -maxdepth 1 -type f -perm -111)
+	# ---- create directory ----
+	if [[ $dry_run == true ]]; then
+		echo "[Dry] Would create directory: $target_dir"
 	else
-		find_cmd=(find . -maxdepth 1 -type f)
+		mkdir -p "$target_dir" || return 1
 	fi
 
-	# ---- link files ----
-	"${find_cmd[@]}" | while IFS= read -r file; do
-		filename="${file#./}"
+	# ---- find and link ----
+	local find_args=("-maxdepth" "1" "-type" "f")
+	[[ $mode == "bin" ]] && find_args+=("-perm" "-111")
 
-		# Skip hidden files
-		[[ -z $filename || $filename == .* ]] && continue
+	# Use find to get files, excluding hidden ones
+	find . "${find_args[@]}" -not -name ".*" -print0 | while IFS= read -r -d '' file; do
+		local filename=$(basename "$file")
+		local src_path=$(realpath "$file")
+		local link_path="$target_dir/$filename"
 
-		local src_path link_path
-		src_path="$(pwd)/$filename"
-		link_path="$target_dir/$filename"
+		if [[ $src_path == "$link_path" ]]; then continue; fi
 
-		ln -sf "$src_path" "$link_path"
-		echo -e "ln -sf: \033[0;31m$filename\033[0m → \033[1;33m$link_path\033[0m"
+		if [[ $dry_run == true ]]; then
+			echo -e "\033[0;90m[Dry] Would link:\033[0m $filename \033[0;90m→\033[0m $link_path"
+		else
+			ln -sf "$src_path" "$link_path"
+			echo -e "🔗 Linked: \033[0;32m$filename\033[0m -> \033[0;33m$link_path\033[0m"
+		fi
 	done
 }
 # ---------------------------------------------
@@ -363,54 +373,6 @@ function yt() {
 }
 # -------------------------------------------------------
 
-# ------------ Github cli Functions ------------
-function gh() {
-	if [[ $1 == "init" ]]; then
-		# Check if inside git repo
-		if [[ ! -d .git ]]; then
-			echo "❌ Not a git repository. Run: git init"
-			return 1
-		fi
-
-		# Ask privacy
-		echo "📦 Public or Private? (p/P=public, any key=private)"
-		read -r choice
-
-		privacy="--private"
-		if [[ $choice =~ ^[pP]$ ]]; then
-			privacy="--public"
-		fi
-
-		# Optional description prompt
-		echo "📝 Enter repository description (or leave empty):"
-		read -r description
-		desc_flag=""
-		if [[ -n $description ]]; then
-			desc_flag="--description=$description "
-		fi
-
-		# Create repo using folder name
-		repo_name=$(basename "$PWD")
-
-		command gh repo create "$repo_name" "$desc_flag" \
-			"$privacy" \
-			--source . \
-			--remote=origin \
-			--push \
-			--disable-wiki \
-			--disable-issues
-
-		echo "🚀 Done! Linked and pushed to GitHub."
-	elif [[ $1 == "info" ]]; then
-		command gh repo view \
-			hyprwm/Hyprland \
-			--json name,description,stargazerCount
-	else
-		command gh "$@"
-	fi
-}
-
-# ---------------------------------------------
 
 # ------------ Miscellaneous Functions ------------
 # Generate a unified diff with highlighting

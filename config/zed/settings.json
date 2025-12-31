@@ -398,7 +398,7 @@
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/clang-format-java",
+						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format-java",
 						"--assume-filename={buffer_path}"
 					]
 				}
@@ -422,7 +422,7 @@
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/clang-format",
+						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format",
 						"--assume-filename={buffer_path}"
 					]
 				}
@@ -434,7 +434,7 @@
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/clang-format",
+						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format",
 						"--assume-filename={buffer_path}"
 					]
 				}

@@ -29,12 +29,13 @@ case "$@" in
 	exit $?
 	;;
 "--help")
-	exec $FIREFOX --help
-	echo -e "\nUse define options"
+	$FIREFOX --help
+
+	printf "\nUser define options\n"
 	echo "  --export-cookies or -E  export the saved cookies of firefox to ~/.cache/firefox_cookies.txt"
-	echo "  --clean or -C           Open the Browser Console."
+	echo "  --clean or -C           clean fire fox data"
 	exit 1
 	;;
 esac
 
-exec $FIREFOX "$@"
+exec "$FIREFOX" "$@"
