@@ -20,6 +20,11 @@
 		"link_files": null
 	},
 	{
+		"dot_file_source_dir": "share/man",
+		"system_target_dir": "~/.local/share/man/man1",
+		"link_files": null
+	},
+	{
 		"dot_file_source_dir": "config/navi",
 		"system_target_dir": "~/Library/Preferences/navi",
 		"link_files": {

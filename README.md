@@ -34,6 +34,8 @@ export DOT_FILE="$PWD"
 ## Install with Bin command
 
 - [adbtuifm](https://github.com/darkhz/adbtuifm) (Not Regularly Used)
+- [age](https://github.com/FiloSottile/age) (Regularly Used)
+- [rage](https://github.com/FiloSottile/age) (Regularly Used)
 - [arduino-cli](https://github.com/arduino/arduino-cli)  (Regularly Used)
 - [asciinema](https://github.com/asciinema/asciinema)  (Not Regularly Used)
 - [atac](https://github.com/Julien-cpsn/ATAC)  (Not Regularly Used)
@@ -54,6 +56,7 @@ export DOT_FILE="$PWD"
 - [fd](https://github.com/sharkdp/fd) (Regularly Used)
 - [fzf](https://github.com/junegunn/fzf) (Regularly Used)
 - [gh](https://github.com/cli/cli) (Regularly Used)
+- [gopass](https://github.com/gopasspw/gopass) (Regularly Used)
 - [himalaya](https://github.com/pimalaya/himalaya?tab=readme-ov-file) (Regularly Used)
 - [hurl](https://hurl.dev/) (Regularly Used)
 - [joshuto - ranger](https://github.com/kamiyaa/joshuto) (Regularly Used)
