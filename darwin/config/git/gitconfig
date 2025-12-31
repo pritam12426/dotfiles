@@ -1,0 +1,201 @@
+# https://gist.github.com/pksunkara/988716
+
+# ==========================================================
+# ----------------------------------------------------------
+# touch ~/.config/git/gitconfig.private
+# ----------------------------------------------------------
+# [user]
+#	name  = Pritam
+#	email = <Personal Email>
+#	username = pritam
+# ==========================================================
+
+[include]
+	path = ~/.config/git/gitconfig_private
+	path = ~/.config/git/git_diff_binary_files
+	path = ~/.config/tig/config.toml
+[core]
+	excludesFile = ~/.config/git/gitignore_globle
+	attributesfile = ~/.config/git/gitattributes
+	whitespace = fix,-indent-with-non-tab,trailing-space
+	autocrlf = false
+	pager = ~/.local/share/git/diff-so-fancy-1.4.4/diff-so-fancy | less --tabs=2
+	; pager = /Users/pritam/.local/share/git/diff-highlight | less
+[github]
+	user = pritam12426
+
+[interactive]
+	; https://stackoverflow.com/questions/49278577/how-to-improve-gits-diff-highlighting
+	; https://github.com/git/git/tree/master/contrib/diff-highlight
+	; https://github.com/Homebrew/homebrew-core/blob/8a4ebae7318f7635f0b7ddf616b665a26dd9676f/Formula/d/diff-so-fancy.rb
+
+	; https://github.com/so-fancy/diff-so-fancy/releases/latest
+	; mkdir -p ~/.local/share/git
+	; wget "https://github.com/so-fancy/diff-so-fancy/archive/refs/tags/v1.4.4.tar.gz" -P ~/.local/share/git
+	difffilter = ~/.local/share/git/diff-so-fancy-1.4.4/diff-so-fancy --patch
+
+[tag]
+	sort = version:refname
+
+[push]
+	autoSetupRemote = true
+
+[init]
+	defaultBranch = main
+
+[diff]
+	ignoreSubmodules = all
+	wsErrorHighlight = none
+	algorithm = histogram
+	colorMoved = plain
+	renames = true
+
+	tool = nvimdiff
+	; tool = delta
+	; tool = helix
+
+	; tool = meld
+	; tool = zed
+	; tool = opendiff
+
+[difftool]
+	; \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	prompt = false
+[difftool "helix"]
+	cmd = "hx --vsplit \"$LOCAL\" \"$REMOTE\""
+[difftool "delta"]
+	cmd = "delta \"$LOCAL\" \"$REMOTE\""
+[difftool "nvimdiff"]
+    cmd = "nvim -u ~/.config/git/nvimdiff.lua -d \"$LOCAL\" \"$REMOTE\""
+
+
+[difftool "meld"]
+	; https://gitlab.com/dehesselle/meld_macos/-/releases
+	cmd = "/Applications/Meld.app/Contents/MacOS/Meld \"$LOCAL\" \"$REMOTE\""
+[difftool "zed"]
+	cmd = "zed --diff \"$LOCAL\" \"$REMOTE\""
+
+
+[merge]
+    tool = nvimdiff
+[mergetool]
+    prompt = true
+[mergetool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
+
+
+[color]
+	ui = auto
+[color "branch"]
+	current  = yellow
+	local    = green bold
+	remote   = cyan bold
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	old  = red bold
+	new  = green bold
+	whitespace = red reverse
+[color "status"]
+	added     = green bold
+	changed   = yellow bold
+	untracked = red bold
+
+[merge]
+	conflictStyle = zdiff3
+
+[alias]
+	slog = log --show-signature
+	gi   = "!gi() { python3 $HOME/.config/git/git_ignore/mk_git_ignore.py ;}; gi"
+	Cl   = clone --depth 1
+	br   = branch
+	co   = checkout
+	st   = status
+	cm   = commit
+	a    = add
+	df   = diff
+
+	# Print the name of the most recently-tagged release
+	latest-tag = for-each-ref \
+		--merged=HEAD \
+		--count=1 \
+		--ignore-case \
+		--sort='-*creatordate' \
+		--format='%(refname:lstrip=-1)' \
+		refs/tags
+
+	# List tagged releases chronologically in tabular format
+	list-tags = tag \
+		--format='%(creatordate:iso8601)%09%(type)%09%(object)%09%(refname:strip=2)' \
+		--no-column \
+		--ignore-case \
+		--sort=refname \
+		--sort=creatordate \
+		--list
+
+[alias.diff]
+	# List configured diff-drivers
+	drivers = ! git config --list --name-only | sed -En \
+		-e 's/[.]command$/.textconv/' \
+		-e 's/^diff[.]([^.]+)[.]textconv$/\\1/p'
+
+	# Purge cached diff-driver output
+	flush = ! git -c core.logAllRefUpdates=false \
+		for-each-ref --format='%(refname) %(objectname)' refs/notes/textconv/ \
+		| xargs -n2 git update-ref -d
+
+	# Perform text-conversion upon an arbitrary file
+	run = "! f(){ \
+		die(){ printf \"$@\" >&2; echo; exit 2; }; \
+		expect_file(){ test -f \"$1\" || die 'No such file: “%s”' \"$1\"; }; \
+		case $# in \
+			0) die 'Usage: git diff.run [diff-type] [file]';; \
+			1) expect_file \"$1\"; set -- \"`git attr-value diff \"$1\"`\" \"$1\";; \
+			*) expect_file \"$2\";; \
+		esac; \
+		test -n \"$1\" || die 'No driver defined for file “%s”' \"$2\"; \
+		cmd=`git config diff.\"$1\".textconv`; \
+		test -n \"$cmd\" || die 'No such driver: %s' \"$1\"; \
+		shift; eval \"$cmd\" \"$1\"; \
+	}; f"
+
+	# Decompress tarball using the named diff-driver
+	tarball = "! case $1 in \
+		*' '*) $1 \"$2\";; \
+		*) git diff.run \"$1\" \"$2\";; \
+	esac | tar tvf - && file -b \"$2\";:"
+
+# Filter drivers
+[filter "lfs"]
+	process = git-lfs filter-process
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+
+
+[includeIf "gitdir:~/Developer/git_repository/**"]
+	path  = ~/.config/git/gitconfig_github
+
+; [core]
+; 	pager = delta   # https://github.com/dandavison/delta
+; [interactive]
+; 	diffFilter = delta --color-only
+[delta]
+	; features = line-numbers decorations
+	navigate = true  # use n and N to move between diff sections
+    ; side-by-side = true
+	line-numbers = true
+[delta "decorations"]
+	minus-style = red bold normal
+	plus-style = green bold normal
+	minus-emph-style = white bold red
+	minus-non-emph-style = red bold normal
+	plus-emph-style = white bold green
+	plus-non-emph-style = green bold normal
+	file-style = yellow bold none
+	file-decoration-style = yellow box
+	hunk-header-style = magenta bold
+	hunk-header-decoration-style = magenta box
+	minus-empty-line-marker-style = normal normal
+	plus-empty-line-marker-style = normal normal
+	line-numbers-right-format = "{np:^4}│ "

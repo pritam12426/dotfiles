@@ -1,0 +1,60 @@
+#!/usr/bin/env -S bash
+
+MODEL=$(adb shell getprop ro.product.model | tr ' ' '_')
+SIZE=$(adb shell dumpsys battery | grep 'level' | awk '{print $2}')
+BATTERY=$(adb shell wm size | awk '{print $3}')
+ANDROID_V=$(adb shell getprop ro.build.version.release)
+IPV4=$(adb shell ip route | awk 'NF >= 9 {print $9}' | tail -n 1)
+
+function show_help() {
+	echo "Usage: $0 [-n name] [-a age] [-h]"
+	echo
+	echo "   -n name   Set the name"
+	echo "   -a age    Set the age"
+	echo "   -h        Show help"
+}
+
+function phoneInfo() {
+	printf "{\n";
+	printf "\"%s\": \"%s\",\n"        "Phone_IPV4"       "$IPV4"
+	printf "\"%s\": \"%s\",\n"        "Android_Version"  "$ANDROID_V"
+	printf "\"%s\": \"%s\",\n"        "Phone_Model"      "${MODEL}"
+	printf "\"%s\": \"%s\",\n"        "Manufacturer"     "$(adb shell getprop ro.product.manufacturer | tr -d '\r')"
+	printf "\"%s\": \"%s\",\n"        "Hardware"         "$(adb shell getprop ro.hardware | tr -d '\r')"
+	printf "\"%s\": \"%s\",\n"        "Serial_Number"    "$(adb shell getprop ro.serialno | tr -d '\r')"
+	printf "\"%s\": \"%s%%\",\n"      "Battery_Level"    "$(adb shell dumpsys battery | grep 'level' | awk '{print $2}')"
+	printf "\"%s\": \"%s\",\n"        "Screen_Size"      "$(adb shell wm size | awk '{print $3}')"
+	printf "\"%s\": \"%s dpi\",\n"    "Pixel_Density"    "$(adb shell wm density | awk '{print $3}')"
+	printf "\"%s\": \"%s\",\n"        "Uptime"           "$(adb shell uptime | awk '{print $1}')"
+	printf "\"%s\": \"%s\",\n"        "Connected_WiFi"   "$(adb shell dumpsys wifi | grep 'SSID' | awk -F': ' 'NR==1{print $2}' | tr -d '\r')"
+	printf "\"%s\": %d,\n"            "Installed_Apps"   "$(adb shell pm list packages | awk -F':' '{print $2}' | wc -l)"
+	printf "\"%s\": \"%s\",\n"        "Storage_Total"    "$(adb shell df /data | grep '/data' | awk '{print $2}')"
+	printf "\"%s\": \"%s\",\n"        "Storage_Free"     "$(adb shell df /data | grep '/data' | awk '{print $4}')"
+	printf "\"%s\": \"%s kB\"\n"      "Total_RAM"        "$(adb shell cat /proc/meminfo | grep MemTotal | awk '{print $2}')"
+	printf "}\n";
+}
+
+while getopts ":n:a:h" opt; do
+	case ${opt} in
+	n) name=$OPTARG ;;
+	a) age=$OPTARG ;;
+	h)
+		show_help
+		exit 0
+		;;
+	\?)
+		echo "Invalid option: -$OPTARG" >&2
+		show_help
+		exit 1
+		;;
+	:)
+		echo "Option -$OPTARG requires an argument." >&2
+		exit 1
+		;;
+	esac
+done
+
+phoneInfo
+
+# echo "Name: ${name:-'not provided'}"
+# echo "Age: ${age:-'not provided'}"

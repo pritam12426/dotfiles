@@ -1,0 +1,12 @@
+# Contents of "exclude-list.txt":
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+**/cache/**
+.LSOverride
+*~
+-.git
+*temp*
+._*

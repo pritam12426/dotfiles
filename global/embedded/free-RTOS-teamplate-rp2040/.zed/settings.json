@@ -1,0 +1,10 @@
+{
+	"show_whitespaces": "all",
+	"languages": {
+		"C++": {
+			"formatter": "language_server",
+			"show_completions_on_input": false
+		}
+	}
+
+}

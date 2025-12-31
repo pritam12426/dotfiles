@@ -1,0 +1,86 @@
+[
+	{
+		"dot_file_source_dir": "etc",
+		"system_target_dir": "~",
+		"link_files": {
+			"bashrc.bash": ".bashrc",
+			"bash_profile.bash": ".bash_profile",
+			"curlrc": ".curlrc",
+			"wgetrc": ".wgetrc"
+		}
+	},
+	{
+		"dot_file_source_dir": "config",
+		"system_target_dir": "~/.config",
+		"ignores": [
+			"nnn",
+			"zed",
+			"qBittorrent"
+		],
+		"link_files": null
+	},
+	{
+		"dot_file_source_dir": "share/man",
+		"system_target_dir": "~/.local/share/man/man1",
+		"link_files": null
+	},
+	{
+		"dot_file_source_dir": "config/navi",
+		"system_target_dir": "~/Library/Preferences/navi",
+		"link_files": {
+			"config.yaml": null
+		}
+	},
+	{
+		"dot_file_source_dir": "config/zed",
+		"system_target_dir": "~/.config/zed",
+		"link_files": {
+			"keymap.json": null,
+			"settings.json": null,
+			"snippets": null,
+			"tasks.json": null
+		}
+	},
+	{
+		"dot_file_source_dir": "binary_exe",
+		"system_target_dir": "~/.local/bin",
+		"ignores": [
+			"nnn-all",
+			"nnn",
+			"tidy-html"
+		],
+		"link_files": null
+	},
+	{
+		"dot_file_source_dir": "binary_exe",
+		"system_target_dir": "~/.local/bin",
+		"link_files": {
+			"tidy-html": "tidy"
+		}
+	},
+	{
+		"dot_file_source_dir": "bin_scripts",
+		"system_target_dir": "~/.local/bin",
+		"link_files": {
+			"about_github_repo.py": "aboutrepo",
+			"comp.sh": "rr",
+			"create-class.sh": "create-class",
+			"dictation.py": "dictation",
+			"dotmason.py": "dotmason",
+			"extract-cookies.sh": "extract-cookies",
+			"f.sh": "f",
+			"ff.py": "ff",
+			"fff.py": "fff",
+			"firefox": "firefox",
+			"fix-ugly-name.py": "rrr",
+			"fontify.py": "fontify",
+			"gDrive.sh": "gDrive",
+			"github_cli.bash": "ghx",
+			"imgur": "imgur",
+			"message.sh": "message",
+			"notify.sh": "notify",
+			"pkg-config-static.py": "pkg-config-static",
+			"zed-root.sh": "zed-root"
+		}
+	}
+]

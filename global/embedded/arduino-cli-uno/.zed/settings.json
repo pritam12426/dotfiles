@@ -1,0 +1,35 @@
+{
+	"show_whitespaces": "all",
+	"languages": {
+		"C++": {
+			"formatter": "language_server",
+			"show_completions_on_input": false
+		}
+
+	},
+	"lsp": {
+		"clangd": {
+			"binary": {
+				"arguments": [
+					"--header-insertion=never",
+					"--function-arg-placeholders=0",
+					"--clang-tidy",
+					// "--background-index",
+					// "--all-scopes-completion"
+				]
+			},
+
+			"initialization_options": {
+				"fallbackFlags": [
+					"-std=c++20"
+				],
+
+				"clangdFileStatus": true,
+
+				"index": {
+					"background": true
+				}
+			}
+		},
+	}
+}

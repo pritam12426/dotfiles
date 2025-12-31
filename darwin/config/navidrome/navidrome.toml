@@ -1,0 +1,12 @@
+# This is just an example! Please see available options to customize Navidrome for your needs at
+
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+# https://www.navidrome.org/docs/usage/configuration-options/
+
+LogLevel = "INFO"
+Scanner.Schedule = "@every 24h"
+TranscodingCacheSize = "150MiB"
+MusicFolder = "/Users/pritam/Music/local"
+DataFolder = "/Users/pritam/Library/Application Support/navidrome"
+ND_CACHEFOLDER = "/Users/pritam/Library/Caches/navidrome"
+ND_PORT = 4533

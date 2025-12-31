@@ -1,0 +1,12 @@
+[tig]
+	main-view-date-format = "%a %b-%d-%Y %I:%M %p |"
+	# main-view-date = "custom"
+
+	refs-view-date-format = "%a %b-%d-%Y %H:%M:%S %p"
+	# refs-view-date = "custom"
+
+	tree-view-date-format = "%a %b-%d-%Y %H:%M:%S %p"
+	# tree-view-date = "custom"
+
+	stash-view-date-format = "%a %b-%d-%Y %H:%M:%S %p"
+	# stash-view-date = "custom"

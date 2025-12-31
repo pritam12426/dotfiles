@@ -1,0 +1,91 @@
+diff --git a/src/nnn.h b/src/nnn.h
+index 5f749093..e25c7a17 100644
+--- a/src/nnn.h
++++ b/src/nnn.h
+@@ -149,7 +149,7 @@ static struct key bindings[] = {
+ 	{ KEY_NPAGE,      SEL_PGDN },
+ 	/* Page up */
+ 	{ KEY_PPAGE,      SEL_PGUP },
+-	/* Ctrl+D */
++	/* Ctrl+D         put the current cursor on Centre*/
+ 	{ CONTROL('D'),   SEL_CTRL_D },
+ 	/* Ctrl+U */
+ 	{ CONTROL('U'),   SEL_CTRL_U },
+@@ -167,16 +167,15 @@ static struct key bindings[] = {
+ 	{ 'J',            SEL_JUMP },
+ 	{ CONTROL('Y'),   SEL_YOUNG },
+ 	/* HOME */
+-	{ '~',            SEL_CDHOME },
++	{ 'H',            SEL_CDHOME },
+ 	/* Initial directory */
+ 	{ '@',            SEL_CDBEGIN },
+ 	/* Last visited dir */
+ 	{ '-',            SEL_CDLAST },
+ 	/* Go to / */
+-	{ '`',            SEL_CDROOT },
++	{ '\\',            SEL_CDROOT },
+ 	/* Leader key */
+ 	{ 'b',            SEL_BMOPEN },
+-	{ CONTROL('_'),   SEL_BMOPEN },
+ 	/* Connect to server over SSHFS */
+ 	{ 'c',            SEL_REMOTE },
+ 	/* Cycle contexts in forward direction */
+@@ -199,23 +198,21 @@ static struct key bindings[] = {
+ 	/* Filter */
+ 	{ '/',            SEL_FLTR },
+ 	/* Toggle filter mode */
+-	{ CONTROL('N'),   SEL_MFLTR },
++	{ CONTROL('F'),   SEL_MFLTR },
+ 	/* Toggle hide .dot files */
+ 	{ '.',            SEL_HIDDEN },
+ 	/* Detailed listing */
+ 	{ 'd',            SEL_DETAIL },
+ 	/* File details */
+ 	{ 'f',            SEL_STATS },
+-	{ CONTROL('F'),   SEL_STATS },
+ 	/* Toggle executable status */
+ 	{ '*',            SEL_CHMODX },
+ 	/* Create archive */
+ 	{ 'z',            SEL_ARCHIVE },
+ 	/* Sort toggles */
+ 	{ 't',            SEL_SORT },
+-	{ CONTROL('T'),   SEL_SORT },
+ 	/* Redraw window */
+-	{ CONTROL('L'),   SEL_REDRAW },
++	{ 'L',   SEL_REDRAW },
+ 	/* Select current file path */
+ 	{ ' ',            SEL_SEL },
+ 	{ '+',            SEL_SEL },
+@@ -240,15 +237,15 @@ static struct key bindings[] = {
+ 	{ 'x',            SEL_TRASH },
+ 	{ CONTROL('X'),   SEL_TRASH },
+ 	{ 'X',            SEL_RM_RF },
++	{ KEY_DC,         SEL_RM_RF },
+ 	/* Open in a custom application */
+ 	{ 'o',            SEL_OPENWITH },
+-	{ CONTROL('O'),   SEL_OPENWITH },
+ 	/* Create a new file */
+ 	{ 'n',            SEL_NEW },
+ 	/* Show rename prompt */
+-	{ CONTROL('R'),   SEL_RENAME },
++	{ 'r',            SEL_RENAME },
+ 	/* Rename contents of current dir */
+-	{ 'r',            SEL_RENAMEMUL },
++	{ 'R',            SEL_RENAMEMUL },
+ 	/* Disconnect a SSHFS mount point */
+ 	{ 'u',            SEL_UMOUNT },
+ 	/* Show help */
+@@ -263,11 +260,11 @@ static struct key bindings[] = {
+ 	{ 'S',            SEL_SELSIZE },
+ 	/* Run command */
+ 	{ '!',            SEL_SHELL },
+-	{ CONTROL(']'),   SEL_SHELL },
++	{ 'i',            SEL_SHELL },
+ 	/* Launcher */
+ 	{ '=',            SEL_LAUNCH },
+ 	/* Show command prompt */
+-	{ ']',            SEL_PROMPT },
++	{ ':',            SEL_PROMPT },
+ 	/* Lock screen */
+ 	{ '0',            SEL_LOCK },
+ 	/* Manage sessions */

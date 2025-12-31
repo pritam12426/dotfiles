@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<!-- Label for the service -->
+		<key>Label</key>
+		<string>com.user.glance</string>
+		<!-- Path to the wireproxy binary -->
+		<key>ProgramArguments</key>
+		<array>
+			<string>/Users/pritam/.local/github-releases-bin/glance</string>
+			<string>-config=/Users/pritam/.config/glance/glance.yml</string>
+		</array>
+		<!-- Run the service in the background -->
+		<key>RunAtLoad</key>
+		<true/>
+		<!-- Keep the service alive -->
+		<key>KeepAlive</key>
+		<true/>
+		<!-- Standard output and error logs -->
+		<key>StandardOutPath</key>
+		<string>/tmp/com.user.glance/glance.log</string>
+		<key>StandardErrorPath</key>
+		<string>/tmp/com.user.glance/glances_error.log</string>
+	</dict>
+</plist>

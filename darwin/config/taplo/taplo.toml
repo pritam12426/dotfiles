@@ -1,0 +1,20 @@
+[formatting]
+# Use tabs for indentation (you asked for \t)
+indent_string = "\t"
+
+# Indent everything under tables (your desired look)
+indent_entries = true
+indent_tables = true
+
+# Force inline tables to become multi-line with indented keys
+compact_inline_tables = false     # ← crucial
+inline_table_expand = true        # ← also crucial
+
+# Nice extras that match your example
+reorder_keys = false              # you didn't sort keys
+array_trailing_comma = true
+array_auto_expand = true
+column_width = 100
+allowed_blank_lines = 1
+trailing_newline = true
+crlf = false

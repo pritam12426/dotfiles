@@ -1,0 +1,23 @@
+#!/bin/bash
+# export NNN_PLUG="q:personal/perview_with_quicklook"
+
+# Description: Push media files with "shortcuts run ..." else with qlmanage -p
+#
+# Dependencies: qlmanage, "shortcuts.app macos"
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+
+target="$(readlink -f "$1")"
+
+case "$target" in
+	*.mp3 | *.mp4 | *.mkv | *.avi | *.flac | *.wav | *.mov | *.webm)
+		echo "shortcuts run 'QuickLookForNNN' --input-path '$target'"
+		shortcuts run "QuickLookForNNN" --input-path "$target"
+		;;
+	*)
+		echo "qlmanage -p -- '$target'"
+		qlmanage -p -- "$target" > /dev/null
+		;;
+esac

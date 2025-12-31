@@ -1,0 +1,17 @@
+diff --git a/src/nnn.c b/src/nnn.c
+index 4b4e2f30..a02b9d69 100644
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -2872,9 +2872,9 @@ static void write_lastdir(const char *curpath, const char *outfile)
+ 			? (tilde ? g_buf : outfile)
+ 			: cfgpath, O_CREAT | O_WRONLY | O_TRUNC, S_IWUSR | S_IRUSR);
+ 	if (fd >= 0) {
+-		memcpy(g_buf, "cd ", 3);  // NOLINT
+-		ssize_t l = shell_escape(g_buf + 3, sizeof(g_buf) - 3, curpath);
+-		ok = l >= 0 && write(fd, g_buf, l + 3) == l + 3;
++		memcpy(g_buf, "builtin cd ", 11);  // NOLINT
++		ssize_t l = shell_escape(g_buf + 11, sizeof(g_buf) - 11, curpath);
++		ok = l >= 0 && write(fd, g_buf, l + 11) == l + 11;
+ 		close(fd);
+ 	}
+ 	if (!ok)

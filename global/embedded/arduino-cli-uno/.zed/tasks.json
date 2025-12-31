@@ -1,0 +1,116 @@
+[
+	{
+		// "label": "Arduino: Generate + Filter compile_commands.json",
+		"label": "Build Current Project",
+		"command": "make",
+		"args": [
+			"init"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Arduino",
+			"Build",
+			"clangd"
+		]
+	},
+
+	{
+		"label": "Arduino: Compile Sketch",
+		"command": "make",
+		"args": [
+			"compile"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Arduino",
+			"Build"
+		]
+	},
+
+	{
+		"label": "Arduino: Upload to Board",
+		"command": "make",
+		"args": [
+			"upload"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Arduino",
+			"Upload"
+		]
+	},
+
+	{
+		"label": "Arduino: Monitor Serial",
+		"command": "make",
+		"args": [
+			"monitor"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Arduino",
+			"Serial"
+		]
+	},
+
+	{
+		"label": "Arduino: Clean Build",
+		"command": "make",
+		"args": [
+			"clean"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Arduino",
+			"Clean"
+		]
+	},
+
+	{
+		"label": "Pi-Pico :: Flash",
+		"command": "cmake",
+		"args": [
+			"--build",
+			"build-arm64",
+			"--target",
+			"flash"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Pico",
+			"Flash"
+		]
+	},
+
+	{
+		"label": "Pi-Pico :: Memory Map",
+		"command": "cmake",
+		"args": [
+			"--build",
+			"build-arm64",
+			"--target",
+			"memmap"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Pico",
+			"Debug"
+		]
+	},
+
+	{
+		"label": "Pi-Pico :: Disassembly",
+		"command": "cmake",
+		"args": [
+			"--build",
+			"build-arm64",
+			"--target",
+			"disasm"
+		],
+		"cwd": "${ZED_WORKTREE_ROOT}",
+		"tags": [
+			"Pico",
+			"Debug"
+		]
+	}
+]

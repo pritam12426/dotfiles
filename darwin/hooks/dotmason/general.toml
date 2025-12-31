@@ -1,0 +1,10 @@
+name = "General"
+description = "General Macos GUI Application configs"
+
+configuration_files = [
+	"Library/Preferences/com.colliderli.iina.plist",
+	"Library/Preferences/eu.exelban.Stats.plist",
+	"Library/Preferences/net.freemacsoft.AppCleaner.plist",
+	"Library/Preferences/ru.keepcoder.Telegram.plist",
+	"Library/Preferences/com.apple.Terminal.plist"
+]

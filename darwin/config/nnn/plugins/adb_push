@@ -1,0 +1,82 @@
+#!/bin/bash
+# export NNN_PLUG="a:personal/adb_push"
+
+# Description: Push files and folders to Android device via adb
+#
+# Dependencies: adb, fzf
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+# ───── Configuration ─────
+PHONE_DIR="/sdcard/Download/$(hostname -s)/" # Change if you want another folder    todo: use fzf to get folder from user
+ADB=${ADB:-adb}                              # Allow overriding adb binary
+
+# Colors for pretty output
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+counter=0
+
+# ───── Get selection or current file ─────
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+prompt=true
+
+# If something is selected in nnn (and .selection is non-empty)
+if [ -s "$sel" ]; then
+	targets=()
+	# Read null-delimited entries (nnn uses \0 as separator)
+	while IFS= read -r -d '' i || [ -n "$i" ]; do
+		targets+=("$(readlink -f "$i")")
+		(( counter++ ))
+	done <"$sel"
+else
+	targets=("$(readlink -f "$1")")
+fi
+
+# ───── Check ADB connection ─────
+if ! "$ADB" get-state >/dev/null 2>&1; then
+	printf "\033[31m✗ No device connected or ADB not authorized\a\033[0m\n"
+	read -rn1 -p "Press any key to exit..."
+	exit 1
+fi
+
+# ───── Confirm and Push ─────
+if $prompt; then
+	echo "The following files/folders will be pushed to the device at '$PHONE_DIR':"
+	for i in "${targets[@]}"; do
+		printf "    - %s/${YELLOW}%s${NC}\n" "$(dirname "$i")" "$(basename "$i")"
+	done
+
+	echo
+	printf "%d Items proceed [Yn]? " "$counter"
+	read -r input
+	case "$input" in
+	y | Y | '') ;;
+	*)
+		echo "Canceled"
+		exit
+		;;
+	esac
+fi
+
+"$ADB" shell mkdir -p "$PHONE_DIR" || exit 1
+
+# Now safely iterate
+for target in "${targets[@]}"; do
+	if [ -e "$target" ]; then
+		echo -e "==> [ Pushing: ${YELLOW}$target${NC} ] <=="
+		adb push "$target" "$PHONE_DIR"
+		printf '%*s\n' "$(tput cols)" '' | tr ' ' '-' >&2
+	fi
+done
+
+read -rn1 -p "Done :: Press any key to exit..."
+
+# Clear selection
+if [ -s "$sel" ] && [ -p "$NNN_PIPE" ]; then
+	printf "-" >"$NNN_PIPE"
+fi

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<!-- Label for the service -->
+		<key>Label</key>
+		<string>com.user.wireproxy</string>
+		<!-- Path to the wireproxy binary -->
+		<key>ProgramArguments</key>
+		<array>
+			<string>/Users/pritam/.local/github-releases-bin/wireproxy</string>
+			<string>-c</string>
+			<string>/Users/pritam/.config/wireproxy/wireproxy.conf</string>
+			<string>-i</string>
+			<string>127.0.0.1:9080</string>
+		</array>
+		<!-- Run the service in the background -->
+		<key>RunAtLoad</key>
+		<true/>
+		<!-- Keep the service alive -->
+		<key>KeepAlive</key>
+		<true/>
+		<!-- Standard output and error logs -->
+		<key>StandardOutPath</key>
+		<string>/tmp/wireproxy.log</string>
+		<key>StandardErrorPath</key>
+		<string>/tmp/wireproxy_error.log</string>
+	</dict>
+</plist>

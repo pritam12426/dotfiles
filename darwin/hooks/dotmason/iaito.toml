@@ -1,0 +1,7 @@
+name = "Iaito"
+description = "Iaito a gui interface for r2 config"
+
+configuration_files = [
+	"Library/Preferences/org.radare.iaito.plist",
+	"Library/Preferences/iaito.cfg"
+]

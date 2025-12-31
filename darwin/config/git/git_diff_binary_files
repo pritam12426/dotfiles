@@ -1,0 +1,92 @@
+# Diff drivers for binary file formats
+[diff "7z"]
+	textconv = 7z l -slt
+[diff "asar"]
+	textconv = file -b \"$1\" && asar list
+[diff "bin"]
+	textconv = hexdump -v -C
+[diff "bzip"]
+	textconv = bunzip2 -kc
+[diff "db"]
+	algorithm = minimal
+	textconv = "sqlite3 \"$1\" .dump | unexpand -at2;:"
+	xfuncname = "^CREATE( TEMP(ORARY)?| VIRTUAL)? TABLE( IF NOT EXISTS)? ([A-Za-z0-9]+)\\b"
+	binary = true
+[diff "db?"]
+	cachetextconv = false
+	textconv = \
+		"case `file --brief --mime-type \"$1\"` in \
+		 	application/vnd.sqlite3)  exec git diff.run db  \"$1\";; \
+			application/octet-stream) exec git diff.run bin \"$1\";; \
+		esac; cat"
+[diff "deb"]
+	textconv = \
+		dpkg-deb --info \"$1\" && \
+		echo && (dpkg-deb --ctrl-tarfile \"$1\" | tar tvf -) && \
+		echo && dpkg-deb --contents
+[diff "dmg"]
+	textconv = hdiutil imageinfo
+[diff "doc"]
+	textconv = antiword -rsft
+[diff "docx"]
+	textconv = docx2txt.pl - /dev/stdout <
+[diff "dyld"]
+	textconv = dyld_info -platform -segments -dependents -objc -inits -exports -fixups
+[diff "exif"]
+	textconv = exiftool -a -U -x FileName -x Directory
+[diff "gzip"]
+	textconv = gzinfo -v
+[diff "lz4"]
+	textconv = lz4 -dcfm
+[diff "lzma"]
+	textconv = lzmainfo \"$1\" && unlzma -c
+[diff "mkv"]
+	textconv = ffprobe
+	cachetextconv = true
+[diff "mozlz4"]
+	textconv = (mozlz4 - | jq --tab .) <
+[diff "odt"]
+	textconv = odt2txt
+[diff "pdf"]
+	textconv = pdftotext -htmlmeta -layout - - <
+	binary = true
+[diff "plist"]
+	textconv = plutil -convert xml1 -o -
+	binary = true
+[diff "ps"]
+	textconv = ps2ascii
+	binary = true
+[diff "rar"]
+	textconv = unrar v -vy
+[diff "sym"]
+	textconv = nm -aCp
+[diff "sz"]
+	textconv = snzip -dc
+[diff "tar"]
+	textconv = tar tvvzf \"$1\" && file -b
+[diff "tar,bzip"]
+	textconv = git diff.tarball bzip
+[diff "tar,gzip"]
+	textconv = git diff.tarball 'gunzip -kc'
+[diff "tar,lz4"]
+	textconv = git diff.tarball lz4
+[diff "tar,lzma"]
+	textconv = git diff.tarball 'unlzma -c'
+[diff "tar,sz"]
+	textconv = git diff.tarball sz
+[diff "tar,xz"]
+	textconv = git diff.run xz \"$1\" && echo && (unxz | tar tvf -) <
+[diff "tar,z"]
+	textconv = tar tvvzf
+[diff "tar,zstd"]
+	textconv = zstd -lv \"$1\" 2>&1 | tar tvf - && file -b
+[diff "xar"]
+	textconv = xarinfo
+[diff "xz"]
+	textconv = xz -lvv
+[diff "z"]
+	textconv = uncompress -c
+[diff "zip"]
+	textconv = zipinfo -l \"$1\" && (zipinfo -v \"$1\" | sed 1d) <
+[diff "zstd"]
+	textconv = zstd -lv \"$1\" 2>&1 | sed 1d && zstd -dcf <
