@@ -253,10 +253,6 @@ function link_item() {
 		return 1
 	fi
 
-	# ---- expand ~ and resolve absolute path ----
-	target_dir="${target_dir/#\~/$HOME}"
-	target_dir="$(cd "$(dirname "$target_dir")" >/dev/null 2>&1 && pwd)/$(basename "$target_dir")"
-
 	# ---- ensure target directory exists ----
 	mkdir -p "$target_dir" || {
 		echo "Error: could not create '$target_dir'"

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# export NNN_PLUG="R:personal/qmv_batch_renamer"
+
+# Description: Batch rename selection or current directory with qmv
+#
+# Dependencies: mmv   https://github.com/itchyny/mmv
+#
+# Notes:
+#   - Try to mimic current batch rename functionality but with correct
+#     handling of edge cases by mmv
+#   - mmv opens with hidden / not hidden files if no selection is used. Selected
+#     directories are shown.
+#
+# Shell: POSIX compliant
+# Author: Pritam
+
+selection=${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}
+
+if ! type mmv > /dev/null 2>&1; then
+	echo "No batch rename program (mmv) found." >&2
+	exit 1
+fi
+
+targets=()
+# Load selection if it exists and is not empty
+if [ -s "$selection" ]; then
+	while IFS= read -r -d '' i || [ -n "$i" ]; do
+		targets+=("$(basename "$i")") # Correct: No manual quotes
+	done < "$selection"
+fi
+
+if [ ${#targets[@]} -gt 0 ]; then
+	# Use the selection
+	mmv -- "${targets[@]}"
+
+	# Clear selection via nnn pipe
+	[ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"
+else
+	# No selection: fallback to current directory
+	if ((NNN_INCLUDE_HIDDEN == 1)); then
+		shopt -s dotglob
+		mmv -- *
+		shopt -u dotglob
+	else
+		mmv -- *
+	fi
+fi

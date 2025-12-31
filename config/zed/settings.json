@@ -29,7 +29,8 @@
 	},
 	"show_whitespaces": "all",
 	"whitespace_map": {
-		"tab": "–"
+		"tab": "-",
+		"space": "·"
 	},
 	"icon_theme": {
 		"mode": "system",
@@ -205,7 +206,7 @@
 	"tabs": {
 		"file_icons": true,
 		"git_status": true,
-		"close_position": "left"
+		// "close_position": "left"
 	},
 
 	"status_bar": {
@@ -367,7 +368,7 @@
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
 					"arguments": [
-						// "--style=file:/Users/pritam/Developer/git_repositorys/my_dotfile/global/c-cpp-template/clang-format",
+						// "--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format",
 						"--assume-filename={buffer_path}"
 					]
 				}
@@ -382,7 +383,7 @@
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repositorys/my_dotfile/global/c-cpp-template/clang-format",
+						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c/.clang-format",
 						"--assume-filename={buffer_path}"
 					]
 				}
@@ -397,7 +398,7 @@
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/clang-format",
+						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/clang-format-java",
 						"--assume-filename={buffer_path}"
 					]
 				}

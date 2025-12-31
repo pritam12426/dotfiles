@@ -147,6 +147,7 @@ NNN_PLUG+="q:-personal/perview_with_quicklook;"
 NNN_PLUG+="C:-personal/copy_path;"
 NNN_PLUG+='i:personal/zoxide;'
 NNN_PLUG+='m:personal/mpv_playlist;'
+NNN_PLUG+='R:personal/mmv_batch_renamer;'
 
 # NNN_PLUG+="Z:!&nohup '$NNN_GUI_PLUG/mpv_playlist' >/dev/null 2>&1;"
 # NNN_PLUG+='I:cbcopy-mac;'
