@@ -26,6 +26,8 @@ fi
 echo -e "\n"
 python hooks/install_link_dot_file.py
 
+# add link for tldr
+
 echo -e "\n"
 hooks/install_github_scrpits.sh
 
