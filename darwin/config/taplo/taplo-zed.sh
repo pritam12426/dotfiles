@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cat "$1" | taplo format --config "$HOME/.config/taplo/taplo.toml" -
+taplo format --config ~/.config/taplo/taplo.toml - < "$1"

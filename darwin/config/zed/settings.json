@@ -193,7 +193,7 @@
 	},
 
 	"title_bar": {
-		"show_branch_icon": true  // Show/hide branch icon beside branch switcher
+		// "show_branch_icon": true  // Show/hide branch icon beside branch switcher
 	},
 
 	"ui_font_fallbacks": [

@@ -64,7 +64,7 @@ bookmark-autopilot yes
 # -- notifications -------------------------------------------------------------
 notify-xterm yes
 # notify-beep yes                # Audible alert on new articles
-notify-program ~/.local/bin/notify
+notify-program ~/.config/newsboat/scripts/notify.sh
 notify-format "%f feeds with %n new articles"
 
 # -- misc ----------------------------------------------------------------------

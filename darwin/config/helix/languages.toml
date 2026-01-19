@@ -1,0 +1,42 @@
+[[language]]
+	name = "java"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--configuration=/Users/pritam/Developer/git_repositorys/my_dotfile/global/vscode/swift-format.json",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "json"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--configuration=/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "jsonc"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--configuration=/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "python"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "ruff", args = [
+		"format",
+		"--config=~/.config/ruff/ruff.toml",
+		"--stdin-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "xml"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "/Users/pritam/.config/tidy/tidy-xml.sh", args = ["%{buffer_name}"] }
+
+[[language]]
+	name = "sql"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "sleek", args = [] }

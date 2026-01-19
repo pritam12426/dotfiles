@@ -1,17 +1,16 @@
 theme = "autumn_night"
 
 [editor]
-	scrolloff = 999
+	# scrolloff = 999
 	line-number = "relative"
 	bufferline = "multiple"
-	mouse = false
 
 	[editor.cursor-shape]
 		insert = "bar"
 		select = "underline"
 
 	[editor.indent-guides]
-		render = true
+		# render = true
 		character = "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
 		skip-levels = 1
 
