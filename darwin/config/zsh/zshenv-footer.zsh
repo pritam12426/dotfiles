@@ -82,6 +82,7 @@ export CPP_LIB_DIR="/usr/local/big_library"
 # FOR DEVELOPMENT LIBRARIES ==========
 __PATH_ADD "$HOME/.local/bin"
 __PATH_ADD "$HOME/.local/github-releases-binary"
+__PATH_ADD "$HOME/.kelp/bin"
 __MANPATH_ADD "$HOME/.local/share/man"
 fpath=($fpath "$HOME/.local/share/zsh/site-functions")
 

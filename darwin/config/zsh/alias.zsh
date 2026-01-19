@@ -43,6 +43,7 @@ alias gdir="cd ~/Developer/git_repository"             # Navigate To Git Reposit
 alias bdir="cd ~/.local/bin"                           # Navigate To Local Binaries Directory
 alias bdir="cd ~/.local/bin"                           # Navigate To Local Binaries Directory
 alias .dir="cd $DOT_FILE"                              # Navigate To your dotfiles Directory
+alias .con="cd ~/.config"                              # Navigate To your dotfiles Directory
 
 # --- Firefox aliases ---
 # alias firefox="open -a /Applications/Firefox.app"   # Launch Firefox
