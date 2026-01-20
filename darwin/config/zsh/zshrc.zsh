@@ -16,6 +16,15 @@
 # Return early if not running interactively
 [[ $- != *i* ]] && return
 
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
+# Autosuggest settings
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="10"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
 # ============================================================================================================
 # IMPORTING EXTERNAL FILES AND PLUGINS
 # ============================================================================================================
@@ -133,9 +142,16 @@ chpwd() {
 # ============================================================================================================
 # COMPLETION SYSTEM
 # ============================================================================================================
+# Smarter completion initialization
+# https://scottspence.com/posts/speeding-up-my-zsh-shell#fixing-the-completion-system-3076--10
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+	compinit
+else
+	compinit -C
+fi
 
 zmodload -i zsh/parameter
-autoload -Uz compinit && compinit
 zmodload -i zsh/complist
 setopt MENU_COMPLETE AUTO_MENU
 
