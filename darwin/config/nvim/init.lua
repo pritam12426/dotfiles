@@ -1,4 +1,40 @@
+vim.opt.listchars = {
+	eol = "¬",
+	tab = "– ",
+	trail = "·",
+	extends = ">",
+	precedes = "<",
+	space = "·"
+}
+
+icons = vim.g.have_nerd_font and {} or {
+	cmd = '⌘',
+	config = '🛠',
+	event = '📅',
+	ft = '📂',
+	init = '⚙',
+	keys = '🗝',
+	plugin = '🔌',
+	runtime = '💻',
+	require = '🌙',
+	source = '📄',
+	start = '🚀',
+	task = '📌',
+	lazy = '💤 ',
+}
+
 -- Basic Settings
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = true
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Don't show the mode, since it's already in the status line
+vim.o.showmode = false
+
+
 vim.opt.autoindent      = true
 vim.opt.expandtab       = true
 vim.opt.tabstop         = 4
@@ -31,15 +67,6 @@ vim.opt.smartcase = true
 vim.opt.gdefault  = true
 vim.opt.list      = true
 
-vim.opt.listchars = {
-	eol = "¬",
-	tab = "––",
-	trail = "·",
-	extends = ">",
-	precedes = "<",
-	space = "·"
-}
-
 -- Theme
 -- vim.cmd("colorscheme habamax")
 vim.cmd("colorscheme vim")
@@ -47,11 +74,13 @@ vim.cmd("colorscheme vim")
 
 -- Shortcut keys
 -- Normal mode
-vim.keymap.set("n", "<C-c>", ":set clipboard=unnamedplus<CR>")
+vim.keymap.set("n", "<leader>c", ":set clipboard=unnamedplus<CR>")
+-- vim.keymap.set("n", "<C-c>", ":set clipboard=unnamedplus<CR>")
 vim.keymap.set("n", ":q", ":q!")
 vim.keymap.set("n", "mm", ":execute '!zed ' . expand('%') . ':' . line('.') . ':' . col('.') <CR> <ESC> :q! ")
-vim.keymap.set("n", "mn", ":Explore <CR>")
-vim.keymap.set("n", "mt", ":terminal <CR>")
+vim.keymap.set("n", "<leader>f", ":Explore <CR>")
+vim.keymap.set("n", "<leader>n", ":NnnExplorer %:p:h <CR>")
+vim.keymap.set("n", "<leader>t", ":terminal <CR>")
 
 -- Open the like in browser
 vim.keymap.set('n', 'gl', function()

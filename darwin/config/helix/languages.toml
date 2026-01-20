@@ -7,6 +7,33 @@
 	] }
 
 [[language]]
+	name = "cmake"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "neocmakelsp", args = ["format", "%{buffer_name}"] }
+
+[[language]]
+	name = "cmake"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "neocmakelsp", args = ["format", "%{buffer_name}"] }
+
+
+[[language]]
+	name = "c"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c/.clang-format",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "cpp"
+	indent = { tab-width = 4, unit = "\t" }
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--configuration=/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
 	name = "json"
 	indent = { tab-width = 4, unit = "\t" }
 	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [

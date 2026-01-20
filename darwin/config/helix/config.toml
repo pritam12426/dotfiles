@@ -2,6 +2,7 @@ theme = "autumn_night"
 
 [editor]
 	# scrolloff = 999
+	auto-format	= false
 	line-number = "relative"
 	bufferline = "multiple"
 
