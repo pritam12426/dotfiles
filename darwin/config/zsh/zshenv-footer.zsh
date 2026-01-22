@@ -132,18 +132,20 @@ export LESS_TERMCAP_me=$'\e[0m' # End all bold/attributes
 # NNN File Manager Integration ===============================================================================
 NNN_GUI_PLUG="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins/personal"
 # Define NNN plugins for various tasks
-NNN_PLUG="a:personal/adb_push;"
-NNN_PLUG+="r:personal/fix_ugly_name;"
+NNN_PLUG=""
+# NNN_PLUG+="a:personal/adb_push;"
 NNN_PLUG+="p:personal/ffplay_playlist;"
-NNN_PLUG+="P:-personal/preview_thumbnail;"
-NNN_PLUG+="e:-personal/fetch_metadata;"
-NNN_PLUG+="q:-personal/perview_with_quicklook;"
-NNN_PLUG+="C:-personal/copy_path;"
-NNN_PLUG+='i:personal/zoxide;'
-NNN_PLUG+='m:personal/mpv_playlist;'
+NNN_PLUG+="r:personal/fix_ugly_name;"
 NNN_PLUG+='R:personal/mmv_batch_renamer;'
+NNN_PLUG+="q:-personal/preview_with_quicklook;"
+NNN_PLUG+="Q:-personal/preview_thumbnail;"
+NNN_PLUG+="e:-personal/fetch_metadata;"
+NNN_PLUG+='m:personal/mpv_playlist;'
+NNN_PLUG+="C:-personal/copy_path;"
 
-NNN_PLUG+='B:cdpath;'
+# NNN_PLUG+='B:personal/zoxide;'
+
+NNN_PLUG+='i:cdpath;'
 # NNN_PLUG+='I:cbcopy-mac;'
 
 # NNN_PLUG+="Z:!&nohup '$NNN_GUI_PLUG/mpv_playlist' >/dev/null 2>&1;"

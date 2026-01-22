@@ -1,5 +1,5 @@
 #!/bin/bash
-# export NNN_PLUG="q:personal/perview_with_quicklook"
+# export NNN_PLUG="q:personal/preview_with_quicklook;"
 
 # Description: Push media files with "shortcuts run ..." else with qlmanage -p
 #
