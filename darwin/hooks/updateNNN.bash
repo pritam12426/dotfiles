@@ -98,9 +98,15 @@ make \
 # --------------------------------------
 
 if [[ $UPDATE == true ]]; then
-	log "🔌 Updating plugins"
-	curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs -o /tmp/getplugs.sh
-	sh /tmp/getplugs.sh
+	read -rp "Do you want to update plugins? [y/N]: " reply
+
+	if [[ $reply =~ ^[Yy]$ ]]; then
+		log "🔌 Updating plugins"
+		curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs -o /tmp/getplugs.sh
+		sh /tmp/getplugs.sh
+	else
+		log "❌ Plugin update skipped"
+	fi
 fi
 
 # ---------------- BACKUP PLUGINS ----------------

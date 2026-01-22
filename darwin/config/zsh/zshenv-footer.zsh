@@ -48,8 +48,8 @@ __MANPATH_ADD() {
 
 autoload -Uz colors && colors
 
-# sudo curl -L https://curl.se/ca/cacert.pem -o /usr/local/etc/ca-certificates/cert.pem
-export SSL_CERT_FILE="/usr/local/etc/ca-certificates/cert.pem"
+# mkdir -p  "$HOME/.cache/ca-certificates" && wget "https://curl.se/ca/cacert.pem" -O "$HOME/.cache/ca-certificates/cacert.pem"
+export SSL_CERT_FILE="$HOME/.cache/ca-certificates/cacert.pem"
 export BROWSER="/Applications/Firefox.app/Contents/MacOS/firefox"
 
 # FOR THE DEVELOPER===========================================================================================
@@ -62,17 +62,16 @@ export PKGX_DIR="$HOME/.local/pkgx-env"
 # FOR PYTHON ======
 __PATH_ADD "/Library/Frameworks/Python.framework/Versions/3.14/bin"
 __MANPATH_ADD "/Library/Frameworks/Python.framework/Versions/3.14/share/man"
+
+# FOR PIP =========
 __PATH_ADD "$HOME/Library/Python/3.14/bin"
 __PATH_ADD "$HOME/Library/Python/3.14/share/man"
 fpath=($fpath "$HOME/Library/Python/3.14/share/zsh/site-functions")
 
-# __PATH_ADD "$HOME/Library/Python/3.9/bin"
-# __PATH_ADD "$HOME/Library/Python/3.9/share/man"
-# fpath=($fpath "$HOME/Library/Python/3.9/share/zsh/site-functions")
 
 # FOR DEVELOPMENT LIBRARIES ==========
 __PATH_ADD "/usr/local/big_library-bin"
-export CMAKE_GENERATOR=Ninja
+export CMAKE_GENERATOR="Ninja"
 export DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 export CMAKE_PREFIX_PATH="/usr/local/lib/cmake:$CMAKE_PREFIX_PATH"
@@ -80,9 +79,10 @@ export CMAKE_INSTALL_PATH="$PREFIX"
 export CPP_LIB_DIR="/usr/local/big_library"
 
 # FOR DEVELOPMENT LIBRARIES ==========
-__PATH_ADD "$HOME/.local/bin"
 __PATH_ADD "$HOME/.local/github-releases-binary"
 __PATH_ADD "$HOME/.kelp/bin"
+
+__PATH_ADD "$HOME/.local/bin"
 __MANPATH_ADD "$HOME/.local/share/man"
 fpath=($fpath "$HOME/.local/share/zsh/site-functions")
 
@@ -110,7 +110,7 @@ export JQ_COLORS='1;39:0;36:0;36:0;33:0;32:2;37:2;37'
 export TROFFONTS="$HOME/Library/Fonts"
 # ============================================================================================================
 
-# FZF & SK Configuration ==========================================================================================
+# FZF & SK Configuration =====================================================================================
 export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/config"
 # export SKIM_DEFAULT_COMMAND="fd --type f || git ls-tree -r --name-only HEAD || rg --files || find ."
 # ============================================================================================================
@@ -118,24 +118,15 @@ export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/config"
 # Red & Green Man Page Theme (2025 edition) ==================================================================
 # Bold text & headings → Bright green (function names, section titles)
 export LESS_TERMCAP_md=$'\e[01;38;5;82m' # vivid neon green
-
 # Start blinking (rarely used) → Bright red (makes it actually noticeable)
 export LESS_TERMCAP_mb=$'\e[05;38;5;196m' # blinking bright red
-
-# Search highlight bar / standout → White text on red background (super visible)
 export LESS_TERMCAP_so=$'\e[01;97;41m' # bright white on red
-
-# End standout
-export LESS_TERMCAP_se=$'\e[0m'
-
+# Search highlight bar / standout → White text on red background (super visible)
+export LESS_TERMCAP_se=$'\e[0m' # End standout
 # Underlined text (options, arguments, --flags) → Bright red underline
 export LESS_TERMCAP_us=$'\e[04;38;5;196m' # bright red underline
-
-# End underline
-export LESS_TERMCAP_ue=$'\e[0m'
-
-# End all bold/attributes
-export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_ue=$'\e[0m' # End underline
+export LESS_TERMCAP_me=$'\e[0m' # End all bold/attributes
 # ============================================================================================================
 
 # NNN File Manager Integration ===============================================================================
@@ -151,8 +142,10 @@ NNN_PLUG+='i:personal/zoxide;'
 NNN_PLUG+='m:personal/mpv_playlist;'
 NNN_PLUG+='R:personal/mmv_batch_renamer;'
 
-# NNN_PLUG+="Z:!&nohup '$NNN_GUI_PLUG/mpv_playlist' >/dev/null 2>&1;"
+NNN_PLUG+='B:cdpath;'
 # NNN_PLUG+='I:cbcopy-mac;'
+
+# NNN_PLUG+="Z:!&nohup '$NNN_GUI_PLUG/mpv_playlist' >/dev/null 2>&1;"
 
 NNN_PLUG+='z:-!&zed "$nnn" ;'
 NNN_PLUG+='o:-!|otool -L "$nnn" ;'
@@ -235,8 +228,6 @@ export XDG_CACHE_HOME="$HOME/Library/Caches"
 export XDG_RUNTIME_DIR="$TMPDIR"
 # ============================================================================================================
 
-if [ -f "$HOME/.config/zsh/functions.sh" ]; then
-	source "$HOME/.config/zsh/functions.sh"
-fi
+[ -f "$HOME/.config/zsh/functions.sh" ] && source "$HOME/.config/zsh/functions.sh"
 
 source ~/.config/broot/launcher/bash/br

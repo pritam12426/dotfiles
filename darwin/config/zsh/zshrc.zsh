@@ -7,14 +7,14 @@
 #	https://gist.github.com/elliottminns/09a598082d77f795c88e93f7f73dba61
 #	See this dir "/usr/lib/zsh/5.9"
 #	https://www.youtube.com/watch?v=3fVAtaGhUyU
-#   https://www.reddit.com/r/zsh/comments/nm2vun/a_guide_to_the_zsh_autocompletion_with_examples/
+#	https://www.reddit.com/r/zsh/comments/nm2vun/a_guide_to_the_zsh_autocompletion_with_examples/
 # ============================================================================================================
-
-
-# ~/.zshrc — Minimal, single-file zsh configuration
 
 # Return early if not running interactively
 [[ $- != *i* ]] && return
+
+# # Load Apple’s default interactive zsh environment (fixes most issues)
+# [ -f /etc/zshrc ] && source /etc/zshrc
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
@@ -25,67 +25,9 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="10"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# ============================================================================================================
-# IMPORTING EXTERNAL FILES AND PLUGINS
-# ============================================================================================================
-export __ZSH_PULGINS_DIR="$HOME/.local/share/zsh/plugins"
-# # Load Apple’s default interactive zsh environment (fixes most issues)
-# [ -f /etc/zshrc ] && source /etc/zshrc
-
 # Load aliases (you already use this)
-if [[ -f "$HOME/.config/zsh/alias.zsh" ]]; then
-	source "$HOME/.config/zsh/alias.zsh"
-fi
-
-# fzf history widget
-if [[ -f "$__ZSH_PULGINS_DIR/fzf/__fzf-history__" ]]; then
-	source "$__ZSH_PULGINS_DIR/fzf/__fzf-history__"
-	source "$__ZSH_PULGINS_DIR/fzf/fzf-tab-master/fzf-tab.zsh"
-	bindkey '^F' fzf-history-widget
-else
-	if hash fzf 2>/dev/null; then
-		printf "Warning: fzf history widget not installed (%s:%d)\n" "$HOME/.zshrc" $LINENO
-		# To install: mkdir -p "$__ZSH_PULGINS_DIR/fzf"
-		# fzf --zsh > "$__ZSH_PULGINS_DIR/fzf/__fzf-history__"
-		# wget "https://github.com/Aloxaf/fzf-tab/archive/refs/heads/master.zip" -P "$__ZSH_PULGINS_DIR/fzf"
-		# bsdtar -vxf "$__ZSH_PULGINS_DIR/fzf/master.zip" -C "$__ZSH_PULGINS_DIR/fzf" && rm "$__ZSH_PULGINS_DIR/fzf/master.zip"
-	fi
-fi
-
-# navi widget
-if [[ -f "$__ZSH_PULGINS_DIR/__navi_widget__" ]]; then
-	source "$__ZSH_PULGINS_DIR/__navi_widget__"
-else
-	if hash navi 2>/dev/null; then
-		printf "Warning: navi widget not installed (%s:%d)\n" "$HOME/.zshrc" $LINENO
-		# To install: navi widget zsh > "$__ZSH_PULGINS_DIR/__navi_widget__"
-	fi
-fi
-
-# zoxide widget
-if [[ -f "$__ZSH_PULGINS_DIR/__zoxide__" ]]; then
-	source "$__ZSH_PULGINS_DIR/__zoxide__"
-else
-	if hash zoxide 2>/dev/null; then
-		printf "Warning: zoxide widget not installed (%s:%d)\n" "$HOME/.zshrc" $LINENO
-		# To install: zoxide init --cmd cd zsh > "$__ZSH_PULGINS_DIR/__zoxide__"
-	fi
-fi
-
-# zsh-you-should-use (actively used)
-if [[ -f "$__ZSH_PULGINS_DIR/zsh-you-should-use/you-should-use.plugin.zsh" ]]; then
-	source "$__ZSH_PULGINS_DIR/zsh-you-should-use/you-should-use.plugin.zsh"
-fi
-
-# fast-syntax-highlighting — currently disabled (uncomment if you want it later)
-# if [[ -f "$__ZSH_PULGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]]; then
-#   source "$__ZSH_PULGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-# fi
-
-# zsh-autosuggestions — currently disabled (uncomment if you want it later)
-# if [[ -f "$__ZSH_PULGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-#   source "$__ZSH_PULGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
-# fi
+[ -f "$HOME/.config/zsh/alias.zsh" ]    && source "$HOME/.config/zsh/alias.zsh"
+[ -f "$HOME/.config/zsh/plugins.zsh" ]  && source "$HOME/.config/zsh/plugins.zsh"
 
 # ============================================================================================================
 # zmv - ADVANCED BATCH RENAME/MOVE
@@ -108,9 +50,9 @@ alias zln='zmv -L'  # Link with patterns
 # ============================================================================================================
 
 # Directory bookmark
-hash -d go=~/Developer/go_lang
 hash -d DOT_FILE=$DOT_FILE
 hash -d dl=~/Downloads
+hash -d yt-dlp=~/Downloads/yt_dlp
 
 # Copy current command buffer to clipboard (macOS)
 function copy-buffer-to-clipboard() {
@@ -174,7 +116,7 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
-# format completion menus nicely
+# format completion menus nicely. Do not use this with fzf
 #zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
 #zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
 #zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
@@ -321,22 +263,17 @@ alias -s md=bat
 alias -s log=bat
 alias -s html=open  # macOS: open in default browser
 
-bindkey "^K"      kill-whole-line    # ctrl-k
-# bindkey "^[[3~"   kill-whole-line    # delete key
-bindkey "^[[1;2D" beginning-of-line  # shift + left
-bindkey "^[[1;2C" end-of-line        # shift + right
-
 # ============================================================================================================
 # Hotkey Insertions - Text Snippets
 # ============================================================================================================
 # Insert git commit template (Ctrl+X, G, C)
 # \C-b moves cursor back one position
-# bindkey -s '^Xgc' 'git commit -m ""'
+# bindkey -s '^Zgc' 'git commit -m ""'
 
 # More examples:
-# bindkey -s '^Xgp' 'git push origin '
-# bindkey -s '^Xgs' 'git status\n'
-# bindkey -s '^Xgl' 'git log --oneline -n 10\n'
+# bindkey -s '^Zgp' 'git push origin '
+# bindkey -s '^Zgs' 'git status\n'
+# bindkey -s '^Zgl' 'git log --oneline -n 10\n'
 
 # ============================================================================================================
 # NOTES ON ZSH STARTUP ORDER (kept for reference)
