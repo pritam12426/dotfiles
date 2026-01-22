@@ -2,7 +2,7 @@
 	name = "java"
 	indent = { tab-width = 4, unit = "\t" }
 	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
-		"--configuration=/Users/pritam/Developer/git_repositorys/my_dotfile/global/vscode/swift-format.json",
+		"--configuration=/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/c++/.clang-format-java",
 		"--assume-filename=%{buffer_name}",
 	] }
 
@@ -15,7 +15,6 @@
 	name = "cmake"
 	indent = { tab-width = 4, unit = "\t" }
 	formatter = { command = "neocmakelsp", args = ["format", "%{buffer_name}"] }
-
 
 [[language]]
 	name = "c"
@@ -67,3 +66,19 @@
 	name = "sql"
 	indent = { tab-width = 4, unit = "\t" }
 	formatter = { command = "sleek", args = [] }
+
+[language-server.tinymist]
+	command = "tinymist"
+
+	config = { preview.background.enabled = true, preview.background.args = [
+		"--data-plane-host=127.0.0.1:23635",
+	"--invert-colors='{'rest': 'always', 'image': 'never'}'",
+		"--open",
+	] }
+
+	# "--invert-colors=never",
+	# "--invert-colors='{'rest': 'always', 'image': 'never'}'",
+
+	# formatterIndentSize = 4
+	# formatterMode = "typstyle"
+	# compileStatus = "enable"

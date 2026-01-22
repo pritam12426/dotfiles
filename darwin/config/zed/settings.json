@@ -7,10 +7,6 @@
 		"include_warnings": true
 	},
 
-	"notification_panel": {
-		"default_width": 300
-	},
-
 	"git_panel": {
 		"collapse_untracked_diff": false,
 		// "sort_by_path": true,
@@ -45,7 +41,6 @@
 			"projects": [
 				{
 					"paths": [
-						// "/home/pritam/Developer/cxx_lang/practice"
 						"/home/pritam/.bashrc"
 					]
 				}
@@ -78,8 +73,8 @@
 		"play_sound_when_agent_done": true,
 		"always_allow_tool_actions": false,
 		"default_model": {
-			"provider": "copilot_chat",
-			"model": "gpt-4o"
+			"provider": "google",
+			"model": "gemini-3-pro-preview"
 		}
 	},
 
@@ -96,10 +91,10 @@
 		// "java": true,
 		"git-firefly": true,
 		// "sql": true,
-		// "make": true,
+		"make": true,
 		"basher": true,
 		// "neocmake": true,
-		"log": true
+		// "log": true
 	},
 
 	"auto_update_extensions": {
@@ -154,7 +149,7 @@
 	},
 
 	"buffer_font_fallbacks": [
-		"JetBrainsMono Nerd Font Mono"
+		"JetBrainsMono Nerd Font Propo"
 	],
 
 	"buffer_font_features": {
@@ -248,12 +243,10 @@
 		"enabled": true  // Whether to stick scopes to the top of the editor. Disabled by default.
 	},
 
-
 	"telemetry": {
 		"diagnostics": false,
 		"metrics": false
 	},
-
 
 	"experimental.theme_overrides": {
 		"syntax": {
@@ -266,15 +259,12 @@
 
 	"project_panel": {
 		"hide_root": false,
-		"indent_size": 20.0,
-		"file_icons": true,
-		"button": true,
 		"show_diagnostics": "all",
-		"auto_fold_dirs": false,
 		"scrollbar": {
 			"show": "system"
 		},
-		"default_width": 100
+		"default_width": 250,
+		"starts_open": false
 	},
 
 	"collaboration_panel": {
@@ -319,21 +309,10 @@
 	],
 
 	"file_types": {
-		"YAML": [
-			"*clang*"
-		],
-
-		"C": [
-			"*.h"
-		],
-
-		"C++": [
-			"*.ino"
-		],
-
-		"Git Config": [
-			"config"
-		]
+		"YAML": [ "*clang*" ],
+		"C": [ "*.h" ],
+		"C++": [ "*.ino" ],
+		"Git Config": [ "config" ]
 	},
 
 	"languages": {
@@ -545,7 +524,6 @@
 			"language_servers": [
 				"taplo"
 			],
-
 			"formatter": {
 				"external": {
 					"command": "/Users/pritam/.config/taplo/taplo-zed.sh",
@@ -593,7 +571,6 @@
 		"gopls": {
 			"initialization_options": {},
 			"binary": {
-				// "path": "/Users/pritam/.local/dev-tools/gopath/bin/gopls",
 				"ignore_system_version": false
 			}
 		},
@@ -606,6 +583,7 @@
 
 		"clangd": {
 			"binary": {
+				"ignore_system_version": false,
 				"arguments": [
 					// "--header-insertion=never",
 					"--function-arg-placeholders=0",
@@ -631,7 +609,7 @@
 			"settings": {
 				"formatterIndentSize": 4,
 				"formatterMode": "typstyle",
-				"compileStatus": "enable"
+				// "compileStatus": "enable"
 				// 	"exportPdf": "onSave",
 				// 	"outputPath": "$root/$name"
 			},
@@ -643,11 +621,10 @@
 					"background": {
 						"enabled": true
 					},
-
+					"partialRendering": true,
 					"invertColors": {
 						"image": "never"
 					},
-
 					"refresh": "onSave"
 				}
 			}
