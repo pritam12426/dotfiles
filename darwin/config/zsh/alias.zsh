@@ -138,6 +138,7 @@ alias chownroot="sudo chown -R root:wheel"                                      
 alias chownself="sudo chown -R pritam:staff"                                               # Change ownership to user
 alias bk="open 'http://localhost:8080/' && shiori server"                                  # Open bookmarks server
 alias wget="wget --xattr -c"                                                               # Download with wget
+alias wgetc='wget --load-cookies ~/.cache/firefox_cookies.txt'                             # Download with wget with cookies on
 alias off="pmset displaysleepnow"                                                          # Turn off display
 alias soff="pmset sleepnow"                                                                # Put system to sleep
 alias zed-editor="eval \"export EDITOR='zed --wait'\""                                     # setting EDITOR = zed

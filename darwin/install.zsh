@@ -25,9 +25,9 @@ fi
 # Instal all dot file with python code
 echo -e "\n"
 python hooks/install_link_dot_file.py
-cp -vp ~/.config/btop/btop.conf-bak  ~/.config/btop/btop.conf
-cp -vp ~/.config/htop/htoprc.bk      ~/.config/htop/htoprc
-ln -svf ~/.config/tldr/config.toml   ~/Library/Application\ Support/tealdeer/config.toml
+cp -vp ~/.config/btop/btop.conf-bak     ~/.config/btop/btop.conf
+cp -vp ~/.config/htop/htoprc.bk         ~/.config/htop/htoprc
+ln -svf ~/.config/tealdeer/config.toml  ~/Library/Application\ Support/tealdeer/config.toml
 
 echo -e "\n"
 hooks/install_github_scrpits.sh

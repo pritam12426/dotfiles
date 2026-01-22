@@ -1,44 +1,47 @@
+# ln -sf ~/.config/tealdeer/config.toml ~/Library/Application\ Support/tealdeer/config.toml
+
 [style.description]
-underline = false
-bold = false
-italic = false
+	underline = false
+	bold = false
+	italic = false
 
 [style.command_name]
-foreground = "green"
-underline = false
-bold = true
-italic = false
+	foreground = "green"
+	underline = false
+	bold = true
+	italic = false
 
 [style.example_text]
-foreground = "yellow"
-underline = false
-bold = false
-italic = false
+	foreground = "yellow"
+	underline = false
+	bold = false
+	italic = false
 
 [style.example_code]
-foreground = "cyan"
-underline = false
-bold = false
-italic = false
+	foreground = "cyan"
+	underline = false
+	bold = false
+	italic = false
 
 [style.example_variable]
-foreground = "cyan"
-underline = true
-bold = false
-italic = false
+	foreground = "cyan"
+	underline = true
+	bold = false
+	italic = false
 
 [display]
-compact = false
-use_pager = false
-show_title = false
+	compact = false
+	use_pager = false
+	show_title = false
 
 [updates]
-auto_update = false
-auto_update_interval_hours = 720
-# archive_source = "https://github.com/tldr-pages/tldr/releases/latest/"
-archive_source = "https://github.com/tldr-pages/tldr/releases/latest/download/"
-tls_backend = "rustls-with-webpki-roots"
+	auto_update = true
+	auto_update_interval_hours = 720
+	archive_source = "https://github.com/tldr-pages/tldr/releases/latest/download/"
+	tls_backend = "rustls-with-webpki-roots"
 
 [directories]
+	cache_dir = "/Users/pritam/.cache/tealdeer-cache"
+	custom_pages_dir = "/Users/pritam/.config/tealdeer/custom-tldr-pages"
 
 [search]
