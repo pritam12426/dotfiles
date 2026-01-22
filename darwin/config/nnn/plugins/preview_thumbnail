@@ -1,0 +1,30 @@
+#!/bin/bash
+# export NNN_PLUG="P:-personal/preview_thumbnail;"
+
+# Description: Push media files with "shortcuts run ..." else with qlmanage -p
+#
+# Dependencies: ffmpegthumbnailer <https://github.com/dirkvdb/ffmpegthumbnailer>
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+
+target="$(readlink -f -- "$1")"
+
+TMP_DIR="/tmp"
+TMP_DIR=${TMPDIR:-$TMP_DIR}
+OUTPUT_FILE="$TMP_DIR/1FD3C5E8-3442-4941-BDB1-BCABAC5E8858.png"
+
+case "$target" in
+	*.mp3 | *.mp4 | *.mkv | *.avi | *.flac | *.wav | *.ts | *.mov | *.webm)
+		ffmpegthumbnailer -s 0 -c jpeg -i "$target" -o "$OUTPUT_FILE"
+
+		echo "qlmanage -p -- '$OUTPUT_FILE'"
+		qlmanage -p -- "$OUTPUT_FILE" > /dev/null
+
+		rm -f "$OUTPUT_FILE"
+		;;
+	*)
+		echo "qlmanage -p -- '$target'"
+		qlmanage -p -- "$target" > /dev/null
+		;;
+esac

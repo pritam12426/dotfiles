@@ -22,6 +22,7 @@ https://github.com/glanceapp/glance
 https://github.com/go-shiori/shiori
 https://github.com/gokcehan/lf
 https://github.com/gopasspw/gopass
+https://github.com/gopasspw/gopass-jsonapi
 https://github.com/jesseduffield/lazydocker
 https://github.com/jesseduffield/lazygit
 https://github.com/junegunn/fzf

@@ -135,6 +135,7 @@ NNN_GUI_PLUG="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins/personal"
 NNN_PLUG="a:personal/adb_push;"
 NNN_PLUG+="r:personal/fix_ugly_name;"
 NNN_PLUG+="p:personal/ffplay_playlist;"
+NNN_PLUG+="P:-personal/preview_thumbnail;"
 NNN_PLUG+="e:-personal/fetch_metadata;"
 NNN_PLUG+="q:-personal/perview_with_quicklook;"
 NNN_PLUG+="C:-personal/copy_path;"
@@ -147,9 +148,9 @@ NNN_PLUG+='B:cdpath;'
 
 # NNN_PLUG+="Z:!&nohup '$NNN_GUI_PLUG/mpv_playlist' >/dev/null 2>&1;"
 
-NNN_PLUG+='z:-!&zed "$nnn" ;'
-NNN_PLUG+='o:-!|otool -L "$nnn" ;'
-NNN_PLUG+='f:-!&ffplay -loop -1 -sn -loglevel level+warning -seek_interval 5 "$nnn" ;'
+NNN_PLUG+='z:-!&zed -- "$nnn" ;'
+NNN_PLUG+='o:-!|otool -L -  "$nnn" ;'
+NNN_PLUG+='f:-!&ffplay -loop -1 -sn -loglevel level+warning -seek_interval 5 -- "$nnn" ;'
 
 export NNN_PLUG
 export NNN_COLORS="5236"                                # Set NNN color scheme
