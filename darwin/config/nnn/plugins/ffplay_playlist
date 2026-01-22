@@ -25,9 +25,7 @@ ffplay_format_title() {
 	local video_title=""
 	local fps=""
 	local bitrate=""
-
-	# case-insensitive ext
-	extension="${extension,,}"
+	local extension="${file##*.}"
 
 	video_title=$(ffprobe -v error \
 		-show_entries format_tags=title \
