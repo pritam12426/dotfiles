@@ -89,9 +89,9 @@ fpath=($fpath "$HOME/.local/share/zsh/site-functions")
 # https://www.reddit.com/r/zsh/comments/p8ir7r/how_to_disable_vi_style_keybinds_in_zsh/
 #  ln -sf "$PREFIX/bin/nvim" "$PREFIX/bin/zsh-editor"
 # export EDITOR="$PREFIX/bin/zsh-editor"  # $EDITOR use nvim in terminal
-export EDITOR="$PREFIX/bin/nvim"  # $EDITOR use nvim in terminal
+# export EDITOR="$PREFIX/bin/nvim"  # $EDITOR use nvim in terminal
 
-# export EDITOR="$PREFIX/bin/hx-vim"  # $EDITOR use nvim in terminal
+export EDITOR="$PREFIX/bin/hx-vim"  # $EDITOR use nvim in terminal
 # export VISUAL="zed --wait"      # $VISUAL use zed  in GUI mode
 export DOT_FILE="$HOME/Developer/git_repository/dotfiles/darwin"
 #export TERM="xterm-256color"                   # getting proper colors

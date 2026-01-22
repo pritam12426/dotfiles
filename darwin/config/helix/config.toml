@@ -1,8 +1,9 @@
-theme = "autumn_night"
+theme = "ayu_evolve"
 
 [editor]
+	lsp.enable = false # This turns off all LSP features for all languages
 	# scrolloff = 999
-	auto-format	= false
+	auto-format = false
 	line-number = "relative"
 	bufferline = "multiple"
 
@@ -16,12 +17,21 @@ theme = "autumn_night"
 		skip-levels = 1
 
 	[editor.whitespace]
-		# render = "all"
+		[editor.whitespace.render]
+			space = "none"
+			tab = "all"
+			nbsp = "none"
+			nnbsp = "none"
+			newline = "all"
+
 		[editor.whitespace.characters]
 			space = "·"
 			tab = "-"
+			newline = "¬"
 			# tabpad = "·"  # Tabs will look like "→···" (depending on tab width)
 
 # create a new minor mode bound to `+`
 [keys.normal."z"]
 	o = ":run-shell-command zed"
+	r = ":lsp-restart"
+	"R" = ":config-reload"
