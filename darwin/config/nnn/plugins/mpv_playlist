@@ -16,13 +16,13 @@ total_items=0
 if [ -s "$sel" ]; then
 	while IFS= read -r -d '' i || [ -n "$i" ]; do
 		[[ -f "$i" ]] || continue
-		targets+=("$(readlink -f "$i")")
+		targets+=("$(readlink -f -- "$i")")
 		((total_items++))
 	done < "$sel"
 # ───── No selection → current file ($1) ─────
 else
 	[[ -f "$1" ]] || exit 0
-	targets+=("$(readlink -f "$1")")
+	targets+=("$(readlink -f -- "$1")")
 	((total_items++))
 fi
 

@@ -30,11 +30,11 @@ if [ -s "$sel" ]; then
 	targets=()
 	# Read null-delimited entries (nnn uses \0 as separator)
 	while IFS= read -r -d '' i || [ -n "$i" ]; do
-		targets+=("$(readlink -f "$i")")
+		targets+=("$(readlink -f -- "$i")")
 		(( counter++ ))
 	done <"$sel"
 else
-	targets=("$(readlink -f "$1")")
+	targets=("$(readlink -f -- "$1")")
 fi
 
 # ───── Check ADB connection ─────

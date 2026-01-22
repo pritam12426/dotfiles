@@ -11,21 +11,21 @@
 # Authors: Pritam <https://github.com/pritam12426>
 
 if [ ! -p "$NNN_PIPE" ]; then
-    printf 'ERROR: NNN_PIPE is not set!'
-    read -r _
-    exit 2
+	printf 'ERROR: NNN_PIPE is not set!'
+	read -r _
+	exit 2
 fi
 
-if type zoxide >/dev/null 2>&1; then
-    if type fzf >/dev/null 2>&1; then
-        odir="$(zoxide query -i --)"
-        printf "%s" "0c$odir" > "$NNN_PIPE"
-    else
-        printf "jump to: "
-        read -r dir
-        odir="$(zoxide query -- "$dir")"
-        printf "%s" "0c$odir" > "$NNN_PIPE"
-    fi
+if type zoxide > /dev/null 2>&1; then
+	if type fzf > /dev/null 2>&1; then
+		odir="$(zoxide query -i --)"
+		printf "%s" "0c$odir" > "$NNN_PIPE"
+	else
+		printf "jump to: "
+		read -r dir
+		odir="$(zoxide query -- "$dir")"
+		printf "%s" "0c$odir" > "$NNN_PIPE"
+	fi
 else
 	printf "No supported autojump script [zoxide - https://github.com/ajeetdsouza/zoxide ] found"
 	read -r _

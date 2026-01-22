@@ -9,7 +9,7 @@
 # Author: Pritam <https://github.com/pritam12426>
 
 
-target="$(readlink -f "$1")"
+target="$(readlink -f -- "$1")"
 
 case "$target" in
 	*.mp3 | *.mp4 | *.mkv | *.avi | *.flac | *.wav | *.mov | *.webm)
