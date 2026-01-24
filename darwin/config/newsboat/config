@@ -75,10 +75,10 @@ download-path "~/Downloads/newsboat/%h/%n"
 save-path "~/Downloads/newsboat/"
 
 # -- format -----------------------------------------------------------
-#articlelist-format  "%4i %f %D %t "
-podlist-format      "%4i [%-5p %%] %-12S %F"
+articlelist-format  "%4i %T %f %D %8L    %t"
+#articlelist-format  "%4i %f %D   %?T?|%-45T|  ?%t"
+#podlist-format      "%4i [%-5p %%] %-12S %F"
 selecttag-format    "[%2i] |%-10T (%2u)| %3n unread articles in %3f feeds"
-articlelist-format  "%4i %f %D   %?T?|%-45T|  ?%t"
 
 # -- hooks -------------------------------------------------------------
 # Play video/audio in mpv (detached, silent)

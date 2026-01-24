@@ -122,7 +122,6 @@
 		"allowed": false
 	},
 
-	"vim_mode": true,
 
 	"minimap": {
 		"show": "always",
@@ -280,6 +279,8 @@
 		"ignore_system_version": false
 	},
 
+	// "helix_mode": true,
+	"vim_mode": true,
 	"vim": {
 		"use_system_clipboard": "on_yank",
 		"use_smartcase_find": true,
