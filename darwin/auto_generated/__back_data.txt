@@ -159,7 +159,6 @@ CMake.app
 # ========== Dev-tools ==========
 D: scrcpy-v3.3.4
 D: pandoc-3.8.2.1-arm64
-D: ffmpeg
 D: age-v1.3.1
 D: nvim-v0.11.5
 D: go-v1.25.4
@@ -167,6 +166,7 @@ D: fish-v4.3.3
 D: ffmpeg-v8.0
 D: haskell-ghc-9.10.3
 D: joshuto-v0.9.9
+D: nu-v0.110.0
 D: android-sdk-tools
 D: language-server-1.52.0
 D: jdk-21.0.8.jdk

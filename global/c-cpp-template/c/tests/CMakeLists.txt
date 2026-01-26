@@ -23,8 +23,9 @@ foreach(test_src IN LISTS TEST_SOURCES)
   )
 
   target_include_directories(${test_name} PRIVATE
-    "${CMAKE_SOURCE_DIR}/src"
-    ${PROJECT_BINARY_DIR}
+    "${PROJECT_BINARY_DIR}"
+    "${PROJECT_SOURCE_DIR}/src"
+    "${CMAKE_CURRENT_LIST_DIR}"
     "${CMAKE_CURRENT_BINARY_DIR}"
   )
 

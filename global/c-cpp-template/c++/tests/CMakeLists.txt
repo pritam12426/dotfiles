@@ -1,30 +1,30 @@
-enable_testing()
 # find_package(GTest REQUIRED)
 find_package(Catch2 REQUIRED)
 
-set(TEST_BIN_NAME unitTests)
-
-file(GLOB
-  TEST_SRC_FILES
-  # "${CMAKE_CURRENT_LIST_DIR}/another.cpp"
+file(GLOB TEST_SOURCES
+  "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
 )
 
-add_executable(${TEST_BIN_NAME} "${CMAKE_CURRENT_LIST_DIR}/main.cpp")
-target_sources(${TEST_BIN_NAME} PRIVATE
-  ${SRC_FILES}
-  ${TEST_SRC_FILES}
-)
+foreach(test_src IN LISTS TEST_SOURCES)
+  get_filename_component(test_name ${test_src} NAME_WE)
 
-target_link_libraries("${TEST_BIN_NAME}" PRIVATE
-  Catch2::Catch2WithMain
-  # Test::GTest
-)
+  add_executable(${test_name} ${test_src})
 
-target_include_directories(${TEST_BIN_NAME} PRIVATE
-  "${PROJECT_SOURCE_DIR}/src"
-  "${PROJECT_BINARY_DIR}"
-  "${CMAKE_CURRENT_LIST_DIR}"
-  "${CMAKE_CURRENT_BINARY_DIR}"
-)
+  if(DEFINED SRC_FILES AND SRC_FILES)
+    target_sources(${test_name} PRIVATE ${SRC_FILES})
+  endif()
 
-add_test(NAME "${TEST_BIN_NAME}" COMMAND "${TEST_BIN_NAME}" "<args>")
+  target_link_libraries(${test_name} PRIVATE
+    Catch2::Catch2WithMain
+    # Test::GTest
+  )
+
+  target_include_directories(${test_name} PRIVATE
+    "${PROJECT_BINARY_DIR}"
+    "${PROJECT_SOURCE_DIR}/src"
+    "${CMAKE_CURRENT_LIST_DIR}"
+    "${CMAKE_CURRENT_BINARY_DIR}"
+  )
+
+  add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
+endforeach()

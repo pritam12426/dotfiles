@@ -55,13 +55,21 @@ export BROWSER="/Applications/Firefox.app/Contents/MacOS/firefox"
 # FOR THE DEVELOPER===========================================================================================
 export CXX="/usr/bin/clang++"
 export CC="/usr/bin/clang"
+
 export PREFIX="$HOME/.local"
+export CPPFLAGS="-I$PREFIX/include $CPPFLAGS"
+export LDFLAGS="-L$PREFIX/lib $LDFLAGS"
+export CFLAGS="$CPPFLAGS $CFLAGS"
+export CXXFLAGS="$CPPFLAGS $CXXFLAGS"
+export DYLD_LIBRARY_PATH="$PREFIX/lib:$DYLD_LIBRARY_PATH"
+export CMAKE_INSTALL_PREFIX="$HOME/.local/"
+
 export Boost_DIR="/usr/local/boost-1.87.0"
 export PKGX_DIR="$HOME/.local/pkgx-env"
 
 # FOR PYTHON ======
 __PATH_ADD "/Library/Frameworks/Python.framework/Versions/3.14/bin"
-__MANPATH_ADD "/Library/Frameworks/Python.framework/Versions/3.14/share/man"
+# __MANPATH_ADD "/Library/Frameworks/Python.framework/Versions/3.14/share/man"
 
 # FOR PIP =========
 __PATH_ADD "$HOME/Library/Python/3.14/bin"
@@ -75,7 +83,6 @@ export CMAKE_GENERATOR="Ninja"
 export DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 export CMAKE_PREFIX_PATH="/usr/local/lib/cmake:$CMAKE_PREFIX_PATH"
-export CMAKE_INSTALL_PATH="$PREFIX"
 export CPP_LIB_DIR="/usr/local/big_library"
 
 # FOR DEVELOPMENT LIBRARIES ==========
@@ -89,9 +96,9 @@ fpath=($fpath "$HOME/.local/share/zsh/site-functions")
 # https://www.reddit.com/r/zsh/comments/p8ir7r/how_to_disable_vi_style_keybinds_in_zsh/
 #  ln -sf "$PREFIX/bin/nvim" "$PREFIX/bin/zsh-editor"
 # export EDITOR="$PREFIX/bin/zsh-editor"  # $EDITOR use nvim in terminal
-# export EDITOR="$PREFIX/bin/nvim"  # $EDITOR use nvim in terminal
+export EDITOR="$PREFIX/bin/nvim"  # $EDITOR use nvim in terminal
 
-export EDITOR="$PREFIX/bin/hx-vim"  # $EDITOR use nvim in terminal
+# export EDITOR="$PREFIX/bin/hx-vim"  # $EDITOR use nvim in terminal
 # export VISUAL="zed --wait"      # $VISUAL use zed  in GUI mode
 export DOT_FILE="$HOME/Developer/git_repository/dotfiles/darwin"
 #export TERM="xterm-256color"                   # getting proper colors
@@ -188,9 +195,9 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 }
 
-funcion lf() {
+function lf() {
 	dir="$(command lf -print-last-dir "$@")"
-	while ! cd "$dir" 2>/dev/null; do
+	while ! cd -- "$dir" 2>/dev/null; do
 		dir="$(dirname -- "$dir")"
 	done
 }

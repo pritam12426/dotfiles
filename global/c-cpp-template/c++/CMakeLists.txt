@@ -20,7 +20,6 @@ set(MAIN_BINARY "${PROJECT_NAME}")
 file(GLOB SRC_FILES
   "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
 )
-
 list(REMOVE_ITEM SRC_FILES "${CMAKE_CURRENT_LIST_DIR}/src/main.cpp")
 
 #### Dependencies ####
@@ -29,6 +28,7 @@ list(REMOVE_ITEM SRC_FILES "${CMAKE_CURRENT_LIST_DIR}/src/main.cpp")
 
 #### Main Executable ####
 add_executable(${MAIN_BINARY}
+  "${CMAKE_CURRENT_LIST_DIR}/src/main.cpp"
   ${SRC_FILES}
 )
 
@@ -56,6 +56,7 @@ option(BUILD_DOC     "Generate doc for the project"  OFF)
 
 #### Unit Tests ####
 if(BUILD_TESTING)
+  include(CTest)
   enable_testing()
   add_subdirectory(tests)
 endif()
