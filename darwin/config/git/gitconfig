@@ -14,8 +14,11 @@
 	path = ~/.config/git/gitconfig_private
 	path = ~/.config/git/git_diff_binary_files
 	path = ~/.config/tig/config.toml
+[commit]
+	template = /Users/pritam/.config/git/gitmessage
 [core]
-	excludesFile = ~/.config/git/gitignore_globle
+	excludesFile = ~/.config/git/gitignore
+	gitmessage = ~/.config/git/gitmessage
 	attributesfile = ~/.config/git/gitattributes
 	whitespace = fix,-indent-with-non-tab,trailing-space
 	autocrlf = false
@@ -183,7 +186,7 @@
 [delta]
 	; features = line-numbers decorations
 	navigate = true  # use n and N to move between diff sections
-    ; side-by-side = true
+	; side-by-side = true
 	line-numbers = true
 [delta "decorations"]
 	minus-style = red bold normal

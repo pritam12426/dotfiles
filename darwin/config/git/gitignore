@@ -47,7 +47,6 @@ Icon
 # iCloud generated files
 *.icloud
 
-
 ### VisualStudioCode ###
 /input.txt
 /output.txt
