@@ -1,0 +1,28 @@
+CompileFlags:
+  CompilationDatabase: build-arm64
+  # Compiler: clang
+  # Add:
+  #   - "-std=c17"
+  #   - "-pedantic"
+  #   - "-xc"
+  #   - "-Wall"
+
+Completion:
+  AllScopes: Yes
+#   ArgumentLists: OpenDelimiter
+#   HeaderInsertion: never
+
+Index:
+  Background: Build
+  StandardLibrary: Yes
+
+# Customise the faded code in the zed
+InlayHints:
+  BlockEnd: true
+  Designators: true
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+
+Hover:
+  ShowAKA: true

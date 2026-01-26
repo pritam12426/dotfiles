@@ -1,0 +1,18 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug CPP Using lldb",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/build/main",
+			"MIMode": "lldb",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"preLaunchTask": "Debug Cpp Program"
+		}
+	]
+}

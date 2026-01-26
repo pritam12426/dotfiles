@@ -25,6 +25,7 @@ https://www.reddit.com/r/indianmemer.rss "~          REDDIT:  r/indianmemer" you
 https://brew.sh/atom.xml                     "~          BREW:    brew/blog"        language  rust       coding      dev  blog
 
 https://blog.rust-lang.org/feed.xml          "~          RUST:    rust/blog"        rust      language   mis
+https://go.dev/blog/feed.atom                "~       ⭐️ GO:      golang/blog"     go        language   mis
 https://zellij.dev/news/index.xml            "~          ZELLIJ:  zellij/blog"      rust      language   mis  blog
 
 https://ubuntu.com/rss.xml                   "~          LINUX:   ubuntu/news"  linux     os    mis
@@ -39,7 +40,7 @@ https://www.kernel.org/feeds/all.atom.xml    "~       ⭐️ LINUX:   kernel/arc
 https://github.com/yt-dlp/yt-dlp/releases.atom                  "~       ⭐️ GITHUB:  repo/releases/yt-dlp"          github python cli coding
 https://github.com/newsboat/newsboat/releases.atom              "~       ⭐️ GITHUB:  repo/releases/newsboat"        github c++    cli coding
 https://github.com/pkgxdev/pkgx/releases.atom                   "~          GITHUB:  repo/releases/pkgx"            github rust   cli coding
-https://github.com/astral-sh/uv/releases.atom                   "~     ⭐️⭐️ GITHUB:  repo/releases/uv"              github python cli coding
+https://github.com/astral-sh/uv/releases.atom                   "~     ⭐️⭐️ GITHUB:  repo/releases/uv"             github python cli coding
 https://neovim.io/./news.xml                                    "~          GITHUB:  repo/releases/neovim"          github c      cli coding
 https://github.com/pemistahl/grex/releases.atom                 "~          GITHUB:  repo/releases/grex"            github rust   cli coding
 https://www.ffmpeg.org/main.rss                                 "~          GITHUB:  repo/releases/ffmpeg"          github c      cli coding

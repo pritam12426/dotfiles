@@ -296,34 +296,31 @@ function dot-deploy() {
 
 # Initialize C/C++ project templates
 function clanginit {
-	if [[ $# -eq 0 ]]; then
-		echo "Usage: $1 <c, cxx, c++, ard>  <project name>"
+	if [[ $# -lt 2 ]]; then
+		echo "Usage: clanginit <c|cxx|c++|ard> <project-name>"
 		return 1
 	fi
+
+	[[ -z "$DOT_FILE" ]] && { echo "DOT_FILE not set"; return 1; }
 
 	lower_input=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 
 	case "$lower_input" in
 	c)
-		COMMAND="   cp -rvp  $DOT_FILE/../global/c-cpp-template/c/ $2"
+		cp -rvp "$DOT_FILE/../global/c-cpp-template/c/" "$2"
 		;;
-	c++)
-		COMMAND="   cp -rvp  $DOT_FILE/../global/c-cpp-template/c++/ $2"
-		;;
-	cxx)
-		COMMAND="   cp -rvp  $DOT_FILE/../global/c-cpp-template/c++/ $2"
+	c++|cxx)
+		cp -rvp "$DOT_FILE/../global/c-cpp-template/c++/" "$2"
 		;;
 	ard)
-		COMMAND="   cp -rvp  $DOT_FILE/../global/embedded/arduino-cli-uno/ $2; \
-		            mv '$2/arduino-cli-uno.ino' '$2/$2.ino' "
+		cp -rvp "$DOT_FILE/../global/embedded/arduino-cli-uno/" "$2"
+		mv "$2/arduino-cli-uno.ino" "$2/$2.ino"
 		;;
 	*)
 		echo "Unsupported: <c cxx c++ ard>: $1"
 		return 1
 		;;
 	esac
-
-	eval "$COMMAND"
 }
 
 # ------------ YT-DLP Functions ------------

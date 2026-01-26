@@ -1,0 +1,26 @@
+CompileFlags:
+  CompilationDatabase: build-arm64
+  # Compiler: arm-none-eabi-g++
+  Add:
+    - "-I/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include"
+    # - "-I/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/arm-none-eabi/include/c++/14.2.1"
+
+Completion:
+  AllScopes: Yes
+#   ArgumentLists: OpenDelimiter
+#   HeaderInsertion: never
+
+Index:
+  Background: Build
+  StandardLibrary: Yes
+
+# Customise the faded code in the zed
+InlayHints:
+  BlockEnd: true
+  Designators: true
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+
+Hover:
+  ShowAKA: true

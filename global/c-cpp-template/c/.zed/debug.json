@@ -1,0 +1,16 @@
+// https://zed.dev/docs/languages/cpp#debugging
+[
+	{
+		"label": "Debug native binary",
+		"build": {
+			"command": "cmake -S . -B build-arm64/debug -DCMAKE_BUILD_TYPE=Debug && cmake",
+			"args": [
+				"--build build-arm64/debug"
+			],
+			"cwd": "$ZED_WORKTREE_ROOT"
+		},
+		"program": "$ZED_WORKTREE_ROOT/build-arm64/debug/fix-name",
+		"request": "launch",
+		"adapter": "CodeLLDB"
+	}
+]
