@@ -2,10 +2,6 @@
 # find_package(Catch2 REQUIRED)
 find_package(Unity REQUIRED)
 
-# set(TEST_SOURCES
-#   "${CMAKE_CURRENT_LIST_DIR}/function_test.c"
-# )
-
 #### Source Files ####
 file(GLOB TEST_SOURCES
   "${CMAKE_CURRENT_LIST_DIR}/*.c"
