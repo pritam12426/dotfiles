@@ -1,0 +1,42 @@
+# ================================================================
+# Pandoc Defaults – Convert Markdown → github-markdown-css HTML
+# https://github.com/sindresorhus/github-markdown-css
+# ================================================================
+
+from: markdown
+to: html5
+
+request-headers:
+  - ["User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"]
+  - ["header",     "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"]
+  - ["header",     "Connection: keep-alive"]
+
+# output-file: build/index.html
+
+standalone: true               # produces a full <html><head>...</head><body> doc
+embed-resources: false         # inlines images/css/js into one self-contained file
+toc-depth: 2
+table-of-contents: true
+number-sections: false
+
+template: ${HOME}/.config/pandoc/templates/html/github-markdown.html
+
+# include-in-header:  ${HOME}/.config/pandoc/headers/mdTohtml-header.html
+# include-after-body: ${HOME}/.config/pandoc/headers/mdTohtml-footer.html
+
+css:
+  - ${HOME}/.local/share/pandoc/github-markdown-css/github-markdown.css
+
+highlight-style: pygments
+
+metadata:
+  title: My webSite
+  author: Pritam
+  lang: en
+
+variables:
+  toc-title: "Context"
+
+resource-path:
+  - .
+  - ${HOME}/.config/pandoc/assets

@@ -1,0 +1,57 @@
+[
+	{
+		// "context": "Editor",
+		"bindings": {
+			"cmd-shift-b": [
+				"task::Spawn",
+				{
+					"task_name": "Build Current Project",
+					"reveal_target": "center"
+				}
+			]
+		}
+	},
+
+	{
+		// "context": "Editor",
+		"bindings": {
+			"cmd-shift-u": [
+				"task::Spawn",
+				{
+					"task_name": "Create class"
+				}
+			]
+		}
+	},
+
+	{
+		// "context": "Editor",
+		"bindings": {
+			"cmd-alt-j": [
+				"task::Spawn",
+				{
+					"task_name": "External Terminal"
+				}
+			]
+		}
+	},
+
+	{
+		// "context": "(Editor && Terminal)",
+		"bindings": {
+			"cmd-k": [
+				"task::Spawn",
+				{
+					"task_name": "Run Current file"
+				}
+			]
+		}
+	},
+
+	{
+		"context": "(Editor)",
+		"bindings": {
+			"alt-z": "editor::ToggleSoftWrap"
+		}
+	}
+]

@@ -1,0 +1,1 @@
+../../unix/hooks/installNerdfonts.py

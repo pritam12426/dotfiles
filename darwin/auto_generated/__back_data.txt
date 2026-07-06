@@ -1,0 +1,173 @@
+# Generated: 2026-07-06 16:54:46 UTC
+
+# ========== Fonts list ==========
+3270_nerd_font_(ibm_3270)-v3.4.0
+Author
+Biryani
+CascadiaCode-NerdFont-v3.4.0
+CascadiaMono-NerdFont-v3.4.0
+Excon
+FiraCode-NerdFont-v3.4.0
+GeneralSans
+GoogleSans
+Hack-NerdFont-v3.4.0
+Handjet
+Inconsolata-NerdFont-v3.4.0
+JetBrainsMono-NerdFont-v3.4.0
+Khand
+Meslo-NerdFont-v3.4.0
+Monaspace-NerdFont-v3.4.0
+Mononoki-NerdFont-v3.4.0
+Mukta
+NotoColorEmoji
+NotoSansOlChiki
+OpenSans
+RobotoMono-NerdFont-v3.4.0
+Rubik
+Rubik80sFade
+RubikBeastly
+RubikBrokenFax
+RubikBubbles
+RubikBurned
+RubikDirt
+RubikDistressed
+RubikDoodleShadow
+RubikDoodleTriangles
+RubikGemstones
+RubikGlitch
+RubikGlitchPop
+RubikIso
+RubikLines
+RubikMaps
+RubikMarkerHatch
+RubikMaze
+RubikMicrobe
+RubikMonoOne
+RubikMoonrocks
+RubikPixels
+RubikPuddles
+RubikScribble
+RubikSprayPaint
+RubikStorm
+RubikVinyl
+RubikWetPaint
+Satoshi
+SourceCodePro-NerdFont-v3.4.0
+StackSansHeadline
+StackSansNotch
+StackSansText
+Supreme
+Tanker
+UbuntuMono-NerdFont-v3.4.0
+cascadia_code-v2407.24
+cascadia_mono-v2407.24
+ibm_plex_math-v1.1.0
+ibm_plex_mono-v1.1.0
+ibm_plex_sans-v1.1.0
+ibm_plex_serif-v1.1.0
+icons-in
+iosevka-v33.3.6
+jetbrains_mono-v2.304
+libertinus-v7.051
+monaspace-static-v1.301
+monaspace_frozen-v1.301
+monaspace_var-v1.301
+nothingfont
+noto_serif-v2.015
+zed_mono-v1.2.0
+zed_sans-v1.2.0
+
+
+# ========== CPP Install libs ==========
+f: Makefile
+D: SFML-3.0.0
+f: doc.txt
+f: env
+D: graphviz-12.2.1
+f: index.txt
+D: libtorch-2.7.0
+D: opencv-4.11.0
+f: setUp.md
+D: tiny-process-library-v2.0.4
+D: wxWidgets-3.2.6
+D: wxsqlite3-4.10.7
+
+
+# ========== GUI applications ==========
+AppCleaner.app
+DB Browser for SQLite.app
+Final Cut Pro Creator Studio.app
+Firefox.app
+GPG Keychain.app
+Godot.app
+IINA.app
+Icon Composer.app
+Inkscape.app
+KeePassXC.app
+Keynote.app
+Maccy.app
+Numbers.app
+Pages.app
+Pixelmator Pro Creator Studio.app
+Qt Creator.app
+RustDesk.app
+Safari.app
+Shottr.app
+Stats.app
+Telegram.app
+Tor Browser.app
+UTM.app
+Utilities
+WhatsApp.app
+WireGuard.app
+Zed.app
+brew-browser.app
+iaito.app
+mpv.app
+qbittorrent.app
+
+
+# ========== Dev-tools ==========
+D: AriaNg-v1.3.13
+D: ObsidianIRC-webClient
+D: age-v1.3.1
+D: android-sdk-tools
+D: boringtun-v0.7.0
+D: cpp-httplib-0.48.0
+D: cpython-v3.14.2
+D: dotnet-sdk-v10.0.101
+D: eget-v1.3.4
+D: fastfetch-v2.56.1
+D: ffmpeg-v8.1
+D: go-v1.26.4
+D: golangci-lint-langserver-v0.0.11
+D: golangci-lint-v2.8.0
+D: google-gemini-ai-agent
+D: gradle-9.1.0
+D: helix-v25.07.1
+D: hugo-v0.160.1
+D: jdk-21.0.8.jdk
+D: joshuto-v0.9.9
+D: kotlin-v2.2.21
+D: language-server-1.52.0
+D: lib-CSFML-v3.0.0-dev
+D: lib-asio-standalone1.36.0-dev
+D: lib-protobuf-35.1-dev
+D: lnav-v0.14.0
+D: nmap-v7.98
+D: node-v24.18.0
+D: nvim-v0.11.5
+D: pandoc-3.10
+D: pastel-v0.11.0
+D: ruby-lsp-v0.10.4
+D: rustup
+D: scrcpy-v4.0
+D: shadowsocks-v1.23.5
+D: syncthing-v2.0.11
+D: tectonic-v0.16.9
+D: wasm-pack-v0.13.1
+D: wireguard-tools-v1.0.20250521
+D: yt_dlp-v2026.06.09
+D: zig-v0.16.0
+
+

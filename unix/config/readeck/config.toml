@@ -1,0 +1,18 @@
+# https://readeck.org/en/docs/configuration
+# https://readeck.org/en/docs/backups
+
+[main]
+	log_level = "info"
+	secret_key = "c290ba76-d6a8-11f0-9da6-777b9c2dcfdf"
+	data_directory = "/Users/pritam/Library/Application Support/readeck"
+	# log_format = "dev"
+
+[server]
+	host = "0.0.0.0"
+	# port = 8872
+
+[database]
+	source = "sqlite3:/Users/pritam/Library/Application Support/readeck/db.sqlite3"
+
+# [extractor]
+	# ;

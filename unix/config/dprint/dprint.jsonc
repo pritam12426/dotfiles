@@ -1,0 +1,81 @@
+{
+	// Global layout — inherited by all plugins unless overridden
+	"useTabs": true,
+	"indentWidth": 4,
+
+	"markup": {
+		// ── Layout ──────────────────────────────────────────────────────────
+		// These override the global values specifically for markup files
+		"useTabs": true,
+		"indentWidth": 4,
+		// line length before attributes wrap
+		"lineBreak": "lf",
+		// "lf" | "crlf"
+
+		// ── Quotes ──────────────────────────────────────────────────────────
+		"quotes": "double",
+		// "double" | "single"
+
+		// ── Attribute layout ────────────────────────────────────────────────
+		// When a tag's attributes exceed printWidth, they wrap one-per-line.
+		// preferAttrsSingleLine: try to keep attrs on one line even if it
+		// slightly exceeds printWidth (avoids aggressive wrapping)
+		"preferAttrsSingleLine": false,
+
+		// Keep a single attribute on the same line as the opening tag
+		// e.g. <input id="x"> stays on one line, not wrapping
+		"singleAttrSameLine": true,
+
+		// Put the closing > on the same line as the last attribute
+		// false = Prettier-style (closing > on its own line) — you said
+		// you don't want this, so set to true
+		"closingBracketSameLine": true,
+
+		// Max attributes per line (null = unlimited, controlled by printWidth)
+		// "maxAttrsPerLine": null,
+
+		// ── Whitespace sensitivity ───────────────────────────────────────────
+		// Controls whether whitespace between inline elements is significant.
+		// "css"    = respect CSS display property (default, like Prettier)
+		// "strict" = always treat whitespace as significant
+		// "ignore" = ignore whitespace (most aggressive formatting)
+		"whitespaceSensitivity": "css",
+
+		// ── Empty tag line breaks ────────────────────────────────────────────
+		// For <div></div>: where to put the closing tag
+		// "always" | "never" | "ifParentEmpty"
+		"closingTagLineBreakForEmpty": "never",
+
+		// ── Comments ────────────────────────────────────────────────────────
+		// Format/reflow comment content (default false — safer to leave off)
+		"formatComments": false,
+
+		// ── Script/Style indentation (HTML-specific) ─────────────────────────
+		// Indent the content of <script> and <style> tags
+		"scriptIndent": false,
+		// content of <script> not double-indented
+		"styleIndent": false,
+		// content of <style> not double-indented
+
+		// ── Ignore directives ────────────────────────────────────────────────
+		// Comment text to opt a node out of formatting
+		"ignoreCommentDirective": "dprint-ignore",
+		"ignoreFileCommentDirective": "dprint-ignore-file"
+	},
+
+	"markdown": {},
+	"malva": {},
+	"yaml": {},
+
+	"excludes": [
+		"**/node_modules",
+		"**/.git"
+	],
+
+	"plugins": [
+		"https://plugins.dprint.dev/markdown-0.22.1.wasm",            // Markdown
+		"https://plugins.dprint.dev/g-plane/malva-v0.16.0.wasm",      // CSS
+		"https://plugins.dprint.dev/g-plane/markup_fmt-v0.27.3.wasm", // HTML / XML
+		"https://plugins.dprint.dev/g-plane/pretty_yaml-v0.6.0.wasm"  // YML
+	]
+}

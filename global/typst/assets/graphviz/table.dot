@@ -1,0 +1,29 @@
+digraph StyledTable {
+	node [shape=plaintext]
+
+	table [
+		label=<
+		<table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+			<tr>
+				<td bgcolor="lightgray"><b>Service</b></td>
+				<td bgcolor="lightgray"><b>Status</b></td>
+			</tr>
+
+			<tr>
+				<td>API Server</td>
+				<td>Running</td>
+			</tr>
+
+			<tr>
+				<td>Database</td>
+				<td>Busy</td>
+			</tr>
+
+			<tr>
+				<td>Cache</td>
+				<td>Offline</td>
+			</tr>
+		</table>
+		>
+	];
+}

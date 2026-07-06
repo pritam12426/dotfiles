@@ -1,0 +1,56 @@
+# Config file for XML Tidy (optimized for macOS launchd .plist files)
+# Documentation: http://api.html-tidy.org/tidy/quickref_5.6.0.html
+
+# Document Type
+doctype: XML
+
+# Encoding
+char-encoding: utf8
+input-encoding: utf8
+output-encoding: utf8
+
+# =========================================================
+# Formatting and Indentation
+# =========================================================
+indent: yes                    # Force proper indentation (better than 'auto')
+indent-spaces: 4               # Use 4 spaces (most common for plists)
+indent-with-tabs: no           # Use spaces instead of tabs
+keep-tabs: no
+tab-size: 4
+
+# Don't wrap long lines (important for long paths like yours)
+wrap: 0
+
+break-before-br: yes
+vertical-space: no
+indent-attributes: no
+
+# =========================================================
+# Cleaning and Fixing
+# =========================================================
+drop-empty-elements: no
+drop-empty-paras: no
+fix-backslash: yes
+fix-bad-comments: auto
+logical-emphasis: no
+merge-divs: no
+merge-spans: auto
+uppercase-tags: no
+uppercase-attributes: no
+preserve-entities: yes
+quote-marks: yes
+quote-nbsp: yes
+
+# =========================================================
+# Output
+# =========================================================
+tidy-mark: no
+force-output: yes
+show-info: no
+
+# =========================================================
+# Reporting
+# =========================================================
+quiet: yes
+show-warnings: no
+show-errors: 1

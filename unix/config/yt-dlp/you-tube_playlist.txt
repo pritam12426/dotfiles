@@ -1,0 +1,15 @@
+-o "~/Downloads/yt_dlp/youtube_playlist/%(playlist)s-%(uploader)s/%(playlist_index)s-%(title)s.%(ext)s"
+-f "137+140/bestvideo*[height=1080][ext=mp4][fps<=30]+bestaudio*[ext=m4a]/bestvideo*[height=1080][ext=mp4][fps<=60]+bestaudio*[ext=m4a]/bestvideo*[height<=1080][ext=mp4]+bestaudio*[ext=m4a]/bestvideo*[height<=1080]+bestaudio*/bestvideo*+bestaudio*"
+
+--embed-subs
+
+--restrict-filenames
+--embed-chapters
+--embed-metadata
+--embed-thumbnail
+--write-auto-subs
+--ignore-no-formats-error
+--parse-metadata "video::(?P<description>)"
+--cache-dir "~/Library/Caches/yt-dlp"
+
+--embed-info-json

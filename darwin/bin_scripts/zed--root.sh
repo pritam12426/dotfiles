@@ -1,0 +1,1 @@
+../../unix/bin_scripts/zed--root.sh

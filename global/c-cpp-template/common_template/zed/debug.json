@@ -1,0 +1,24 @@
+// https://github.com/vadimcn/codelldb/blob/master/MANUAL.md#starting-a-new-debug-session
+// https://zed.dev/docs/languages/cpp#debugging
+[
+	{
+		"label": "Debug native binary",
+		"build": {
+			"command": "cmake",
+			"args": [
+				"--present",
+				"debug"
+			],
+			"cwd": "$ZED_WORKTREE_ROOT",
+			"shell": {
+				"with_arguments": {
+					"program": "/bin/sh",
+					"args": []
+				}
+			}
+		},
+		"program": "$ZED_WORKTREE_ROOT/build/debug/main",
+		"request": "launch",
+		"adapter": "CodeLLDB"
+	}
+]

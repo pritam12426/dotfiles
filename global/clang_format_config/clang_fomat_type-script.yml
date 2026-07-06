@@ -1,0 +1,172 @@
+# yaml-language-server: $schema=https://www.schemastore.org/clang-format-21.x.json
+#
+# TypeScript / JavaScript clang-format configuration
+# Converted from: pritam12426/dotfiles › c-cpp-template/common_template/clang-format.yml
+#
+# clang-format natively detects .ts / .js / .mjs / .cjs files as Language: JavaScript.
+# Options that are Cpp-only (pointer alignment, template syntax, namespace rules,
+# preprocessor directives, Obj-C, TableGen, Verilog, Qt macros …) are omitted.
+# Everything that applies equally to JS/TS is preserved with the same values.
+#
+# Usage:
+#   clang-format -i src/**/*.ts          # format in-place
+#   clang-format --dry-run src/**/*.ts   # preview without writing
+#
+# To format a file that clang-format might not auto-detect:
+#   clang-format --assume-filename=foo.ts -i foo.ts
+
+---
+Language:        JavaScript
+
+# ── Indentation ────────────────────────────────────────────────────────────────
+IndentWidth:     4
+TabWidth:        4
+UseTab:          ForIndentation          # tabs for indentation, spaces for alignment
+ContinuationIndentWidth: 4
+
+# ── Line length ────────────────────────────────────────────────────────────────
+ColumnLimit:     100
+
+# ── Alignment ─────────────────────────────────────────────────────────────────
+AlignAfterOpenBracket:   Align
+AlignOperands:           Align
+AlignArrayOfStructures:  None
+
+AlignConsecutiveAssignments:
+  Enabled:          true
+  AcrossEmptyLines: false
+  AcrossComments:   true
+  AlignCompound:    true
+  PadOperators:     true
+
+AlignConsecutiveDeclarations:
+  Enabled:          true
+  AcrossEmptyLines: false
+  AcrossComments:   true
+  AlignCompound:    false
+  PadOperators:     false
+
+# BitFields are not in JS/TS — kept disabled for completeness
+AlignConsecutiveBitFields:
+  Enabled:          false
+
+AlignConsecutiveMacros:
+  Enabled:          false   # no macros in JS/TS; disabled
+
+AlignEscapedNewlines:    LeftWithLastLine
+
+AlignTrailingComments:
+  Kind:            Always
+  OverEmptyLines:  0
+
+# ── Argument / parameter packing ──────────────────────────────────────────────
+AllowAllArgumentsOnNextLine:              true
+AllowAllParametersOfDeclarationOnNextLine: true
+BinPackArguments:  false
+BinPackParameters: OnePerLine             # one param per line when wrapping
+
+# ── Short constructs on a single line ─────────────────────────────────────────
+AllowShortBlocksOnASingleLine:     Never
+AllowShortFunctionsOnASingleLine:  Inline   # allow: const f = () => x;
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine:    All
+AllowShortLoopsOnASingleLine:      false
+
+# ── Breaking rules ────────────────────────────────────────────────────────────
+BreakAdjacentStringLiterals:     true
+BreakBeforeBinaryOperators:      All
+BreakBeforeTernaryOperators:     true
+BreakStringLiterals:             false
+
+# ── Braces ────────────────────────────────────────────────────────────────────
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction:          true    # function body on new line
+  AfterClass:             true    # class body on new line
+  AfterControlStatement:  Never   # if/for/while brace stays on same line
+  AfterEnum:              false
+  AfterStruct:            false
+  BeforeCatch:            false
+  BeforeElse:             false
+  BeforeLambdaBody:       false
+  IndentBraces:           false
+  SplitEmptyFunction:     false
+  SplitEmptyRecord:       false
+
+# ── Trailing commas (JS/TS-specific) ──────────────────────────────────────────
+# "None"       = never insert trailing commas
+# "Wrapped"    = insert when arguments are wrapped to multiple lines (ES5+)
+# "All"        = always insert trailing commas (requires ES2017+ target)
+InsertTrailingCommas: None
+
+# ── Quotes (JS/TS-specific) ───────────────────────────────────────────────────
+# "Leave"  = preserve as written
+# "Single" = enforce single quotes
+# "Double" = enforce double quotes
+JavaScriptQuotes: Leave
+
+# ── Import wrapping (JS/TS-specific) ──────────────────────────────────────────
+JavaScriptWrapImports: true
+
+# ── Spacing ───────────────────────────────────────────────────────────────────
+SpaceAfterLogicalNot:            false
+SpaceBeforeAssignmentOperators:  true
+SpaceBeforeParens:               ControlStatements
+SpaceBeforeParensOptions:
+  AfterControlStatements:       true
+  AfterForeachMacros:           true
+  AfterFunctionDefinitionName:  false
+  AfterFunctionDeclarationName: false
+  AfterIfMacros:                true
+  AfterNot:                     false
+  AfterOverloadedOperator:      false
+  BeforeNonEmptyParentheses:    false
+SpaceBeforeSquareBrackets:       false
+SpaceInEmptyBlock:               false
+SpacesBeforeTrailingComments:    2
+SpacesInAngles:                  Never
+SpacesInContainerLiterals:       false
+SpacesInLineCommentPrefix:
+  Minimum:    1
+  Maximum:    -1
+SpacesInParens: Never
+SpacesInSquareBrackets:          false
+
+# ── Empty lines ───────────────────────────────────────────────────────────────
+MaxEmptyLinesToKeep: 3
+KeepEmptyLines:
+  AtEndOfFile:    false
+  AtStartOfBlock: false
+  AtStartOfFile:  false
+
+# ── Imports / include sorting (maps to JS import order) ───────────────────────
+SortIncludes:
+  Enabled:     true
+  IgnoreCase:  false
+SortUsingDeclarations: Lexicographic
+
+# ── Miscellaneous ─────────────────────────────────────────────────────────────
+DisableFormat:        false
+InsertNewlineAtEOF:   false
+LineEnding:           DeriveLF     # auto-detect; prefer LF
+ReflowComments:       Never
+RemoveParentheses:    Leave
+SeparateDefinitionBlocks: Leave
+
+# ── Penalty tuning ────────────────────────────────────────────────────────────
+# Controls how aggressively clang-format breaks long lines.
+# Higher value = more reluctant to break at that point.
+PenaltyBreakAssignment:              150
+PenaltyBreakBeforeFirstCallParameter: 300
+PenaltyBreakComment:                 500
+PenaltyBreakFirstLessLess:           400
+PenaltyBreakOpenParenthesis:         0
+PenaltyBreakString:                  600
+PenaltyExcessCharacter:              50
+PenaltyIndentedWhitespace:           0
+PenaltyReturnTypeOnItsOwnLine:       300
+
+# ── Ignore directives ────────────────────────────────────────────────────────
+# Place  // clang-format off  …  // clang-format on  around hand-formatted blocks.
+OneLineFormatOffRegex: ''
+...

@@ -1,0 +1,100 @@
+[
+	{
+		"dot_file_source_dir": "etc",
+		"system_target_dir": "~",
+		"link_files": {
+			"bashrc.bash": ".bashrc",
+			"bash_profile.bash": ".bash_profile",
+			"curlrc": ".curlrc",
+			"rustfmt.toml": ".rustfmt.toml",
+			"wgetrc": ".wgetrc"
+		}
+	},
+	{
+		"dot_file_source_dir": "config",
+		"system_target_dir": "~/.config",
+		"ignores": [
+			"nnn",
+			"zed",
+			"qBittorrent"
+		],
+		"link_files": null
+	},
+	{
+		"dot_file_source_dir": "share/man",
+		"system_target_dir": "~/.local/share/man/man1",
+		"link_files": null
+	},
+	{
+		"dot_file_source_dir": "config/navi",
+		"system_target_dir": "~/Library/Preferences/navi",
+		"link_files": {
+			"config.yaml": null
+		}
+	},
+	{
+		"dot_file_source_dir": "config/zed",
+		"system_target_dir": "~/.config/zed",
+		"link_files": {
+			"keymap.json": null,
+			"settings.json": null,
+			"snippets": null,
+			"tasks.json": null
+		}
+	},
+	{
+		"dot_file_source_dir": "binary_exe",
+		"system_target_dir": "~/.local/bin",
+		"ignores": [
+			"nnn-all",
+			"nnn",
+			"tidy-html"
+		],
+		"link_files": null
+	},
+	{
+		"dot_file_source_dir": "binary_exe",
+		"system_target_dir": "~/.local/bin",
+		"link_files": {
+			"tidy-html": "tidy"
+		}
+	},
+	{
+		"dot_file_source_dir": "bin_scripts",
+		"system_target_dir": "~/.local/bin",
+		"link_files": {
+			"about_github_repo.py": "about_github_repo",
+			"abouttorrent.py": "abouttorrent",
+			"re_build_NNN.bash": "re_build_NNN",
+			"bookmarkfmt.py": "bookmarkfmt",
+			"build.bash": "build",
+			"comp.bash": "rr",
+			"dictation.py": "dictation",
+			"dot_deploy.bash": "dot_deploy",
+			"extract_cookies.py": "extract_cookies",
+			"extractor.sh": "ex",
+			"f.sh": "f",
+			"ff.py": "ff",
+			"fff.py": "fff",
+			"finder_locate.bash": "finder_locate",
+			"firefox": "firefox",
+			"fix_ugly_name.py": "rrr",
+			"fontmap.py": "fontmap",
+			"gDrive.sh": "gDrive",
+			"get_frame.bash": "get_frame",
+			"github-init.bash": "github-init",
+			"linkpick.bash": "linkpick",
+			"message.bash": "message",
+			"notify.bash": "notify",
+			"pkg-config-static.py": "pkg-config-static",
+			"project_init.sh": "project_init",
+			"safari.applescript": "safari",
+			"tatr.bash": "tatr",
+			"todo.bash": "todo",
+			"update_yt-dlp.py": "update_yt-dlp",
+			"wireproxy_start.sh": "wireproxy_start",
+			"zed--root.sh": "zed--root",
+			"zed--wait.sh": "zed--wait"
+		}
+	}
+]

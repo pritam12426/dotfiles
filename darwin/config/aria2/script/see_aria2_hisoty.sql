@@ -1,0 +1,1 @@
+../../../../unix/config/aria2/script/see_aria2_hisoty.sql

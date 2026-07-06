@@ -1,0 +1,41 @@
+[
+	{
+		"label": "Build Current Project",
+		"command": "cmake",
+		"args": [
+			"--build build-arm64"
+			// "--target run"
+		],
+		"tags": [
+			"Build"
+		]
+	},
+
+	{
+		"label": "Pi-Pico :: flash",
+		"command": "cmake",
+		"args": [
+			"--build build-arm64",
+			"--target flash"
+		]
+	},
+
+
+	{
+		"label": "Pi-Pico :: nm",
+		"command": "cmake",
+		"args": [
+			"--build build-arm64",
+			"--target memmap"
+		]
+	},
+
+	{
+		"label": "Pi-Pico :: objdump",
+		"command": "cmake",
+		"args": [
+			"--build build-arm64",
+			"--target disasm"
+		]
+	}
+]

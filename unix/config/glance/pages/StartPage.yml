@@ -1,0 +1,14 @@
+width: wide
+columns:
+  - size: small # Left columns
+    widgets:
+      - type: server-stats
+        servers:
+          - type: server-stats
+            servers:
+              - type: local
+                name: Services
+  - size: full # Center columns
+    widgets:
+  - size: small # Right columns
+    widgets:

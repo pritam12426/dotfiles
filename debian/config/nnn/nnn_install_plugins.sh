@@ -1,0 +1,1 @@
+../../../unix/config/nnn/nnn_install_plugins.sh

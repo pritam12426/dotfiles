@@ -1,0 +1,1 @@
+../../unix/bin_scripts/fix_ugly_name.py

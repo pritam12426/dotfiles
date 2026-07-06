@@ -1,0 +1,17 @@
+[
+	{
+		"directory": "/Users/pritam/Developer/c_lang/c_min_temp",
+		"arguments": [
+			"cc",
+			"-g",
+			"-std=c17",
+			"-I/opt/homebrew/include",
+			"-o",
+			"src/main.c.o",
+			"-c",
+			"src/main.c"
+		],
+		"file": "src/main.c",
+		"output": "build/src/main.c.o"
+	}
+]

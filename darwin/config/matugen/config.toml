@@ -1,0 +1,3 @@
+[templates.test] # First way of adding template
+	input_path = '~/.config/templates/data.css'
+	output_path = '~/hello.txt'

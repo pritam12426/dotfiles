@@ -1,0 +1,15 @@
+-o "~/Downloads/yt_dlp/short_vidoes/%(extractor_key)s-%(channel)s-%(id)s.%(ext)s"
+-f 'best/bestvideo*+bestaudio*'
+
+--no-mtime
+--embed-subs
+--restrict-filenames
+--embed-chapters
+--no-embed-thumbnail
+--embed-metadata
+--write-auto-subs
+--ignore-no-formats-error
+--parse-metadata "video::(?P<description>)"
+--cache-dir "~/Library/Caches/yt-dlp"
+
+--embed-info-json

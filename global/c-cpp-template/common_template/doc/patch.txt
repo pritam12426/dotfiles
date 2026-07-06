@@ -1,0 +1,7 @@
+
+#### Bulding doc ####
+option(BUILD_DOC     "Generate documentation with oxygen"  OFF)
+
+if(BUILD_DOC)
+  add_subdirectory(doc)
+endif()

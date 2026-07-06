@@ -1,0 +1,4 @@
+/build/
+/pushfile
+src/*.o
+/.clangd

@@ -1,0 +1,1 @@
+../../unix/hooks/install_github_scrpits.sh

@@ -1,0 +1,39 @@
+# Generated: 2026-07-06 16:54:47 UTC
+# ========== BIN INSTALL LINKS ==========
+
+https://codeberg.org/readeck/readeck
+https://github.com/0x2E/fusion
+https://github.com/astral-sh/ty
+https://github.com/atanunq/viu
+https://github.com/BurntSushi/ripgrep
+https://github.com/charlie0129/batt
+https://github.com/cointop-sh/cointop
+https://github.com/dduan/tre
+https://github.com/dgr8akki/nano-ffmpeg
+https://github.com/dprint/dprint
+https://github.com/evcxr/evcxr
+https://github.com/Graphixa/FontGet
+https://github.com/Julien-cpsn/ATAC  # NOT USING
+https://github.com/koalaman/shellcheck
+https://github.com/lycheeverse/lychee
+https://github.com/maaslalani/sheets
+https://github.com/marcosnils/bin
+https://github.com/matthart1983/netwatch
+https://github.com/mr-karan/doggo
+https://github.com/muesli/duf
+https://github.com/mvdan/sh
+https://github.com/naggie/dstask
+https://github.com/ncruces/zenity
+https://github.com/o2sh/onefetch
+https://github.com/ogham/dog
+https://github.com/reemus-dev/gitnr
+https://github.com/retlehs/quien
+https://github.com/sharkdp/bat
+https://github.com/sharkdp/fd
+https://github.com/shshemi/tabiew
+https://github.com/tealdeer-rs/tealdeer
+https://github.com/terrastruct/d2
+https://github.com/Valkyrie00/bold-brew
+https://github.com/wader/fq
+https://github.com/windtf/wireproxy
+https://github.com/yagnikpt/boomtypr

@@ -1,0 +1,6 @@
+*
+!/.gitignore
+!/__brew_envs__
+!/Brewfile
+!/brew.env
+!/brewfile_minimum

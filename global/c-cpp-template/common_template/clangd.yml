@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://json.schemastore.org/clangd.json
+
+CompileFlags:
+  CompilationDatabase: build/debug
+  # Compiler: clang++
+  Add:
+    - -ffreestanding
+    # - "-std=c++20"
+    # - "-pedantic"
+    # - "-Wall"
+
+Completion:
+  AllScopes: true
+  # ArgumentLists: OpenDelimiter
+  # HeaderInsertion: Never
+
+Index:
+  Background: Build
+  StandardLibrary: true
+
+# Customise the faded code in the zed
+InlayHints:
+  BlockEnd: true
+  Designators: true
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+
+# Diagnostics:
+#   UnusedIncludes: Strict
+#   MissingIncludes: Strict
+
+Hover:
+  ShowAKA: true
+
+SemanticTokens:
+  DisabledKinds:
+    - macro

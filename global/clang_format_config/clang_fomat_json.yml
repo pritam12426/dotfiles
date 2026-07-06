@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://www.schemastore.org/clang-format-21.x.json
+
+---
+Language: Json
+
+IndentWidth: 4
+TabWidth: 4
+UseTab: ForIndentation
+
+PointerAlignment: Right
+NamespaceIndentation: All
+
+IncludeBlocks: Regroup
+
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: false
+
+BinPackArguments: false
+
+BreakStringLiterals: true
+
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeRangeBasedForLoopColon: true
+SpacesBeforeTrailingComments: 2
+
+MaxEmptyLinesToKeep: 2
+KeepEmptyLinesAtTheStartOfBlocks: false
+...

@@ -1,0 +1,75 @@
+# =============== Installed fonts =============== 
+UbuntuMono
+JetBrainsMono-NerdFont-v3.4.0
+Permanent_Marker
+Jacquard_24
+zed-sans-1.2.0
+CascadiaCode
+Archivo_Black
+Meslo-NerdFont-v3.4.0
+Gloria_Hallelujah
+Monaspace Neon
+Ubuntu_Condensed
+Lilita_One
+Mononoki
+CascadiaMono-NerdFont-v3.4.0
+Kalam
+Monaspace Radon
+SourceCodePro
+SourceCodePro-NerdFont-v3.4.0
+FiraCode
+Monaspace Argon
+SourceCodePro-NerdFont-v3.0.1
+Playwrite_DE_SAS
+Bungee
+Chewy
+DM_Sans
+JetBrainsMono
+UbuntuMono-NerdFont-v3.0.1
+Tilt_Prism
+UbuntuMono-NerdFont-v3.4.0
+Anton
+IBM_Plex_Sans
+Monaspace Krypton
+cubano
+Hack
+Shantell_Sans
+RobotoMono-NerdFont-v3.4.0
+Inconsolata-NerdFont-v3.4.0
+RobotoMono-NerdFont-v3.0.1
+Josefin_Sans
+Momo_Trust_Display
+Inconsolata
+Mononoki-NerdFont-v3.4.0
+Reenie_Beanie
+Meslo
+Mynerve
+Mansalva
+Finger_Paint
+Playwrite_IT_Trad
+Shadows_Into_Light
+Iosevka
+Shadows_Into_Light_Two
+RobotoMono
+Playpen_Sans
+Cascadia_Mono
+Rubik
+Coming_Soon
+Rubik Glitch Pop-vlatest
+Bebas_Neue
+CascadiaCode-NerdFont-v3.4.0
+Roboto
+IBM_Plex_Sans_Condensed
+Margarine
+Schoolbell
+Hack-NerdFont-v3.4.0
+Caveat_Brush
+Just_Me_Again_Down_Here
+Monaspace
+BBH_Sans_Bogle
+Alfa_Slab_One
+Ubuntu
+Monoton
+FiraCode-NerdFont-v3.4.0
+Monaspace Xenon
+Jersey_10

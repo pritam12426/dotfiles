@@ -1,0 +1,189 @@
+
+# Standalone version of arguments parsing functions from GLIBC
+brew "argp-standalone"
+
+# ANSI C library for parsing GNU-style command-line options
+brew "argtable3"
+
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+
+# Incredibly fast JavaScript runtime, bundler, test runner, and package manager
+brew "bun"
+
+# Scan for endpoints, secrets, API keys, file extensions, tokens and more
+brew "cariddi"
+
+# Cross-platform make
+brew "cmake"
+
+# Fast and Easy to use microframework for the web
+brew "crow"
+
+# Utility to bundle libraries into executables for macOS
+brew "dylibbundler"
+
+# Run arbitrary commands when files change
+brew "entr"
+
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+
+# C string library for manipulating Unicode strings
+brew "libunistring"
+
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
+
+# XML-based font configuration API for X Windows
+brew "fontconfig"
+
+# Command-line fuzzy finder written in Go
+brew "fzf"
+
+# General-purpose data compression with high compression ratio
+brew "xz"
+
+# Zstandard is a real-time compression algorithm
+brew "zstd"
+
+# GitHub command-line tool
+brew "gh"
+
+# Multi-platform library for OpenGL applications
+brew "glfw"
+
+# Perl compatible regular expressions library with a new API
+brew "pcre2"
+
+# CLI for passbolt
+brew "go-passbolt-cli"
+
+# Command-line tool for decrypting and exporting browser data
+brew "hack-browser-data"
+
+# CLI email client written in Rust
+brew "himalaya"
+
+# Run and Test HTTP Requests with plain text and curl
+brew "hurl"
+
+# Modular IRC client
+brew "irssi"
+
+# Command-line pager for JSON data
+brew "jless"
+
+# JSON parser for C
+brew "json-c"
+
+# Handy way to save and run project-specific commands
+brew "just"
+
+# Simple terminal UI for git commands
+brew "lazygit"
+
+# TUI for logs from journalctl, file system, Docker, Podman and Kubernetes pods
+brew "lazyjournal"
+
+# Sophisticated file transfer program
+brew "lftp"
+
+# Configuration file processing library
+brew "libconfig"
+
+# Powerful, lightweight programming language
+brew "lua"
+
+# Just-In-Time Compiler (JIT) for the Lua programming language
+brew "luajit"
+
+# Fast, async, resource-friendly link checker
+brew "lychee"
+
+# Terminal e-mail client and e-mail client library
+brew "meli"
+
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
+
+# Deep clean and optimize your Mac
+brew "mole"
+
+# CLI tool for saving complete web pages as a single HTML file
+brew "monolith"
+
+# Another cmake lsp
+brew "neocmakelsp"
+
+# Net top tool grouping bandwidth per process
+brew "nethogs"
+
+# RSS/Atom feed reader for text terminals
+brew "newsboat"
+
+# JSON for modern C++
+brew "nlohmann-json"
+
+# Statically typed programming language for scientific computations
+brew "numbat"
+
+# Command-line Git information tool
+brew "onefetch"
+
+# Reverse engineering framework
+brew "radare2"
+
+# Rsync for cloud storage
+brew "rclone"
+
+# Extremely fast Python linter, written in Rust
+brew "ruff"
+
+# Low-level access to audio, keyboard, mouse, joystick, and graphics
+brew "sdl3"
+
+# Fuzzy Finder in rust!
+brew "sk"
+
+# Prettier way to inspect network connections
+brew "snitch"
+
+# TOML toolkit written in Rust
+brew "taplo"
+
+# Feature-rich console based todo list manager
+brew "task"
+
+# General purpose fuzzy finder TUI
+brew "television"
+
+# Powerful free data recovery utility
+brew "testdisk"
+
+# Official documentation format of the GNU project
+brew "texinfo"
+
+# Command-line time tracking application
+brew "timewarrior"
+
+# Services for Typst
+brew "tinymist"
+
+# Program that allows you to count code, quickly
+brew "tokei"
+
+# Markup-based typesetting system
+brew "typst"
+
+# C macros for hash tables and more
+brew "uthash"
+
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+
+# Console-based network traffic monitor
+brew "vnstat"
+
+# Friendly and fast tool for sending HTTP requests
+brew "xh"

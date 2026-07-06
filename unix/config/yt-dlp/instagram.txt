@@ -1,0 +1,18 @@
+-o "~/Downloads/yt_dlp/short_vidoes/%(extractor_key)s-%(channel)s-%(id)s-%(uploader_id)s.%(ext)s"
+-f "bestvideo*[ext=mp4]+bestaudio*[ext=m4a]/best/bestvideo*+bestaudio*"
+
+--cookies-from-browser 'firefox'
+--user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+
+--no-mtime
+--no-embed-subs
+--restrict-filenames
+
+--embed-metadata
+--embed-thumbnail
+--no-write-auto-subs
+--ignore-no-formats-error
+--parse-metadata "video::(?P<description>)"
+--cache-dir "~/Library/Caches/yt-dlp"
+
+--embed-info-json

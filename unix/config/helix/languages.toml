@@ -1,0 +1,89 @@
+[[language]]
+	name = "go"
+	formatter = { command = "gopls", args = ["format", "%{buffer_name}"] }
+
+[[language]]
+	name = "java"
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/clang_format_config/clang_fomat_java.yml",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "cmake"
+	formatter = { command = "neocmakelsp", args = ["format", "%{buffer_name}"] }
+
+[[language]]
+	name = "toml"
+	formatter = { command = "/Users/pritam/.config/taplo/taplo-zed.sh", args = ["%{buffer_name}"] }
+
+[[language]]
+	name = "c"
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/common_template/clang-format.yml",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "protobuf"
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/clang_format_config/clang_fomat_proto.yml",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "cpp"
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/common_template/clang-format.yml",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "json"
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/clang_format_config/clang_fomat_json.yml",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "jsonc"
+	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
+		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/clang_format_config/clang_fomat_json.yml",
+		"--assume-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "python"
+	formatter = { command = "ruff", args = [
+		"format",
+		"--config=~/.config/ruff/ruff.toml",
+		"--stdin-filename=%{buffer_name}",
+	] }
+
+[[language]]
+	name = "xml"
+	formatter = { command = "/Users/pritam/.config/tidy/tidy-xml.sh", args = ["%{buffer_name}"] }
+
+[[language]]
+	name = "sql"
+	formatter = { command = "sleek", args = [] }
+
+[language-server.ruff]
+	command = "ruff"
+	args = ["server"]
+
+[language-server.tinymist]
+	command = "tinymist"
+
+	config = { preview.background.enabled = true, preview.background.args = [
+		"--data-plane-host=127.0.0.1:23635",
+		"--invert-colors='{'rest': 'always', 'image': 'never'}'",
+		"--open",
+	] }
+
+	# "--invert-colors=never",
+	# "--invert-colors='{'rest': 'always', 'image': 'never'}'",
+
+	# formatterIndentSize = 4
+	# formatterMode = "typstyle"
+	# compileStatus = "enable"

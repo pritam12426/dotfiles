@@ -1,0 +1,74 @@
+CompileFlags:
+  # Compiler: /Users/pritam/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++
+  CompilationDatabase: build-uno
+  # --------------------------------------------------------------
+  # 1. Let clangd ask the *real* avr-g++ driver for its include paths
+  # --------------------------------------------------------------
+  Add:
+    # - "--query-driver=/Users/pritam/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-*"
+    - "-resource-dir=/Users/pritam/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7"
+
+    # --------------------------------------------------------------
+    # 2. Block macOS host standard library completely
+    # --------------------------------------------------------------
+    - "-nostdinc"
+    - "-nostdinc++"
+    - "-nostdlib"
+
+    # --------------------------------------------------------------
+    # 3. Tell clangd we are cross-compiling for AVR
+    # --------------------------------------------------------------
+    - "--target=avr"
+    # - "-mcpu=atmega328p"
+
+    # --------------------------------------------------------------
+    # 4. Arduino core & variant includes (driver does NOT know these)
+    # --------------------------------------------------------------
+    - "-I/Users/pritam/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
+    - "-I/Users/pritam/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard"
+
+    - "-I/Users/pritam/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include"
+    - "-I/Users/pritam/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include"
+    - "-I/Users/pritam/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include-fixed"
+
+    # --------------------------------------------------------------
+    # 5. Arduino/AVR defines (match what Arduino CLI passes)
+    # --------------------------------------------------------------
+    - "-D__AVR__"
+    - "-D__AVR_ATmega328P__"
+    - "-DARDUINO=10805"
+    - "-DARDUINO_ARCH_AVR"
+    - "-DARDUINO_AVR_UNO"
+    - "-DF_CPU=16000000L"
+
+    # --------------------------------------------------------------
+    # 6. C++ language settings (same as Arduino build)
+    # --------------------------------------------------------------
+    - "-std=gnu++11"
+    - "-fno-exceptions"
+    - "-fno-rtti"
+    - "-fno-threadsafe-statics"
+
+# --------------------------------------------------------------
+# Optional: keep your existing diagnostics / UI settings
+# --------------------------------------------------------------
+Diagnostics:
+  UnusedIncludes: None
+  MissingIncludes: None
+
+Completion:
+  AllScopes: Yes
+
+Index:
+  Background: Build
+  StandardLibrary: Yes
+
+InlayHints:
+  BlockEnd: true
+  Designators: true
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+
+Hover:
+  ShowAKA: true

@@ -1,0 +1,1 @@
+../../../unix/config/wireproxy/check_wireproxy.sh

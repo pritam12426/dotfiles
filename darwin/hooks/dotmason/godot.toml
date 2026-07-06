@@ -1,0 +1,6 @@
+name = "GoDot"
+description = "Godot godot_mono.app config"
+
+configuration_files = [
+	"Library/Application Support/Godot/editor_settings-4.6.tres"
+]

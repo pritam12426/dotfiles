@@ -1,0 +1,15 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+	"autoupdate": false,
+
+	"permission": {
+		"edit": "allow",
+		"bash": {
+			"rm -rf *": "deny",
+			"sudo *": "deny",
+			"su *": "deny",
+			"*": "allow",
+		},
+		"webfetch": "allow"
+	}
+}

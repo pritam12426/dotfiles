@@ -1,0 +1,1 @@
+../../../../unix/config/aria2/script/main_script.sh

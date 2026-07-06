@@ -1,0 +1,61 @@
+theme = "ayu_evolve"
+
+[editor]
+	# lsp.enable = false # This turns off all LSP features for all languages
+	# scrolloff = 999
+	auto-format = false
+	line-number = "relative"
+	bufferline = "multiple"
+
+	[editor.cursor-shape]
+		insert = "bar"
+		select = "underline"
+
+	[editor.indent-guides]
+		# render = true
+		character = "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
+		skip-levels = 1
+
+	[editor.whitespace]
+		[editor.whitespace.render]
+			space = "none"
+			tab = "all"
+			nbsp = "none"
+			nnbsp = "none"
+			newline = "all"
+
+		[editor.whitespace.characters]
+			space = "·"
+			tab = "-"
+			newline = "¬"
+			# tabpad = "·"  # Tabs will look like "→···" (depending on tab width)
+
+	[editor.lsp]
+		display-inlay-hints = true
+
+	[editor.auto-save]
+		focus-lost = true
+
+	[editor.statusline]
+		left = ["mode", "spinner"]
+		center = ["file-name"]
+		right = [
+			"diagnostics",
+			"selections",
+			"position",
+			"file-encoding",
+			"file-line-ending",
+			"file-type",
+		]
+		separator = "│"
+		mode.normal = "NORMAL"
+		mode.insert = "INSERT"
+		mode.select = "SELECT"
+		diagnostics = ["warning", "error"]
+		workspace-diagnostics = ["warning", "error"]
+
+# create a new minor mode bound to `+`
+[keys.normal."z"]
+	o = ":run-shell-command zed" # Still you have to pass the file name after the zed <file>
+	r = ":lsp-restart"
+	R = ":config-reload"

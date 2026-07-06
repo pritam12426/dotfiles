@@ -1,0 +1,1 @@
+../../unix/etc/bashrc.bash

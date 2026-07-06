@@ -1,0 +1,11 @@
+name = "qBittorrent"
+description = "qBittorrent a gui interface for torrent config"
+
+configuration_files = [
+	"Library/Preferences/qBittorrent/categories.json",
+	"Library/Preferences/qBittorrent/watched_folders.json",
+	"Library/Preferences/qBittorrent/rss/feeds.json",
+	"Library/Preferences/qBittorrent/rss/feeds.json",
+	# ".config/qBittorrent/qBittorrent-data.ini",
+	".config/qBittorrent/qBittorrent.ini"
+]

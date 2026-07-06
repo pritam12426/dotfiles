@@ -1,0 +1,35 @@
+# ================================================================
+# Pandoc Defaults – Convert Markdown → tyspt PDF
+# ================================================================
+
+from: markdown
+to: pdf
+
+# toc-depth: 2
+# table-of-contents: true
+number-sections: false
+
+template: ${HOME}/.config/pandoc/templates/tyspt/defaults.typ
+
+# include-in-header:  ${HOME}/.config/pandoc/headers/mdTohtml-header.html
+# include-after-body: ${HOME}/.config/pandoc/headers/mdTohtml-footer.html
+
+highlight-style: pygments
+
+pdf-engine: typst
+
+metadata:
+  title: My webSite
+  author: Pritam
+  lang: en
+
+variables:
+  toc-title: "Context"
+
+extract-media: /tmp/pandoc/build/assets
+resource-path:
+  - /tmp/pandoc/build/assets
+
+resource-path:
+  - .
+  - ${HOME}/.config/pandoc/assets

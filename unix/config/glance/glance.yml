@@ -1,0 +1,180 @@
+theme:
+  background-color: 50 1 6
+  primary-color: 24 97 58
+  negative-color: 209 88 54
+
+  disable-picker: false
+  presets:
+    gruvbox-dark:
+      background-color: 0 0 16
+      primary-color: 43 59 81
+      positive-color: 61 66 44
+      negative-color: 6 96 59
+
+    zebra:
+      light: true
+      background-color: 0 0 95
+      primary-color: 0 0 10
+      negative-color: 0 90 50
+
+server:
+  port: 6969
+  assets-path: /Users/pritam/.config/glance/assets
+
+branding:
+  hide-footer: yes
+  logo-text: G
+
+pages:
+  - name: Home
+    width: wide
+    head-widgets:
+      - type: markets
+        hide-header: true
+        markets:
+          - symbol: GOGL
+            name: Google
+          - symbol: BTC-USD
+            name: Bitcoin
+          - symbol: NVDA
+            name: NVIDIA
+          - symbol: AAPL
+            name: Apple
+          - symbol: MSFT
+            name: Microsoft
+
+
+    columns:
+      - size: small # Left columns
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+
+          - type: clock
+            hour-format: 12h
+            timezones:
+              - timezone: Europe/Paris
+                label: Paris
+              - timezone: America/New_York
+                label: New York
+              - timezone: Asia/Tokyo
+                label: Tokyo
+
+          - type: twitch-channels
+            sort-by: live
+            channels:
+              - tsoding
+              - theprimeagen
+              - lowleveltv
+
+      - size: full # Center columns
+        widgets:
+          - type: search
+            autofocus: true
+            search-engine: google
+            new-tab: true
+            placeholder: "Type here to search…   <!do> <!gh> <!yt> "
+            bangs:
+              - title: YouTube
+                shortcut: "!yt"
+                url: https://www.youtube.com/results?search_query={QUERY}
+              - title: Github
+                shortcut: "!gh"
+                url: https://github.com/search?q={QUERY}&type=repositories
+              - title: DuckDuckGo
+                shortcut: "!do"
+                url: https://duckduckgo.com/?q={QUERY}
+
+          - type: group
+            widgets:
+              - type: hacker-news
+              - type: lobsters
+                tags:
+                  - go
+                  - security
+                  - linux
+                limit: 15
+
+              - type: rss
+                title: Debian
+                feeds:
+                  - url: https://www.debian.org//News/news
+                    title: Debian
+
+          - type: videos
+            title: Youtube videos
+            channels:
+              - UCXuqSBlHAE6Xw-yeJA0Tunw # Linus Tech Tips
+              - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
+
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: technology
+                show-thumbnails: true
+              - type: reddit
+                subreddit: selfhosted
+                show-thumbnails: true
+
+      - size: small # Right columns
+        widgets:
+          - type: group
+            widgets:
+            - type: weather
+              title: Gurdaspur
+              units: metric
+              show-area-name: true
+              location: Gurdaspur, Punjab, India
+            - type: weather
+              title: Jalandhar
+              units: metric
+              show-area-name: true
+              location: Jalandhar, Punjab, India
+
+          - type: releases
+            show-source-icon: true
+            repositories:
+              - github:go-gitea/gitea
+              - github:jellyfin/jellyfin
+              - github:glanceapp/glance
+              - codeberg:redict/redict
+              - gitlab:fdroid/fdroidclient
+              - dockerhub:gotify/server
+          - type: group
+            widgets:
+            - type: repository
+              title: glance
+              repository: glanceapp/glance
+              pull-requests-limit: 5
+              issues-limit: 3
+              commits-limit: 3
+            - type: repository
+              title: linux Kernal
+              repository: torvalds/linux
+              pull-requests-limit: 5
+              issues-limit: 3
+              commits-limit: 3
+
+
+  # - name: StartPage
+  # $include: pages/rss.yml
+
+
+  # - name: RSS
+  #   width: slim
+  #   columns:
+  #     - size: full
+  #       widgets:
+  #         - type: group
+  #           widgets:
+  #             $include: pages/rss.yml
+
+
+  # - name: YouTube
+  #   width: slim
+  #   columns:
+  #     - size: full
+  #       widgets:
+  #         - type: group
+  #           widgets:
+  #             $include: pages/rss.yml

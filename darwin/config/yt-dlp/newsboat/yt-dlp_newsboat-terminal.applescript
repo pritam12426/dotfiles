@@ -1,0 +1,1 @@
+../../../../unix/config/yt-dlp/newsboat/yt-dlp_newsboat-terminal.applescript

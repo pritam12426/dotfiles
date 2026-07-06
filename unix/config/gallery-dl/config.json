@@ -1,0 +1,40 @@
+{
+	"extractor": {
+		"skip": true,
+
+		"base-directory": "~/Downloads/yt_dlp/gallery-dl",
+		"directory": ["{category}"],
+		"cookies": [
+			"firefox"
+		],
+
+		"user-agent": "+chrome",
+		"browser": "chrome:windows",
+
+		"instagram": {
+			"cookies": "~/.cache/safari_cookies.txt",
+			"filename": "{username}_{shortcode}.{extension}",
+		},
+
+		"reddit": {
+			"filename": "sub_{subreddit}_{author}_{title}_{id}.{extension}"
+		}
+	},
+	"downloader": {},
+	"output": {},
+	"postprocessor": {
+		"metadata": [
+			{
+				"name": "metadata",
+				"mode": "json",
+				"filename": "{directory}/{filename}.info.json"
+			},
+			{
+				"name": "metadata",
+				"mode": "xmp",
+				"comment": "Source: {post_url}\nUsername: {username}\nDate: {date:%Y-%m-%d}",
+				"event": "exif"
+			}
+		]
+	}
+}

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+FIREFOX="/Applications/Firefox.app/Contents/MacOS/firefox"
+
+case "$@" in
+"--clean" | "-C")
+	# -------------------Clear Firefox cache--------------------
+	echo '--- Clear Firefox cache'
+	rm -rf ~/Library/Caches/Mozilla/
+	rm -fv ~/Library/Application\ Support/Firefox/Profiles/*/netpredictions.sqlite
+	# ----------------------------------------------------------
+
+	# ----------------Clear Firefox form history----------------
+	echo '--- Clear Firefox form history'
+	rm -fv ~/Library/Application\ Support/Firefox/Profiles/*/formhistory.sqlite
+	rm -fv ~/Library/Application\ Support/Firefox/Profiles/*/formhistory.dat
+	# ----------------------------------------------------------
+
+	# ---------------Clear Firefox crash reports----------------
+	echo '--- Clear Firefox crash reports'
+	rm -rfv ~/Library/Application\ Support/Firefox/Crash\ Reports/
+	rm -fv ~/Library/Application\ Support/Firefox/Profiles/*/minidumps/*.dmp
+	# ----------------------------------------------------------
+
+	exit $?
+	;;
+"--export-cookies" | "-E")
+	"$DOT_FILE/bin_scripts/extract-cookies.sh"
+	exit $?
+	;;
+"--help")
+	$FIREFOX --help
+
+	printf "\nUser define options\n"
+	echo "  --export-cookies or -E  export the saved cookies of firefox to ~/.cache/firefox_cookies.txt"
+	echo "  --clean or -C           clean fire fox data"
+	exit 1
+	;;
+esac
+
+exec "$FIREFOX" "$@"

@@ -1,0 +1,145 @@
+#!/bin/bash
+# export NNN_PLUG="f:personal/ftpsync"
+#
+# Description: FTP plugin (Android via lftp)
+#
+# Dependencies: lftp
+#
+# Shell: Bash
+# Author: Pritam <https://github.com/pritam12426>
+
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/ftp_plugin.conf"
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+
+# ── Load or create config ──────────────────────
+if [ ! -f "$CONFIG_FILE" ]; then
+	printf "FTP host (e.g. 192.168.1.5): "
+	read -r FTP_HOST
+
+	printf "FTP port [2121]: "
+	read -r FTP_PORT
+
+	FTP_PORT="${FTP_PORT:-2121}"
+	printf "FTP user [anonymous]: "
+	read -r FTP_USER
+
+	FTP_USER="${FTP_USER:-anonymous}"
+	printf "FTP password [leave blank if none]: "
+	read -r FTP_PASS
+
+	printf "Remote base path [/storage/emulated/0/ftp]: "
+	read -r FTP_REMOTE_BASE
+	FTP_REMOTE_BASE="${FTP_REMOTE_BASE:-/storage/emulated/0/ftp}"
+
+	cat > "$CONFIG_FILE" << EOF
+FTP_HOST=$FTP_HOST
+FTP_PORT=$FTP_PORT
+FTP_USER=$FTP_USER
+FTP_PASS=$FTP_PASS
+EOF
+	echo "Config saved to $CONFIG_FILE"
+fi
+
+# shellcheck source=/dev/null
+. "$CONFIG_FILE"
+
+FTP_URL="ftp://$FTP_USER:$FTP_PASS@$FTP_HOST:$FTP_PORT"
+
+
+targets=()
+total_items=0
+
+if [ -s "$sel" ]; then
+	# ───── Selection exists ─────
+	while IFS= read -r -d '' i || [ -n "$i" ]; do
+		# Accept both files AND directories for FTP upload
+		[[ -e $i ]] || continue
+		targets+=("$(readlink -f -- "$i")")
+		((total_items++))
+	done < "$sel"
+else
+	# ───── No selection → current file ($1) ─────
+	[[ -e $1 ]] || exit 0
+	targets+=("$(readlink -f -- "$1")")
+	((total_items++))
+fi
+
+# ───── Nothing to upload ─────
+if ((total_items == 0)); then
+	[ -s "$sel" ] && [ -p "$NNN_PIPE" ] && printf "-" > "$NNN_PIPE"
+	exit 1
+fi
+
+echo "$FTP_URL"
+
+
+# ── Menu ──────────────────────────────────────
+printf "\n[u] Upload (%d item(s))  [d] Download  [b] Browse  [r] Reset config\nChoice: " "$total_items"
+read -r ACTION
+
+case "$ACTION" in
+
+u)
+	for item in "${targets[@]}"; do
+		if [[ -d $item ]]; then
+			# Folder → use mirror
+			FOLDER_NAME="$FTP_REMOTE_BASE/$(hostname -s)/$(basename "$item")"
+			# lftp -e "set ftp:passive-mode on; set net:timeout 10; set net:max-retries 3; mirror --reverse --verbose '$item' '$FOLDER_NAME'; bye" "$FTP_URL"
+			lftp -e "set ftp:passive-mode on; set net:timeout 10; set net:max-retries 3; mirror --reverse '$item' '$FOLDER_NAME'; bye" "$FTP_URL"
+			if [[ $? -eq 0 ]]; then
+				echo "✅ Folder uploaded: $(basename "$item")"
+			else
+				echo "❌ Folder upload failed: $(basename "$item")"
+			fi
+		else
+			# ↓↓ RIGHT HERE ↓↓
+			# lftp -e "set ftp:passive-mode on; set net:timeout 10; set net:max-retries 3; pget -n 3 '$item'; bye" "$FTP_URL"
+			lftp -e "set ftp:passive-mode on; set net:timeout 10; set net:max-retries 3; put '$item'; bye" "$FTP_URL"
+			if [[ $? -eq 0 ]]; then
+			    echo "✅ File uploaded: $(basename "$item")"
+			else
+			    echo "❌ Upload failed: $(basename "$item")"
+			fi
+		fi
+	done
+	;;
+
+d)
+	printf "Remote file/folder path to download: "
+	read -r REMOTE_PATH
+	printf "Is this a folder? [y/N]: "
+	read -r IS_DIR
+	if [[ $IS_DIR == "y" || $IS_DIR == "Y" ]]; then
+		lftp -e "
+                set ftp:passive-mode on;
+                mirror --verbose \"$REMOTE_PATH\" \"$PWD/$(basename "$REMOTE_PATH")\";
+                bye
+            " "$FTP_URL"
+	else
+		lftp -e "
+                set ftp:passive-mode on;
+                get \"$REMOTE_PATH\" -o \"$PWD/\";
+                bye
+            " "$FTP_URL"
+	fi
+	echo "✅ Downloaded to $PWD"
+	;;
+
+b)
+	lftp -e "
+            set ftp:passive-mode on;
+            set net:timeout 10;
+            set net:max-retries 3;
+            set cmd:prompt 'nnn-ftp> ';
+        " "$FTP_URL"
+	;;
+
+r)
+	rm -f "$CONFIG_FILE"
+	echo "🗑  Config reset. Re-run plugin to reconfigure."
+	;;
+
+*)
+	echo "❌ Invalid choice"
+	;;
+esac

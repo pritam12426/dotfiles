@@ -1,0 +1,1 @@
+../../../../../unix/config/pandoc/templates/tyspt/defaults.typ

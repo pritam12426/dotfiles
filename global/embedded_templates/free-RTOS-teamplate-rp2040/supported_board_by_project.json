@@ -1,0 +1,64 @@
+{
+	"device_name": "RP2 Boot",
+	"manufacturer": "Raspberry Pi",
+	"board": "Pico W",
+	"processor": "Raspberry Pi RP2040",
+	"mode": "Bootloader (UF2)",
+	"vendor_id": "0x2e8a",
+	"product_id": "0x0003",
+	"usb_speed": "12 Mb/s",
+	"serial_number": "E0C9125B0D9B",
+	"location_id": "0x00100000",
+	"power": {
+		"available_mA": 500,
+		"required_mA": 500
+	},
+	"storage": {
+		"device": "disk4",
+		"partition": "disk4s1",
+		"mount_point_MAC": "/Volumes/RPI-RP2",
+		"filesystem": "MS-DOS FAT16",
+		"capacity_bytes": 134217728,
+		"free_bytes": 132820992
+	},
+	"rp2040_details": {
+		"name": "RP2040",
+		"cpu": {
+			"core": "Dual-core Arm Cortex-M0+",
+			"clock_speed_mhz": 133,
+			"overclockable": true
+		},
+		"memory": {
+			"sram_kb": 264,
+			"external_flash_mb": 2,
+			"flash_expandable": true
+		},
+		"peripherals": {
+			"usb": "USB 1.1 device",
+			"i2c": 2,
+			"spi": 2,
+			"uart": 2,
+			"pwm_channels": 16,
+			"pio": 8,
+			"adc_channels": 3
+		},
+		"gpio": 30,
+		"voltage": "1.8V to 3.3V",
+		"debug": [
+			"SWD",
+			"USB"
+		],
+		"rtc": true,
+		"dma": true,
+		"power": {
+			"low_power_modes": true
+		},
+		"os_support": [
+			"Bare-metal",
+			"FreeRTOS",
+			"TinyUSB",
+			"MicroPython",
+			"CircuitPython"
+		]
+	}
+}

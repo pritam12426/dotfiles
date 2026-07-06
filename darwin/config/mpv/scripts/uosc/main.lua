@@ -1,0 +1,1 @@
+../../../../../unix/config/mpv/scripts/uosc/main.lua

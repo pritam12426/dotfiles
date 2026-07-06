@@ -1,0 +1,1 @@
+../../../../unix/config/newsboat/scripts/get_thumbnail.sh

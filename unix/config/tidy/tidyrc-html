@@ -1,0 +1,44 @@
+# Config file for HTML Tidy
+# Documentation: https://api.html-tidy.org/tidy/quickref_5.8.0.html
+
+# Document Type
+doctype: auto
+
+# Encoding
+char-encoding: utf8
+input-encoding: utf8
+output-encoding: utf8
+
+# Formatting — spaces here, script converts to tabs
+indent: yes
+indent-with-tabs: no
+indent-spaces: 4
+tab-size: 4
+wrap: 0
+break-before-br: no
+vertical-space: no
+indent-attributes: no
+
+# Cleaning
+drop-empty-elements: no
+drop-empty-paras: no
+fix-backslash: yes
+fix-bad-comments: auto
+logical-emphasis: no
+merge-divs: no
+merge-spans: no
+uppercase-tags: no
+uppercase-attributes: no
+preserve-entities: yes
+quote-marks: yes
+quote-nbsp: yes
+
+# Output
+tidy-mark: no
+force-output: yes
+show-info: no
+
+# Reporting
+quiet: yes
+show-warnings: no
+show-errors: 1

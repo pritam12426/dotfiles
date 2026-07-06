@@ -1,0 +1,12 @@
+ USER CONFIGURATIONG
+            H   Go to ~
+            \   Go to 'root dir'
+         '\r'   Go to 'home dir'
+            !   Start a terminal section as the child of NNN
+          X i   Use rm command              SEL_RM_RF
+            I   Reload the current NNN      SEL_REDRAW
+            R   Invoke Renamer              SEL_RENAMEMUL
+            r   Rename the current Item     SEL_RENAME
+            <   Start the nav bar prompt    SEL_PROMPT
+    shift + q   Close all tabs
+================================================================

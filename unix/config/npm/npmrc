@@ -1,0 +1,27 @@
+; export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc" >> ~/.zshenv
+userconfig=/Users/pritam/.config/npm/npmrc
+cache=/Users/pritam/Library/Caches/npm
+init-module=/Users/pritam/.config/npm/npm-init.js
+prefix=/Users/pritam/.local/lib/node_modules-global
+
+; cache          = ~/.cache/npm
+engine-strict  = true
+if-present     = true
+logs-max       = 1
+message        = "Release v%s"
+omit           = optional
+
+; Tell NPM to pull its head in
+package-lock   = false
+save           = false
+workspaces     = false
+
+; Improve CLI output
+depth          = 0
+fund           = false
+heading        = "│"
+long           = true
+unicode        = true
+
+; Authentication tokens, defined in environment
+//registry.npmjs.org/:_authToken=${NPM_TOKEN}
