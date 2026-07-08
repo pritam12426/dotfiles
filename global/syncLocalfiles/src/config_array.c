@@ -1,4 +1,5 @@
 #include "config_array.h"
+
 #include <stdbool.h>
 #include <stddef.h>
 

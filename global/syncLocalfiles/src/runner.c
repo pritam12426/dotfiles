@@ -121,6 +121,7 @@ int run_rclone_IPC(const Config_entity *entity, bool dry_run, const char *bwlimi
 
 	if (pid == 0) {
 		/* Child: replace image with rclone */
+		putc('\n', stderr);
 		execvp("rclone", (char *const *)argv);
 		/* execvp returns only on error */
 		perror("execvp(rclone)");

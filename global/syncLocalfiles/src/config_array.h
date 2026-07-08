@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
 #include "config.h"
 
 /* Upper bound for all config-related arrays.

@@ -1,3 +1,17 @@
+/*
+ * log.h — Thread-safe logger interface
+ *
+ * Logging macros:
+ *   LOG_ERROR(...)  — critical errors
+ *   LOG_WARN(...)   — warnings (recoverable)
+ *   LOG_INFO(...)   — informational messages
+ *   LOG_DEBUG(...)  — debug details (compile-time no-op when !DEBUG)
+ *
+ * Build-time flags (set in Makefile):
+ *   LOG_SHOW_TIME_STAMP        — prepend [HH:MM:SS.ffffff]
+ *   LOG_SHOW_SOURCE_LOCATION   — append [file:line:func]
+ */
+
 #ifndef _LOG_H_
 #define _LOG_H_
 
@@ -9,6 +23,7 @@ extern "C" {
 #endif  // __cplusplus
 
 
+// Log severity levels (lower number = higher priority)
 typedef enum {
 	LOG_LEVEL_ERROR  = 0,
 	LOG_LEVEL_WARN   = 1,
@@ -62,26 +77,29 @@ void log_record(
 #ifdef LOG_SHOW_SOURCE_LOCATION
 
 
+// Log with custom newline behaviour (0 = no newline, 1 = with newline)
+// Used internally; prefer LOG_ERROR / LOG_WARN / etc.
 #define LOG_CUSTOM(LOG_LEVEL, NEW_LINE, ...) \
-	log_record(LOG_LEVEL, __FILE__, __LINE__, __func__, NEW_LINE, __VA_ARGS__)
+	log_record(LOG_LEVEL, __FILE__, __LINE__, __FUNCTION__, NEW_LINE, __VA_ARGS__)
 
+// Log an error and append strerror(errno) (via perror)
 #define LOG_PERROR(...) \
 	do { \
-		log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, 0, __VA_ARGS__); \
+		log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __FUNCTION__, 0, __VA_ARGS__); \
 		perror(" "); \
 	} while (0)
 
 #define LOG_ERROR(...) \
-	log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
 
 #define LOG_WARN(...) \
-	log_record(LOG_LEVEL_WARN, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_WARN, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
 
 #define LOG_INFO(...) \
-	log_record(LOG_LEVEL_INFO, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_INFO, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
 
 #define LOG_DEBUG(...) \
-	log_record(LOG_LEVEL_DEBUG, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_DEBUG, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
 
 
 #else

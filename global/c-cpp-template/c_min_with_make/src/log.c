@@ -1,7 +1,20 @@
+/*
+ * log.c — Thread-safe logging implementation
+ *
+ * Supports:
+ *   - Four log levels: ERROR, WARN, INFO, DEBUG
+ *   - Optional timestamps with microsecond precision (LOG_SHOW_TIME_STAMP)
+ *   - Optional source-file location (LOG_SHOW_SOURCE_LOCATION)
+ *   - ANSI colour output when writing to a TTY
+ *   - File output via log_init(path)
+ *   - Full thread safety via pthread_rwlock
+ */
+
 #include "log.h"
 
 #include <pthread.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <unistd.h>  // isatty(), fileno()
 
 #ifdef LOG_SHOW_TIME_STAMP
@@ -9,6 +22,7 @@
 #endif
 
 
+// ANSI colour codes
 #define COLOR_RESET        "\x1b[0m"
 #define COLOR_BOLD_RED     "\x1b[1;31m"
 #define COLOR_BOLD_GREEN   "\x1b[1;32m"
@@ -35,6 +49,7 @@ static bool             g_use_color  = false;
 
 // ── Internal helpers (called with read-lock already held) ─────────────────────
 
+// Print the log-level label without colour
 static void default_log_handler(FILE *out, Log_level_t level)
 {
 	switch (level) {
@@ -46,7 +61,7 @@ static void default_log_handler(FILE *out, Log_level_t level)
 	}
 }
 
-
+// Print the log-level label with ANSI colour
 static void color_log_handler(FILE *out, Log_level_t level)
 {
 	switch (level) {
@@ -71,6 +86,7 @@ static void color_log_handler(FILE *out, Log_level_t level)
 
 #ifdef LOG_SHOW_TIME_STAMP
 
+// Print a microsecond-precision timestamp at the start of each log line
 static void log_time_stamp_handler(FILE *out, bool use_color)
 {
 	struct timespec ts;
@@ -82,7 +98,7 @@ static void log_time_stamp_handler(FILE *out, bool use_color)
 	char timestamp[20];
 	strftime(timestamp, sizeof(timestamp), "%H:%M:%S", &tm_now);
 
-	int us = (int) (ts.tv_nsec / 1000);  // ns → microseconds
+	int us = (int) (ts.tv_nsec / 1000);  // convert ns → microseconds
 
 	if (use_color)
 		fprintf(out, COLOR_DIM);
@@ -96,6 +112,10 @@ static void log_time_stamp_handler(FILE *out, bool use_color)
 
 // ── Public API ────────────────────────────────────────────────────────────────
 
+// Initialise the logger.
+//   file_path: path to log file (NULL = stderr).
+//              Colour is auto-disabled for file output.
+// Thread-safe; can be called multiple times (e.g. for log rotation).
 void log_init(const char *file_path)
 {
 	// Resolve the new stream and color flag BEFORE taking the lock,
@@ -109,7 +129,7 @@ void log_init(const char *file_path)
 	} else {
 		new_stream = fopen(file_path, "a");
 		if (new_stream == NULL) {
-			// Fall back to stderr and warn — no lock needed yet.
+			// Fall back to stderr and warn — no lock needed yet
 			fprintf(stderr,
 			        "[LOG] warning: could not open log file '%s', "
 			        "falling back to stderr\n",
@@ -117,14 +137,14 @@ void log_init(const char *file_path)
 			new_stream = stderr;
 			new_color  = isatty(fileno(stderr)) ? true : false;
 		} else {
-			// Log files are never TTYs — no color codes in files.
+			// Log files are never TTYs — no colour codes in files
 			new_color = false;
 		}
 	}
 
 	pthread_rwlock_wrlock(&g_rwlock);
 	{
-		// Close any previously opened log file (but never close stderr).
+		// Close any previously opened log file (but never close stderr)
 		if (g_log_stream != NULL && g_log_stream != stderr)
 			fclose(g_log_stream);
 
@@ -135,6 +155,7 @@ void log_init(const char *file_path)
 }
 
 
+// Set the minimum log level; messages below this are suppressed
 void log_set_level(Log_level_t level)
 {
 	pthread_rwlock_wrlock(&g_rwlock);
@@ -143,6 +164,7 @@ void log_set_level(Log_level_t level)
 }
 
 
+// Get the current minimum log level
 Log_level_t log_get_level(void)
 {
 	pthread_rwlock_rdlock(&g_rwlock);
@@ -152,6 +174,7 @@ Log_level_t log_get_level(void)
 }
 
 
+// Check whether ANSI colour is enabled
 bool log_use_color(void)
 {
 	pthread_rwlock_rdlock(&g_rwlock);
@@ -161,6 +184,7 @@ bool log_use_color(void)
 }
 
 
+// Get the current log output stream (stderr if not initialised)
 FILE *log_get_file(void)
 {
 	pthread_rwlock_rdlock(&g_rwlock);
@@ -170,6 +194,8 @@ FILE *log_get_file(void)
 }
 
 
+// Core logging function: formats and writes a log message.
+// Called by the LOG_* macros.  Thread-safe via reader-writer lock.
 void log_record(Log_level_t level,
                 const char *file __attribute__((unused)),
                 int         line __attribute__((unused)),
@@ -182,12 +208,14 @@ void log_record(Log_level_t level,
 
 	if (g_log_stream == NULL) {
 		fprintf(stderr, COLOR_BOLD_RED "[LOG] error: call log_init() before logging" COLOR_RESET);
-		if (new_line) fputc('\n', g_log_stream);
+		if (new_line) fputc('\n', stderr);
 		return;
 	}
 
+	// Take a read-lock so multiple threads can log concurrently
 	pthread_rwlock_rdlock(&g_rwlock);
 	{
+		// Suppress messages below the configured level
 		if (level > g_log_level) {
 			pthread_rwlock_unlock(&g_rwlock);
 			return;
@@ -195,7 +223,7 @@ void log_record(Log_level_t level,
 
 #ifdef LOG_SHOW_TIME_STAMP
 		log_time_stamp_handler(g_log_stream, g_use_color);
-#endif  // LOG_SHOW_TIME_STAMP
+#endif
 
 		if (g_use_color)
 			color_log_handler(g_log_stream, level);

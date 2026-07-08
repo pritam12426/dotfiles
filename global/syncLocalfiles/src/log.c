@@ -2,8 +2,7 @@
 
 #include <stdarg.h>
 #include <stdio.h>
-#include <unistd.h> /* isatty(), fileno() */
-
+#include <unistd.h>
 
 #define COLOR_RESET        "\x1b[0m"
 #define COLOR_BOLD_RED     "\x1b[1;31m"
@@ -14,92 +13,69 @@
 #define COLOR_BOLD_CYAN    "\x1b[1;36m"
 #define COLOR_DIM          "\x1b[2m"
 
+/* ------------------------------------------------------------------ */
+/* State                                                               */
+/* ------------------------------------------------------------------ */
 
-static Log_level_t g_log_level = LOG_LEVEL_INFO;
+static Log_level_t G_log_level = LOG_LEVEL_INFO;
+int                G_use_color = 0;
 
+void log_set_level(Log_level_t level) { G_log_level = level; }
+Log_level_t log_get_level(void)       { return G_log_level;  }
 
-static void default_log_handler(Log_level_t level)
-{
-	switch (level) {
-	case LOG_LEVEL_INFO:
-		fprintf(stderr, "[INFO ] ");
-		break;
-	case LOG_LEVEL_WARN:
-		fprintf(stderr, "[WARN ] ");
-		break;
-	case LOG_LEVEL_ERROR:
-		fprintf(stderr, "[ERROR] ");
-		break;
-	case LOG_LEVEL_DEBUG:
-		fprintf(stderr, "[DEBUG] ");
-		break;
-	}
-}
+/* ------------------------------------------------------------------ */
+/* Level metadata                                                      */
+/* ------------------------------------------------------------------ */
 
-static void use_color_log_handler(Log_level_t level)
-{
-	switch (level) {
-	case LOG_LEVEL_ERROR:
-		fprintf(stderr, "🚨 [" COLOR_BOLD_RED "ERROR" COLOR_RESET "] ");
-		break;
-	case LOG_LEVEL_WARN:
-		fprintf(stderr, "⚠️  [" COLOR_BOLD_YELLOW "WARN " COLOR_RESET "] ");
-		break;
-	case LOG_LEVEL_INFO:
-		fprintf(stderr, "ℹ️  [" COLOR_BOLD_GREEN "INFO " COLOR_RESET "] ");
-		break;
-	case LOG_LEVEL_DEBUG:
-		fprintf(stderr, "🛠️  [" COLOR_BOLD_CYAN "DEBUG" COLOR_RESET "] ");
-		break;
-	default:
-		fprintf(stderr, "[UNKWN] ");
-		break;
-	}
-}
+typedef struct {
+	const char *label;
+	const char *color;
+} Level_meta_t;
 
+static const Level_meta_t G_level_meta[] = {
+	[LOG_LEVEL_ERROR] = { .label = "ERROR", .color = COLOR_BOLD_RED    },
+	[LOG_LEVEL_WARN]  = { .label = "WARN ", .color = COLOR_BOLD_YELLOW },
+	[LOG_LEVEL_INFO]  = { .label = "INFO ", .color = COLOR_BOLD_GREEN  },
+	[LOG_LEVEL_DEBUG] = { .label = "DEBUG", .color = COLOR_BOLD_CYAN   },
+};
+
+/* ------------------------------------------------------------------ */
+/* log_record                                                          */
+/* ------------------------------------------------------------------ */
 
 void log_record(Log_level_t level,
-                 const char *file,
-                 int         line,
-                 const char *func,
-                 const char *fmt,
-                 ...)
+                const char *file __attribute__((unused)),
+                int         line __attribute__((unused)),
+                const char *func __attribute__((unused)),
+                int         new_line,
+                const char *fmt,
+                ...)
 {
-	int use_color = 0;
-	if (level > g_log_level) return;
+	if (level > G_log_level) return;
 
-	if (isatty(fileno(stderr))) {
-		use_color = 1;
-		use_color_log_handler(level);
-	}
-	else default_log_handler(level);
+	if (isatty(fileno(stderr))) G_use_color = 1;
 
-	if (file) {
-		fprintf(stderr,
-			"%s[%s:%d:%s]%s ",
-			use_color ? COLOR_DIM : "",
-			file,
-			line,
-			func,
-			use_color ? COLOR_RESET : "");
+	const Level_meta_t *m = &G_level_meta[level];
+
+	if (G_use_color == 1) {
+		fprintf(stderr, "[%s%s" COLOR_RESET "] ", m->color, m->label);
+	} else {
+		fprintf(stderr, "[%s] ", m->label);
 	}
 
-	va_list args;
-	va_start(args, fmt);
-	vfprintf(stderr, fmt, args);
-	va_end(args);
+#ifdef LOG_SHOW_SOURCE_LOCATION
+	if (G_use_color == 1) {
+		fprintf(stderr, COLOR_DIM "[%s:%d:%s]" COLOR_RESET " ", file, line, func);
+	} else {
+		fprintf(stderr, "[%s:%d:%s] ", file, line, func);
+	}
+#endif  // LOG_SHOW_SOURCE_LOCATION
 
-	fputc('\n', stderr);
-}
+	va_list ap;
+	va_start(ap, fmt);
+	vfprintf(stderr, fmt, ap);
+	va_end(ap);
 
-
-void log_set_level(Log_level_t level)
-{
-	g_log_level = level;
-}
-
-
-Log_level_t log_get_level(void)
-{
-	return g_log_level;
+	if (new_line) fputc('\n', stderr);
+	fflush(stderr);
 }

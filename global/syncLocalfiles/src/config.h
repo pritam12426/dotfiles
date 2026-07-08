@@ -2,7 +2,6 @@
 #define _CONFIG_STRUCT_H_
 
 #include <stdbool.h>
-#include <stddef.h>
 
 typedef enum {
 	ENTITY_TYPE_UNKNOWN      = 0,
@@ -39,5 +38,6 @@ void validate_config(void);
  */
 void print_config(void);
 void print_config_detailed(void);
+
 
 #endif  // _CONFIG_STRUCT_H_

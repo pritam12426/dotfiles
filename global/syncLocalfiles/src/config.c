@@ -100,7 +100,7 @@ void validate_config(void)
 		G_all_valid_configs_target[G_all_valid_len] = e->target_name;
 		G_all_valid_len++;
 
-		LOG_INFO("Config '%s' validated OK (remote: %s)",
+		LOG_DEBUG("Config '%s' validated OK (remote: %s)",
 		         e->target_name, e->remote_location);
 	}
 

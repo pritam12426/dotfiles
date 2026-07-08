@@ -201,7 +201,7 @@
 """
 
 # Download best audio (converted to m4a) into Music folder.
---alias ysong "-f 'best/bestaudio*' -o '~/Music/local/%(title)s.%(ext)s' --audio-format m4a"
+--alias ysong "-f 'best/bestaudio*' -P ~/Music/local/ -o '%(title)s.%(ext)s' --audio-format m4a"
 
 # Download best audio (no conversion).
 --alias savan "-f 'best/bestaudio*' -P ~/Music/local/ -o '%(title)s.%(ext)s'"

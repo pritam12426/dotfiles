@@ -12,25 +12,26 @@
 #include "runner.h"
 
 const char *argp_program_version     = PUSH_FILE " " PUSH_FILE_VERSION;
-const char *argp_program_bug_address = PUSH_FILE_HOMEPAGE_URL;
+const char *argp_program_bug_address = PUSH_FILE_HOMEPAGE_URL "\n" AUTH_MESSAGE;
+
 
 static char doc[]      = PUSH_FILE_SHORT_DESCRIPTION " - " PUSH_FILE_DESCRIPTION;
 static char args_doc[] = "[TARGET(s)...]";
 
 static struct argp_option options[] = {
-    { "log-level",   'L', "LEVEL",   0, "Set log level (error|warn|info|debug), default: info" },
-    { "index",       'I', "INDEX",   0, "Sync only the item at INDEX" },
-    { "bwlimit",     'B', "LIMIT",   0, "Limit bandwidth (rclone --bwlimit value)" },
+	{ "log-level",   'L', "LEVEL",   0, "Set log level (error|warn|info|debug), default: info" },
+	{ "index",       'I', "INDEX",   0, "Sync only the item at INDEX"                          },
+	{ "bwlimit",     'B', "LIMIT",   0, "Limit bandwidth (rclone --bwlimit value)"             },
 
-    { "list",        'l', 0,         0, "List valid sync targets" },
-    { "detailed",    'd', 0,         0, "List valid sync targets in detail" },
+	{ "list",        'l', 0,         0, "List valid sync targets"                              },
+	{ "detailed",    'd', 0,         0, "List valid sync targets in detail"                    },
 
-    { "dry-run",     'n', 0,         0, "Show what would be synced without making changes" },
-    { "only-dir",    'D', 0,         0, "Sync directories only" },
-    { "only-file",   'F', 0,         0, "Sync files only" },
-    { "interactive", 'i', 0,         0, "Prompt before each sync" },
+	{ "dry-run",     'n', 0,         0, "Show what would be synced without making changes"     },
+	{ "only-dir",    'D', 0,         0, "Sync directories only"                                },
+	{ "only-file",   'F', 0,         0, "Sync files only"                                      },
+	{ "interactive", 'i', 0,         0, "Prompt before each sync"                              },
 
-    { 0 }
+	{ 0 }
 };
 
 typedef struct {
@@ -42,7 +43,7 @@ typedef struct {
 	bool   interactive;
 
 	char  *bwlimit;
-	size_t index;          /* 0 means "all" */
+	size_t index;          // 0 means "all"
 	bool   index_set;
 
 	Log_level_t log_level;
@@ -82,33 +83,13 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 		arguments->index_set = true;
 		break;
 
-	case 'B':
-		arguments->bwlimit = arg;
-		break;
-
-	case 'l':
-		arguments->list = true;
-		break;
-
-	case 'd':
-		arguments->detailed = true;
-		break;
-
-	case 'n':
-		arguments->dry_run = true;
-		break;
-
-	case 'D':
-		arguments->only_dir = true;
-		break;
-
-	case 'F':
-		arguments->only_file = true;
-		break;
-
-	case 'i':
-		arguments->interactive = true;
-		break;
+	case 'B': arguments->bwlimit     = arg; break;
+	case 'l': arguments->list        = true; break;
+	case 'd': arguments->detailed    = true; break;
+	case 'n': arguments->dry_run     = true; break;
+	case 'D': arguments->only_dir    = true; break;
+	case 'F': arguments->only_file   = true; break;
+	case 'i': arguments->interactive = true; break;
 
 	default:
 		return ARGP_ERR_UNKNOWN;
@@ -154,9 +135,19 @@ static bool entity_passes_filter(const Config_entity *e, const Arguments *a)
 int main(int argc, char *argv[])
 {
 	/* Parse CLI arguments first so log level is set before any logging. */
-	argp_parse(&argp, argc, argv, 0, 0, &G_Arguments);
+	if (argp_parse(&argp, argc, argv, 0, 0, &G_Arguments) != 0)
+		return 1;
 
-	LOG_INFO("Starting " PUSH_FILE " " PUSH_FILE_VERSION);
+	if (log_get_level() == LOG_LEVEL_DEBUG) {
+		LOG_CUSTOM(LOG_LEVEL_DEBUG, false, "Command-line args: [");
+		for (int i = 0; i < argc; i++) {
+			fprintf(stderr, "\"%s\"", argv[i]);
+			if (i != argc - 1) fputs(", ", stderr);
+		}
+		fputs("]\n", stderr);
+	}
+
+	LOG_DEBUG("Starting " PUSH_FILE " " PUSH_FILE_VERSION);
 
 	/* Validate the static config array; fills G_all_valid_configs[]. */
 	validate_config();
