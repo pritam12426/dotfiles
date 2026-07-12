@@ -1,24 +1,6 @@
 {
 	// general
 	"cli_default_open_behavior": "new_window",
-	"ssh_connections": [
-		{
-			"host": "utm-debian",
-			"args": [],
-			"projects": [
-				{
-					"paths": [
-						"/home/pritam/.config/zsh"
-					]
-				},
-				{
-					"paths": [
-						"/home/pritam/Developer/cxx_lang/pratice"
-					]
-				}
-			]
-		}
-	],
 
 	"diagnostics": {
 		"inline": {
@@ -27,7 +9,6 @@
 		"button": true,
 		"include_warnings": true
 	},
-
 
 	"use_system_window_tabs": true,
 	"show_signature_help_after_edits": true,
@@ -55,7 +36,6 @@
 		"space": "·"
 	},
 
-
 	// editor behaviour
 	"auto_indent_on_paste": false,
 	"autoscroll_on_clicks": true,
@@ -71,18 +51,55 @@
 
 	// https://zed.dev/docs/ai/mcp
 	// ai / agents
-	"agent_servers": {
-		"opencode": {
-			"default_config_options": {
-				"model": "opencode/big-pickle",
-				"default_mode": "ask"
-			},
-			"type": "registry"
-		},
-		"gemini": {
-			"type": "registry"
+	// "agent_servers": {
+	// 	"opencode": {
+	// 		"default_config_options": {
+	// 			"model": "opencode/nemotron-3-ultra-free",
+	// 			"default_mode": "ask"
+	// 		},
+	// 		"type": "registry"
+	// 	}
+	// },
+
+	"agent": {
+		"profiles": {
+			"container-use": {
+				"name": "Container Use",
+				"tools": {
+					"fetch": true,
+					"copy_path": false,
+					"find_path": true,
+					"delete_path": false,
+					"create_directory": true,
+					"list_directory": true,
+					"diagnostics": false,
+					"read_file": true,
+					"move_path": false,
+					"grep": false,
+					"edit_file": false,
+					"terminal": false
+				},
+				"enable_all_context_servers": false,
+				"context_servers": {
+					"container-use": {
+						"tools": {
+							"environment_create": true,
+							"environment_add_service": true,
+							"environment_update": true,
+							"environment_run_cmd": true,
+							"environment_open": true,
+							"environment_file_write": true,
+							"environment_file_read": true,
+							"environment_file_list": true,
+							"environment_file_delete": true,
+							"environment_checkpoint": true
+						}
+					}
+				}
+			}
 		}
 	},
+
 
 	"restore_on_startup": "empty_tab",
 
@@ -314,8 +331,8 @@
 	"node": {
 		// do not download the new node version just the system system one
 
-		"path": "/Users/pritam/.local/dev-tools/node-v24.15.0/bin/node",
-		"npm_path": "/Users/pritam/.local/dev-tools/node-v24.15.0/bin/npm",
+		"path": "/Users/pritam/.local/dev-tools/node-v24.18.0/bin/node",
+		"npm_path": "/Users/pritam/.local/dev-tools/node-v24.18.0/bin/npm",
 		// "path": "/opt/homebrew/bin/bun",
 		// "npm_path": "/opt/homebrew/bin/bun",
 		"ignore_system_version": false
@@ -481,9 +498,8 @@
 		"C++": {
 			"formatter": {
 				"external": {
-					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
+					"command": "clang_format_cpp_c_wrap",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/common_template/clang-format.yml",
 						"--assume-filename={buffer_path}"
 					]
 				}
@@ -494,9 +510,8 @@
 			"show_wrap_guides": true,
 			"formatter": {
 				"external": {
-					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
+					"command": "clang_format_cpp_c_wrap",
 					"arguments": [
-						"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/common_template/clang-format.yml",
 						"--assume-filename={buffer_path}"
 					]
 				}

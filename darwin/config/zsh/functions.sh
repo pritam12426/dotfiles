@@ -51,13 +51,26 @@ function headless() {
 alias MPV='headless ${__MPV_CMD[@]}'
 
 function awake4() {
-	local pid
-	pid=$(pgrep -n "$1") || {
-		echo "Process '$1' not found"
-		return 1
-	}
-	echo "[Caffeinate]: waiting for '$1' to (terminate / finish) :: pid=[$pid]"
-	caffeinate -iw "$pid"
+  local pid
+  local command_name
+
+  # 1. Try to find the PID by name, or fall back to fzf selection
+  pid=$(pgrep -n "$1" 2>/dev/null) || {
+    pid=$(ps -U $USER -o pid,comm | fzf | awk '{print $1}')
+  }
+
+  # 2. Exit early if user hits ESC or cancels fzf
+  if [ -z "$pid" ]; then
+    echo "No process selected."
+    return 1
+  fi
+
+  # 3. Fetch the command name cleanly using the lowercase variable
+  command_name=$(ps -p "$pid" -o comm=)
+
+  # 4. Run caffeinate and keep the Mac awake
+  echo "[Caffeinate -i]: waiting for '$command_name' to (terminate / finish) :: pid=[$pid]"
+  caffeinate -iw "$pid"
 }
 
 # ------------ Utility Functions ------------

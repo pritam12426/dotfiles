@@ -280,7 +280,7 @@
 --plugin-dirs /Users/pritam/.config/yt-dlp/plugins
 
 # Use Node.js for sites that require runtime JS execution.
---js-runtimes bun
+--js-runtimes deno
 
 # Optional: Use custom ffmpeg binary (left disabled).
 # --ffmpeg-location /path/to/ffmpeg

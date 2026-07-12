@@ -1,74 +1,160 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ "$#" -lt 2 ]; then
-	echo "Usage: clanginit <c|c-min|cxx|wx|c++|ard|typ|wx> <project-name>"
+set -euo pipefail
+
+# ---------------------------------------------------------------------------
+# clanginit — scaffold a new project from templates under $DOT_FILE/../global
+# Portable: avoids bash 4+ associative arrays (macOS ships bash 3.2).
+# ---------------------------------------------------------------------------
+
+usage() {
+	echo "Usage: clanginit [--dry-run] <c|c-min|cxx|c++|wx|ard|typ> <project-name>"
 	exit 1
-fi
+}
 
-[ -z "$DOT_FILE" ] && {
+dry_run=false
+args=()
+for a in "$@"; do
+	case "$a" in
+		--dry-run|-n) dry_run=true ;;
+		*)            args+=("$a") ;;
+	esac
+done
+set -- "${args[@]}"
+
+[ "$#" -lt 2 ] && usage
+
+[ -z "${DOT_FILE:-}" ] && {
 	echo "DOT_FILE not set"
 	exit 1
 }
 
-lower_input=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+TEMPLATE_DIR="$DOT_FILE/../global"
+[ -d "$TEMPLATE_DIR" ] || {
+	echo "TEMPLATE_DIR not found: $TEMPLATE_DIR"
+	exit 1
+}
+
+TYPE_INPUT="$1"
+# sanitize project name: strip any path components, keep just the leaf name
+PROJECT="$(basename -- "$2")"
+
+lower_input=$(echo "$TYPE_INPUT" | tr '[:upper:]' '[:lower:]')
+
+# ---------------------------------------------------------------------------
+# copy_if_missing SRC_REL DEST
+#   SRC_REL is relative to $TEMPLATE_DIR
+#   DEST is the destination path (file or directory)
+#   Skips silently if DEST already exists. Respects $dry_run.
+# ---------------------------------------------------------------------------
+copy_if_missing() {
+	local src="$TEMPLATE_DIR/$1"
+	local dest="$2"
+
+	if [ ! -e "$src" ]; then
+		echo "⚠️  Missing template: $src"
+		return 0
+	fi
+	if [ -e "$dest" ]; then
+		echo "⏭️  Skipped (exists): $dest"
+		return 0
+	fi
+
+	if $dry_run; then
+		echo "  [dry-run] cp -rp $src → $dest"
+	else
+		mkdir -p "$(dirname -- "$dest")"
+		cp -rp "$src" "$dest"
+		echo "➡️  Copied $dest"
+	fi
+}
+
+# ---------------------------------------------------------------------------
+# 1. Base template for the chosen project type (case-based lookup —
+#    portable replacement for an associative array)
+# ---------------------------------------------------------------------------
+base_template_for() {
+	case "$1" in
+		c)          echo "c-cpp-template/c" ;;
+		c-min)      echo "c-cpp-template/c_min_with_make" ;;
+		cxx | c++)  echo "c-cpp-template/c++" ;;
+		wx)         echo "c-cpp-template/wx-form-template" ;;
+		ard)        echo "embedded/arduino-cli-uno" ;;
+		typ)        echo "typst" ;;
+		*)          return 1 ;;
+	esac
+}
+
+BASE_REL="$(base_template_for "$lower_input")" || {
+	echo "Unsupported type '$TYPE_INPUT'. Supported: c c-min cxx c++ wx ard typ"
+	exit 1
+}
+
+if [ -e "$PROJECT" ]; then
+	echo "❌ '$PROJECT' already exists — refusing to overwrite the project root."
+	exit 1
+fi
+
+copy_if_missing "$BASE_REL" "$PROJECT"
 
 case "$lower_input" in
-	c)
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/c" "$2"
-		;;
-	c-min)
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/c_min_with_make" "$2"
-		;;
-	c++ | cxx)
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/c++" "$2"
-		;;
-	wx)
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/wx-form-template" "$2"
-		;;
 	ard)
-		cp -rvp "$DOT_FILE/../global/embedded/arduino-cli-uno/" "$2" &&
-			mv "$2/arduino-cli-uno.ino" "$2/$2.ino"
+		$dry_run || mv "$PROJECT/arduino-cli-uno.ino" "$PROJECT/$PROJECT.ino"
 		;;
 	typ)
-		cp -rvp "$DOT_FILE/../global/typst/" "$2" &&
-			mkdir -pv "$2/assets"
-		;;
-	*)
-		echo "Unsupported: <c cxx c++ ard typ wx>: $1"
-		exit 1
+		$dry_run || mkdir -pv "$PROJECT/assets"
 		;;
 esac
 
-
+# ---------------------------------------------------------------------------
+# 2. C/C++-family extras (build config, editor config, clangd, etc.)
+#    Plain indexed array of "src|dest" pairs — portable across bash versions.
+# ---------------------------------------------------------------------------
 case "$lower_input" in
 	c | cxx | c++ | wx)
-		echo ""
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/src/CmakeConfig.h.in"  "$2/src/CmakeConfig.h.in"
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/zed/"                  "$2/.zed"
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/CMakePresets.json"     "$2/CMakePresets.json"
-		cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/clangd.yml"            "$2/.clangd"
+		cpp_extras=(
+			"c-cpp-template/common_template/src/CmakeConfig.h.in | $PROJECT/src/CmakeConfig.h.in"
+			"c-cpp-template/common_template/zed | $PROJECT/.zed"
+			"c-cpp-template/common_template/CMakePresets.json | $PROJECT/CMakePresets.json"
+			"c-cpp-template/common_template/clangd.yml | $PROJECT/.clangd"
+		)
+		for pair in "${cpp_extras[@]}"; do
+			copy_if_missing "${pair%%|*}" "${pair##*|}"
+		done
 		;;
 esac
 
-# All common files
+# ---------------------------------------------------------------------------
+# 3. Common files, for every project type
+# ---------------------------------------------------------------------------
 printf "\nCommon project boiler code files:\n"
-cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/TODO.txt"        "$2/TODO.txt"
-cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/REFERENCES.md"   "$2/REFERENCES.md"
-cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/README.md"       "$2/README.md"
-cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/clang-tidy.yml"  "$2/.clang-tidy"
-cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/gitattributes"   "$2/.gitattributes"
-cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/gitignore"       "$2/.gitignore"
+common_files=(
+	"c-cpp-template/common_template/TODO.txt | $PROJECT/TODO.txt"
+	"c-cpp-template/common_template/REFERENCES.md | $PROJECT/REFERENCES.md"
+	"c-cpp-template/common_template/clang-tidy.yml | $PROJECT/.clang-tidy"
+	"c-cpp-template/common_template/gitattributes | $PROJECT/.gitattributes"
+	"c-cpp-template/common_template/gitignore | $PROJECT/.gitignore"
+	"c-cpp-template/common_template/README.md | $PROJECT/README.md"
+)
+for pair in "${common_files[@]}"; do
+	copy_if_missing "${pair%%|*}" "${pair##*|}"
+done
 
-
+# ---------------------------------------------------------------------------
+# 4. Optional doxygen setup
+# ---------------------------------------------------------------------------
 case "$lower_input" in
 	c | cxx | c++ | wx)
-		printf "Do you want to have doxygen in this project '%s' ?  (y/n): " "$2"
+		printf "Do you want to have doxygen in this project '%s' ?  (y/n): " "$PROJECT"
 		read -r REPLY
 		case "$REPLY" in
 			[Yy]*)
-				cp -rvp "$DOT_FILE/../global/c-cpp-template/common_template/doc" "$2/doc/" &&
-					[ -f "$2/CMakeLists.txt" ] && cat "$2/doc/patch.txt" >> "$2/CMakeLists.txt" &&
-						rm -f "$2/doc/patch.txt"
+				copy_if_missing "c-cpp-template/common_template/doc" "$PROJECT/doc"
+				if ! $dry_run && [ -f "$PROJECT/CMakeLists.txt" ] && [ -f "$PROJECT/doc/patch.txt" ]; then
+					cat "$PROJECT/doc/patch.txt" >> "$PROJECT/CMakeLists.txt"
+					rm -f "$PROJECT/doc/patch.txt"
+				fi
 				;;
 		esac
+		;;
 esac

@@ -15,6 +15,7 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
+
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -30,7 +31,6 @@ typedef enum {
 	LOG_LEVEL_INFO   = 2,
 	LOG_LEVEL_DEBUG  = 3
 } Log_level_t;
-
 
 // Logger initialisation.
 // May be called at any time from any thread; it is fully thread-safe.
@@ -56,7 +56,6 @@ FILE *log_get_file(void);
 // and disabled when writing to a file.
 bool log_use_color(void);
 
-
 // Internal implementation — do not call directly.
 void log_record(
 	Log_level_t level,
@@ -80,26 +79,26 @@ void log_record(
 // Log with custom newline behaviour (0 = no newline, 1 = with newline)
 // Used internally; prefer LOG_ERROR / LOG_WARN / etc.
 #define LOG_CUSTOM(LOG_LEVEL, NEW_LINE, ...) \
-	log_record(LOG_LEVEL, __FILE__, __LINE__, __FUNCTION__, NEW_LINE, __VA_ARGS__)
+	log_record(LOG_LEVEL, __FILE__, __LINE__, __func__, NEW_LINE, __VA_ARGS__)
 
 // Log an error and append strerror(errno) (via perror)
 #define LOG_PERROR(...) \
 	do { \
-		log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __FUNCTION__, 0, __VA_ARGS__); \
+		log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, 0, __VA_ARGS__); \
 		perror(" "); \
 	} while (0)
 
 #define LOG_ERROR(...) \
-	log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
 
 #define LOG_WARN(...) \
-	log_record(LOG_LEVEL_WARN, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_WARN, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
 
 #define LOG_INFO(...) \
-	log_record(LOG_LEVEL_INFO, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_INFO, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
 
 #define LOG_DEBUG(...) \
-	log_record(LOG_LEVEL_DEBUG, __FILE__, __LINE__, __FUNCTION__, 1, __VA_ARGS__)
+	log_record(LOG_LEVEL_DEBUG, __FILE__, __LINE__, __func__, 1, __VA_ARGS__)
 
 
 #else

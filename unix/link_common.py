@@ -228,8 +228,6 @@ def do_link(
 	if item.name == ".gitignore":
 		exists = link.is_symlink() or link.exists()
 		if exists and not force:
-			skip_line(f"{link} already exists (use -f to overwrite)")
-			summary.skipped += 1
 			return
 		link.parent.mkdir(parents=True, exist_ok=True)
 		if exists and force:

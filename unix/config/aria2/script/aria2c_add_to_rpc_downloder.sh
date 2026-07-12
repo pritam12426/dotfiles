@@ -7,7 +7,6 @@
 # script name: aria2c_add_download.sh
 # ===============================================================================
 
-
 curl -X POST http://localhost:6800/jsonrpc \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -19,3 +18,12 @@ curl -X POST http://localhost:6800/jsonrpc \
       ["https://releases.ubuntu.com/24.04/ubuntu-24.04-desktop-amd64.iso"]
     ]
   }'
+
+curl -s http://localhost:6800/jsonrpc \
+	-H 'Content-Type: application/json' \
+	-d '{
+  "jsonrpc": "2.0",
+  "id": "1",
+  "method": "aria2.tellStatus",
+  "params": ["GID_HERE", ["status","completedLength","totalLength","downloadSpeed"]]
+}'

@@ -184,8 +184,8 @@ nnn_plug+=('H:-!|hexdump -C --  "$nnn" ')
 nnn_plug+=('O:-!openr -l --  "$nnn" *')
 #nnn_plug+=('m:-!mpv --no-config --profile=fast --loop-file=inf --mute --geometry=1280+50%+50% -- "$nnn" *')
 nnn_plug+=('m:-!mpv --no-config --profile=fast --force-window=immediate --loop-file=inf --mute --autofit=1280 -- "$nnn" * *')
-nnn_plug+=('F:-!&ffplay -loop -1 -sn -loglevel level+warning -seek_interval 5 -- "$nnn" ')
-nnn_plug+=('f:-!ffplay -loop -1 -sn -loglevel warning -stats -seek_interval 5 -- "$nnn" *')
+nnn_plug+=('F:-!&ffplay -alwaysontop -loop -1 -sn -loglevel level+warning -seek_interval 5 -- "$nnn" ')
+nnn_plug+=('f:-!ffplay  -alwaysontop -loop -1 -sn -loglevel warning -stats -seek_interval 5 -- "$nnn" *')
 
 
 export NNN_COLORS='5236'                                # Set NNN color scheme

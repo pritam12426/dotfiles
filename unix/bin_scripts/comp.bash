@@ -438,6 +438,11 @@ case "$FULL_PATH" in
 	MAIN_COMMAND=(typst compile "$FULL_PATH")
 	POST_COMMAND=(qlmanage -p -- "$FILE_DIR/$FILE_WITHOUT_EXTENSION.pdf")
 	;;
+*.dot)
+	IS_COMPILE=0
+	MAIN_COMMAND=(dot -Tsvg "$FULL_PATH" -o "$FILE_DIR/$FILE_WITHOUT_EXTENSION.svg")
+	POST_COMMAND=(qlmanage -p -- "$FILE_DIR/$FILE_WITHOUT_EXTENSION.svg")
+	;;
 *.rb)
 	if [[ -f Gemfile ]]; then
 		MAIN_COMMAND=(bundle exec ruby "$FULL_PATH")
@@ -450,7 +455,7 @@ case "$FULL_PATH" in
 	;;
 *.sql)
 	db="$FILE_DIR/$FILE_WITHOUT_EXTENSION.sqlite3"
-	MAIN_COMMAND=(sqlite3 -header -table -bail -nullvalue "-null-" "$db")
+	MAIN_COMMAND=(eval "sqlite3 -header -table -bail -nullvalue '-null-' '$db' < '$FULL_PATH'")
 	;;
 *)
 	echo "Unsupported file type: .${FULL_PATH##*.}" >&2

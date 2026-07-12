@@ -71,7 +71,7 @@ alias diff='diff --color=auto'
 alias rsync='rsync -vrPlu'
 alias rclone='rclone -vP'
 alias which='which -a'
-alias rg='grep --exclude-dir={.git,venv,node_modules,build} -rnE'
+alias rg='grep --exclude-dir={.git,venv,node_modules,build} -rn'
 # alias rg='grep --exclude-dir={.git,venv,node_modules,build} --color=auto -iIrnE'
 # alias which_all='type -a'
 
@@ -236,11 +236,8 @@ alias chownroot='sudo chown -R root:wheel'                                      
 alias chownself='sudo chown -R pritam:staff'                                               # Change ownership to user
 
 # --- Preview / power / hardware ---
-alias peek='qlmanage -p >/dev/null 2>&1  -- '                                              # Preview a file using Quick Look
-alias off='pmset displaysleepnow'                                                          # Turn off display
-alias soff='pmset sleepnow'                                                                # Put system to sleep
-alias battTop='top -stats pid,command,power -o power -n 10'
-alias battHealth='system_profiler SPPowerDataType | grep -E "Cycle Count|Condition|Maximum Capacity|State of Charge"'  # Print the health of the batter of your mac book
+# alias peek='qlmanage -p >/dev/null 2>&1  -- '                                              # Preview a file using Quick Look
+alias poweroff='sudo poweroff'
 
 # --- Tree / directory listing ---
 alias tree='tree -a --dirsfirst --noreport'                                                # Hide summary lines in tree(1) output
@@ -249,7 +246,7 @@ alias treels='tree -spughDF --metafirst --timefmt="%b-%d-%Y %I:%M %p"'
 # alias tre='tre -a -E ".git"'                                                               # Display directory tree
 
 # --- Media ---
-alias ffplay='ffplay -loop -1 -sn -loglevel warning -stats -seek_interval 5'               # Play a video file in loop
+alias ffplay='ffplay -alwaysontop -loop -1 -sn -loglevel warning -stats -seek_interval 5'  # Play a video file in loop
 alias sayy='pbpaste | command say -i'                                                      # Convert clipboard text to speech
 alias agg='agg -v --idle-time-limit 0.7 --fps-cap 30 --font-size 20 --font-family "JetBrains Mono"'
 
@@ -269,6 +266,7 @@ alias exportlib='source $LIBS_DIR/env'                                          
 alias exportembdlib='source $DOT_FILE/../global/embedded/embedded-ENV.sh'                  # Load embedded environment
 alias hfind='grep < "$HISTFILE"'
 alias colorPicker='pastel pick 2> /dev/null | pastel format hex | tr -d "\012" |  pbcopy'  #
+alias find_font='fc-list : family | fzf'
 
 # --- Archives ---
 alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes
@@ -276,18 +274,17 @@ alias ex='bsdtar -vxf'                                                          
 
 # --- Downloads / transfer ---
 alias wget='caffeinate -iw "$(pgrep wget)" & wget -c'                                      # Download with wget
-alias wgetc='wget --load-cookies ~/.cache/firefox_cookies.txt'                             # Download with wget with cookies on
+alias wgetc='wget --load-cookies ~/.cache/extract_cookies/cookies_firefox.txt'             # Download with wget with cookies on
 alias eget='eget --download-only'                                                          # Tell eget to only download the System wise release zip file
 alias aria2c='caffeinate -iw $(pgrep aria2c) & aria2c --dir . '                            # aria2c download file in $PWD
 alias rclone_gui='rclone rcd --rc-web-gui --rc-no-auth'                                    # configure our rclone with webui
 # alias gui-docker=''                                                                        # configure our docker with webui
 
 # --- Local servers ---
-# alias live-server='open 'http://localhost:8085/'  &&  python3 -m http.server 8085'           # Start live server with python
-alias live-server='$DOT_FILE/binary_exe/live-server -H localhost -P 8085 -B open'          # Start live server with rust binary
+# alias live-server='open 'http://localhost:8085/'  &&  python3 -m http.server 8085'                     # Start live server with python
 # alias bk='(sleep 0.5; open "https://[::]:8443/")&  https-server -d ~/Developer/web-dev/LocalMarks'     # Open bookmarks server with https
-alias bk='command live-server -P 8086 -B open -I ~/Developer/web-dev/LocalMarks'           # Open bookmarks server
-# alias bk='open "http://localhost:8080/"  &&  shiori server'                                # Open bookmarks server
+alias bk='live-server -K 0 -P 8086 -B open -I ~/Developer/web-dev/LocalMarks'                            # Open bookmarks server
+# alias bk='open "http://localhost:8080/"  &&  shiori server'                                            # Open bookmarks server
 
 alias https-server='python3 -m http.server 8443 --tls-key "$MK_CERT_DIR/localhost+2-key.pem" --tls-cert "$MK_CERT_DIR/localhost+2.pem"'
 

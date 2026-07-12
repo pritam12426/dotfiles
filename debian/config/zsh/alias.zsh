@@ -184,7 +184,7 @@ alias FIT="for i in /dev/ttys???; do fit > "$i"; done"
 
 # --- Opening apps / editors on current directory ---
 # alias o.='open .'                                                                          # Open current directory in Finder
-alias o='open .'                                                                           # Open current directory in Finder
+alias o='xdg-open .'                                                                       # Open current directory in Finder
 alias c.='code .'                                                                          # Open current directory in VS Code
 alias z.='zed .'                                                                           # Open current directory in Zed editor
 alias v='${__MPV_CMD[@]}'
@@ -209,10 +209,7 @@ alias chownself='sudo chown -R pritam:staff'                                    
 
 # --- Preview / power / hardware ---
 # alias peek='qlmanage -p >/dev/null 2>&1  -- '                                              # Preview a file using Quick Look
-alias pow='pmset -g batt' 	                                                               # Print power diagnostics (battery-level and charge status)
-alias battHealth='system_profiler SPPowerDataType | grep -A1 "Condition"'                  # Print the health of the batter of your mac book
-alias off='pmset displaysleepnow'                                                          # Turn off display
-alias soff='pmset sleepnow'                                                                # Put system to sleep
+alias poweroff='sudo poweroff'
 
 # --- Tree / directory listing ---
 alias tree='tree -a --dirsfirst --noreport'                                                # Hide summary lines in tree(1) output
