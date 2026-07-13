@@ -26,13 +26,6 @@
 		"link_files": null
 	},
 	{
-		"dot_file_source_dir": "config/navi",
-		"system_target_dir": "~/Library/Preferences/navi",
-		"link_files": {
-			"config.yaml": null
-		}
-	},
-	{
 		"dot_file_source_dir": "config/zed",
 		"system_target_dir": "~/.config/zed",
 		"link_files": {

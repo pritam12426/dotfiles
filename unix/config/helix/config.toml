@@ -2,7 +2,8 @@ theme = "ayu_evolve"
 
 [editor]
 	# lsp.enable = false # This turns off all LSP features for all languages
-	# scrolloff = 999
+	scrolloff = 15
+	# color = true
 	auto-format = false
 	line-number = "relative"
 	bufferline = "multiple"
@@ -32,6 +33,7 @@ theme = "ayu_evolve"
 
 	[editor.lsp]
 		display-inlay-hints = true
+		enable = false
 
 	[editor.auto-save]
 		focus-lost = true
@@ -54,8 +56,10 @@ theme = "ayu_evolve"
 		diagnostics = ["warning", "error"]
 		workspace-diagnostics = ["warning", "error"]
 
-# create a new minor mode bound to `+`
-[keys.normal."z"]
-	o = ":run-shell-command zed" # Still you have to pass the file name after the zed <file>
-	r = ":lsp-restart"
-	R = ":config-reload"
+[keys.normal]
+	G = "goto_last_line"
+	[keys.normal."z"]
+		o = ":run-shell-command zed --existing %{buffer_name}"
+		r = ":lsp-restart"
+		R = ":config-reload"
+		t = ":toggle lsp.enable"

@@ -11,13 +11,27 @@ set show-untracked = true
 set status-show-untracked-dirs = true
 set vertical-split = false
 set split-view-width = 80%
-set mouse-scroll = 1
+#set mouse-scroll = 1
 set split-view-height = 80%
 set focus-child = true
 set truncation-delimiter = utf-8
+
+# --- New additions ---
+#set mouse = true
+#set mouse-wheel-cursor = true
+set start-on-head = true
+set ignore-case = smart-case
+set mailmap = true
+#set diff-highlight = true
+set diff-context = 3
+set reference-format = [tag] <remote>
+
 # color cursor black white bold
-#bind generic S :source ~/.config/tig/config
+bind generic S :source ~/.config/tig/config
 bind generic Y @sh -c "printf '%(commit)' | pbcopy"
+
+# --- New keybindings (generic) ---
+bind generic W :!git reflog
 
 # === Main-view ===
 color main-commit  244 default
@@ -28,11 +42,15 @@ set main-view = \
 	id:yes,color \
 	commit-title:graph=yes,refs=yes,overflow=50
 bind main H ?git checkout "%(prompt Enter branch name: )"
-#bind main p >git push origin %(repo:head)
-#bind main P >git push --force-with-lease origin %(repo:head)
+bind main p >git push origin %(repo:head)
+bind main P >git push --force-with-lease origin %(repo:head)
 bind main I :toggle id
 bind main R ?git reset --hard %(commit)
 
+# --- New main-view bindings ---
+# bind main A @git commit --amend --no-edit
+bind main C !git cherry-pick %(commit)
+bind main S !git format-patch -1 %(commit)
 
 # === Blame-view ===
 set blame-view = \
@@ -52,31 +70,34 @@ set tree-view = \
 	file-size:units \
 	file-name
 
-
 # === Status-view ===
 set status-view = \
 	status:long \
 	file-name:yes
 bind status I @/Users/pritam/.config/tig/scripts/tig_add_to_ignore "%(file)" "%(repo:git-dir)/.."
 bind status x ?git restore --staged %(file)
-bind status X ?rm -rf %(repo:git-dir)/../%(file)
+bind status X @rm -rf %(repo:git-dir)/../%(file)
 bind status A @git commit --amend --no-edit
-bind status p >git push origin %(repo:head)
-bind status P >git push origin %(repo:head) --force-with-lease
+#bind status p >git push origin %(repo:head)
+#bind status P >git push origin %(repo:head) --force-with-lease
 bind status f >git fetch origin
 bind status F >git pull origin %(repo:head)
 bind status r >git pull --rebase origin %(repo:head)
 bind status Z ?git restore --source=HEAD --staged --worktree %(repo:file)
 bind status D ?git clean -fd
 
-
 # === Diff-view ===
 set diff-view = \
 	line-number:yes,interval=1 \
 	text
-
-
 bind stage <Enter> :/^@@
+
+# --- New diff/stage bindings ---
+bind diff [ :toggle diff-context -1
+bind diff ] :toggle diff-context +1
+bind diff D :toggle diff-options --minimal
+bind stage 2 :?^@@
+bind stage s stage-split-chunk
 
 # === Pager-view ===
 set pager-view = \
