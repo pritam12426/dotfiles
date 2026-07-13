@@ -3,13 +3,19 @@
 # ============================================================================================================
 # REFERENCES
 #	https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html
+#	https://zsh.sourceforge.io/Doc/Release/Shell-Builtin-Commands.html
+#	https://github.com/antonio/zsh-config/tree/master/help
+
 #	https://github.com/spicycode/ze-best-zsh-config
 #	https://gist.github.com/elliottminns/09a598082d77f795c88e93f7f73dba61
 #	See this dir "/usr/lib/zsh/5.9"
 #	https://www.youtube.com/watch?v=3fVAtaGhUyU
 #	https://www.reddit.com/r/zsh/comments/nm2vun/a_guide_to_the_zsh_autocompletion_with_examples/
 #	https://thevaluable.dev/zsh-completion-guide-examples/
+#	man zshmodules
 # ============================================================================================================
+
+# zmodload zsh/net/socket <Learn about this>
 
 # Return early if not running interactively
 [[ $- != *i* ]] && return
@@ -30,11 +36,13 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 [ -f "$HOME/.config/zsh/alias.zsh" ]    && source "$HOME/.config/zsh/alias.zsh"
 [ -f "$HOME/.config/zsh/plugins.zsh" ]  && source "$HOME/.config/zsh/plugins.zsh"
 
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload -i zsh/nearcolor
+
 # ============================================================================================================
 # zmv - ADVANCED BATCH RENAME/MOVE
 # ============================================================================================================
-autoload -Uz zmv
 
+# autoload -Uz zmv
 # Usage examples:
 # zmv '(*).log' '$1.txt'           # Rename .log to .txt
 # zmv -w '*.log' '*.txt'           # Same thing, simpler syntax
@@ -249,7 +257,7 @@ setopt NO_BEEP              # Silence error bells on failed completion or no mat
 # curl "https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh" \
 # 	-o "$__ZSH_PULGINS_DIR/git-prompt.sh"
 
-zmodload zsh/datetime
+zmodload -i zsh/datetime
 autoload -Uz add-zsh-hook
 
 # Track command execution time

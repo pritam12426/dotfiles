@@ -24,7 +24,7 @@ alias bupdate='bin update -ayc'
 # ============================================================================
 # DIRECTORY NAVIGATION
 # ============================================================================
-alias lldir='cd $(fzf --prompt="Library > " --height=40% < $CPP_LIB_DIR/index.txt)'     # Navigate To Directory From Index File
+alias lldir='cd $(sk --prompt="Library > " --height=40% < $CPP_LIB_DIR/index.txt)'     # Navigate To Directory From Index File
 alias cpdir='cd ~/Developer/cxx_lang'                  # Navigate To C++ Development Directory
 alias cdir='cd ~/Developer/c_lang'                     # Navigate To C Development Directory
 alias zgdir='cd ~/Developer/zig'                       # Navigate To zig Development Directory
@@ -49,6 +49,8 @@ alias cppref='open ~/.local/share/cppreference-2025/reference/en/cpp.html'
 alias cref='open ~/.local/share/cppreference-2025/reference/en/c.html'
 alias devdoc='open https://devdocs.io/offline'
 alias dis='open https://discord.com/app'
+
+# https://github.com/jeaye/stdman
 alias cppman='man -M "$HOME/.local/share/cppreference_man_page/share/man" 3'
 
 
@@ -266,7 +268,8 @@ alias exportlib='source $LIBS_DIR/env'                                          
 alias exportembdlib='source $DOT_FILE/../global/embedded/embedded-ENV.sh'                  # Load embedded environment
 alias hfind='grep < "$HISTFILE"'
 alias colorPicker='pastel pick 2> /dev/null | pastel format hex | tr -d "\012" |  pbcopy'  #
-alias find_font='fc-list : family | fzf'
+alias sk='sk --case=smart --reverse'
+alias find_font='fc-list : family | sk'
 
 # --- Archives ---
 alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes

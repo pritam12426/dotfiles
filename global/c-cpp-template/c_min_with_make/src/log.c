@@ -18,7 +18,7 @@
 #include <unistd.h>  // isatty(), fileno()
 
 #ifdef LOG_SHOW_TIME_STAMP
-	#include <time.h>
+#include <time.h>
 #endif  // LOG_SHOW_TIME_STAMP
 
 
@@ -39,10 +39,10 @@
 // Since log_record() always takes a write-lock (to prevent interleaved output),
 // a plain mutex is simpler and slightly faster than a rwlock.
 
-static pthread_mutex_t  g_log_mutex  = PTHREAD_MUTEX_INITIALIZER;
-static Log_level_t      g_log_level  = LOG_LEVEL_INFO;
-static FILE            *g_log_stream = NULL;  // NULL = not yet initialised
-static bool             g_use_color  = false;
+static pthread_mutex_t g_log_mutex  = PTHREAD_MUTEX_INITIALIZER;
+static Log_level_t     g_log_level  = LOG_LEVEL_INFO;
+static FILE           *g_log_stream = NULL;  // NULL = not yet initialised
+static bool            g_use_color  = false;
 
 
 // ── Internal helpers (called with read-lock already held) ─────────────────────
@@ -63,21 +63,21 @@ static void default_log_handler(FILE *out, Log_level_t level)
 static void color_log_handler(FILE *out, Log_level_t level)
 {
 	switch (level) {
-		case LOG_LEVEL_ERROR:
-			fprintf(out, "🚨 [" COLOR_BOLD_RED    "ERROR" COLOR_RESET "] ");
-			break;
-		case LOG_LEVEL_WARN:
-			fprintf(out, "⚠️  [" COLOR_BOLD_YELLOW "WARN " COLOR_RESET "] ");
-			break;
-		case LOG_LEVEL_INFO:
-			fprintf(out, "ℹ️  [" COLOR_BOLD_GREEN  "INFO " COLOR_RESET "] ");
-			break;
-		case LOG_LEVEL_DEBUG:
-			fprintf(out, "🛠️  [" COLOR_BOLD_CYAN   "DEBUG" COLOR_RESET "] ");
-			break;
-		default:
-			fprintf(out, "[UNKWN] ");
-			break;
+	case LOG_LEVEL_ERROR:
+		fprintf(out, "🚨 [" COLOR_BOLD_RED "ERROR" COLOR_RESET "] ");
+		break;
+	case LOG_LEVEL_WARN:
+		fprintf(out, "⚠️  [" COLOR_BOLD_YELLOW "WARN " COLOR_RESET "] ");
+		break;
+	case LOG_LEVEL_INFO:
+		fprintf(out, "ℹ️  [" COLOR_BOLD_GREEN "INFO " COLOR_RESET "] ");
+		break;
+	case LOG_LEVEL_DEBUG:
+		fprintf(out, "🛠️  [" COLOR_BOLD_CYAN "DEBUG" COLOR_RESET "] ");
+		break;
+	default:
+		fprintf(out, "[UNKWN] ");
+		break;
 	}
 }
 

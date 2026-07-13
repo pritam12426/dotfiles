@@ -1,4 +1,5 @@
 {
+	"$schema": "https://dprint.dev/schemas/v0.json",
 	// Global layout — inherited by all plugins unless overridden
 	"useTabs": true,
 	"indentWidth": 4,
@@ -64,7 +65,24 @@
 	},
 
 	"markdown": {},
-	"malva": {},
+	// https://dprint.dev/plugins/malva/config/
+	"malva": {
+		"useTabs": true,
+		"printWidth": 120,
+		"quotes": "alwaysSingle",
+		"hexCase": "lower",
+		"hexColorLength": null,
+		"blockSelectorLinebreak": "always",
+		"singleLineBlockThreshold": 1,
+		"operatorLinebreak": "after",
+		"omitNumberLeadingZero": false,
+		"trailingComma": false,
+		"formatComments": false,
+		"alignComments": true,
+		"ignoreCommentDirective": "malva-ignore",
+		"ignoreFileCommentDirective": "malva-ignore-file"
+	},
+
 	"yaml": {},
 
 	"excludes": [
@@ -73,9 +91,12 @@
 	],
 
 	"plugins": [
-		"https://plugins.dprint.dev/markdown-0.22.1.wasm",            // Markdown
-		"https://plugins.dprint.dev/g-plane/malva-v0.16.0.wasm",      // CSS
-		"https://plugins.dprint.dev/g-plane/markup_fmt-v0.27.3.wasm", // HTML / XML
+		"https://plugins.dprint.dev/markdown-0.22.1.wasm",
+		// Markdown
+		"https://plugins.dprint.dev/g-plane/malva-v0.16.0.wasm",
+		// CSS
+		"https://plugins.dprint.dev/g-plane/markup_fmt-v0.27.3.wasm",
+		// HTML / XML
 		"https://plugins.dprint.dev/g-plane/pretty_yaml-v0.6.0.wasm"  // YML
 	]
 }

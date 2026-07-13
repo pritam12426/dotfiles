@@ -4,15 +4,61 @@
 
 function cdf() {
 	local path dir
+	local book_mark_file="$HOME/.cache/_cdf.txt"
+
+	case "$1" in
+	-e | --edit)
+		"${EDITOR:-vi}" "$book_mark_file"
+		return
+		;;
+	-a | --append)
+		local target="${2:-$PWD}"
+		if [[ ! -d $target ]]; then
+			echo "cdf: --append: '$target' is not a directory" >&2
+			return 1
+		fi
+		target="${target:A}"
+		if [[ -f $book_mark_file ]] && /usr/bin/grep -qxF "$target" "$book_mark_file"; then
+			echo "cdf: already bookmarked: $target" >&2
+			return 0
+		fi
+		echo "$target" >> "$book_mark_file"
+		echo "cdf: bookmarked $target"
+		return 0
+		;;
+	--*)
+		echo "cdf: unknown option '$1'" >&2
+		return 1
+		;;
+	esac
 
 	if [[ $# -gt 0 ]]; then
-		 path=$1
+		path=$1
+		if [[ -d $path ]]; then
+			cd -- "$path"
+			return
+		fi
+	elif [[ -t 0 ]]; then
+		[[ -f $book_mark_file ]] || {
+			echo "cdf: no bookmarks yet, run 'cdf --append' first" >&2
+			return 1
+		}
+		path="$(/opt/homebrew/bin/sk \
+				--prompt="Chdir > " \
+				--case=smart \
+				--reverse \
+				--height=40% < "$book_mark_file")" || return 0
 	else
 		IFS= read -r path
 	fi
 
-	if [[ -f "$path" ]]; then
-		dir=${path:h}  # zsh equivalent of dirname
+	if [[ -z $path ]]; then
+		echo "cdf: empty path" >&2
+		return 1
+	fi
+
+	if [[ -f $path ]]; then
+		dir=${path:h}
 	else
 		dir=$path
 	fi
