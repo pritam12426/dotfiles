@@ -32,9 +32,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#663399,standout'
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE='10'
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# Load aliases (you already use this)
 [ -f "$HOME/.config/zsh/alias.zsh" ]    && source "$HOME/.config/zsh/alias.zsh"
-[ -f "$HOME/.config/zsh/plugins.zsh" ]  && source "$HOME/.config/zsh/plugins.zsh"
 
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload -i zsh/nearcolor
 
@@ -97,6 +95,7 @@ chpwd() {
 # Smarter completion initialization — rebuild dump if older than 20 hours,
 # otherwise load from cache with -C (skip security check for speed)
 # https://scottspence.com/posts/speeding-up-my-zsh-shell#fixing-the-completion-system-3076--10
+# export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump"
 autoload -Uz compinit
 if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
 	compinit
@@ -215,7 +214,7 @@ zle_highlight=('paste:none' 'region:bg=blue,fg=white')
 # ============================================================================================================
 
 export HISTORY_IGNORE='(ls|cd|pwd|exit|sudo|history|cd -|cd ..|cd ...|clean|cdi|n)'
-export HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
+export HISTFILE="${HISTFILE:-$HOME/.cache/zsh_history}"
 export HISTSIZE=10000
 export SAVEHIST=50000           # larger than HISTSIZE so file retains more than what's in memory
 bindkey '^R' history-incremental-search-backward  # shell flipped into vi-mode coz we have $EDITOR = vim-helix
@@ -346,8 +345,7 @@ alias -g P=' $(pbpaste)'
 alias -g X=' |& xargs'
 alias -g H=' --help L'
 alias -g V=' X ${__MPV_CMD[@]}'
-alias -g Z=' | xargs zed --existing'
-alias zed='zed --existing'
+alias -g Z=' | xargs zed'
 
 alias -g DN=' > /dev/null'
 alias -g NE=' 2> /dev/null'
@@ -397,6 +395,7 @@ alias -s csv=bat
 # It has been removed to keep things clean and avoid double-sourcing environment variables.
 # If you need private env vars, put them in ~/.zshenv (sourced first and always).
 
+alias new_zsh='exec zsh'
 function zsh_reload() {
 	if [ -f "$HOME/.zshenv" ]; then
 		# THIS FILE WILL CONTAIN ALL THE PRIVATE CONFIGURATION, WHICH I CAN'T PUBLISH ON git hub
@@ -414,3 +413,10 @@ function zsh_reload() {
 	source "$HOME/.zshrc"
 }
 # ============================================================================================================
+
+# ── Load plugins LAST ─────────────────────────────────────────────────────────
+# zsh-syntax-highlighting / zsh-autosuggestions (or any plugin that wraps ZLE
+# widgets) must be sourced after every custom widget/bindkey above is defined,
+# otherwise those widgets won't get wrapped and highlighting/suggestions can
+# misbehave on your custom keybindings (^Zc, ^Ze, ^a, ^[/, etc).
+[ -f "$HOME/.config/zsh/plugins.zsh" ]  && source "$HOME/.config/zsh/plugins.zsh"

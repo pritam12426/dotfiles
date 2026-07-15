@@ -26,6 +26,14 @@ function cdf() {
 		echo "cdf: bookmarked $target"
 		return 0
 		;;
+	-h | --help)
+		echo "Usage: cdf [path] | -a|--append [dir] | -d|--delete [dir] | -e|--edit | -c|--clean"
+		echo "  (no args)           Fuzzy-pick a bookmark and cd there"
+		echo "  path                cd to path (or its parent folder, if path is a file)"
+		echo "  -a, --append [dir]  Bookmark dir (default: current directory)"
+		echo "  -d, --delete [dir]  Remove a bookmark (fuzzy-pick if dir is omitted)"
+		return 0
+		;;
 	--*)
 		echo "cdf: unknown option '$1'" >&2
 		return 1
@@ -39,15 +47,12 @@ function cdf() {
 			return
 		fi
 	elif [[ -t 0 ]]; then
-		[[ -f $book_mark_file ]] || {
+		[[ -s $book_mark_file ]] || {
 			echo "cdf: no bookmarks yet, run 'cdf --append' first" >&2
 			return 1
 		}
-		path="$(/opt/homebrew/bin/sk \
-				--prompt="Chdir > " \
-				--case=smart \
-				--reverse \
-				--height=40% < "$book_mark_file")" || return 0
+		path=$(/usr/bin/grep -v '^[[:space:]]*$' "$book_mark_file" |
+			/opt/homebrew/bin/sk --prompt="Chdir > " --case=smart --reverse --height=40%) || return 0
 	else
 		IFS= read -r path
 	fi
@@ -86,38 +91,47 @@ function bytes() {
 
 function headless() {
 	if [[ $# -eq 0 ]]; then
-		echo "Usage: headless <command> [args...]"
+		echo "Usage: headless <command> [args...]" >&2
 		return 1
 	fi
 
-	nohup "$@" > /dev/null 2>&1 &!
+	nohup "$@" > /dev/null 2>&1 &
 	local pid=$!
+	disown 2>/dev/null
 	echo "Started '$1' in background (PID: $pid)"
 }
 alias MPV='headless ${__MPV_CMD[@]}'
 
 function awake4() {
-  local pid
-  local command_name
+	local pid
+	local command_name
 
-  # 1. Try to find the PID by name, or fall back to fzf selection
-  pid=$(pgrep -n "$1" 2>/dev/null) || {
-    pid=$(ps -U $USER -o pid,comm | fzf | awk '{print $1}')
-  }
+	# 1. Try to find the PID by name, or fall back to sk selection
+	pid=$(pgrep -n "$1" 2> /dev/null) || {
+		pid=$(ps -U "$USER" -o pid,comm | sk --case=smart --reverse | awk '{print $1}')
+	}
 
-  # 2. Exit early if user hits ESC or cancels fzf
-  if [ -z "$pid" ]; then
-    echo "No process selected."
-    return 1
-  fi
+	# 2. Exit early if user hits ESC or cancels sk
+	if [ -z "$pid" ]; then
+		echo "No process selected."
+		return 1
+	fi
 
-  # 3. Fetch the command name cleanly using the lowercase variable
-  command_name=$(ps -p "$pid" -o comm=)
+	# 3. Fetch the command name cleanly using the lowercase variable
+	command_name=$(ps -p "$pid" -o comm=)
 
-  # 4. Run caffeinate and keep the Mac awake
-  echo "[Caffeinate -i]: waiting for '$command_name' to (terminate / finish) :: pid=[$pid]"
-  caffeinate -iw "$pid"
+	# 4. Run caffeinate and keep the Mac awake
+	echo "[Caffeinate -i]: waiting for '$command_name' to (terminate / finish) :: pid=[$pid]"
+	# caffeinate -s — keep it fully awake as long as it's plugged in (great for long downloads)
+	# -u — "I'm actively using this right now!"
+		# If the screen is off, this wakes it up and keeps it awake —
+		# like nudging the kid and saying "stay up, I need you."
+		# By itself it only lasts 5 seconds unless you also give it a -t timer.
+
+	# $ pmset -g  <run this for more info>
+	caffeinate -iw "$pid"
 }
+
 
 # ------------ Utility Functions ------------
 function find-duplicate() {
@@ -164,7 +178,7 @@ function ww() {
 }
 
 # List all Makefile targets
-function _make_() {
+function make_tree() {
 	command make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' | command sort -u
 }
 
@@ -201,31 +215,40 @@ function lldoc() {
 	fi
 }
 
-# Take a screenshot with shadow
-function ss() {
-	screencapture -w "./Screen–short–$(date +"%Y-%b-%d_at_%H.%M.%S").png"
-}
+# Take a screenshot with / without shadow
+function screenshot() {
+	local mode="window"
 
-# Take a screenshot without shadow
-function sss() {
-	screencapture -s "./Screen–short–$(date +"%Y-%b-%d_at_%H.%M.%S").png"
+	case "$1" in
+		--window|-w|"")
+			mode="window" ;;
+		--select|-s)
+			mode="select" ;;
+		--no-shadow|-o)
+			mode="no-shadow" ;;
+		--help|-h)
+			echo "Usage: screenshot [--window|-w] [--select|-s] [--no-shadow|-o]"
+			echo "  --window,    -w   Capture a window, with shadow (default)"
+			echo "  --select,    -s   Drag-select a region (no shadow — it's not a window)"
+			echo "  --no-shadow, -o   Capture a window, shadow removed"
+			return 0 ;;
+		*)
+			echo "screenshot: unknown option '$1'" >&2
+			echo "Usage: screenshot [--window|-w] [--select|-s] [--no-shadow|-o]" >&2
+			return 1 ;;
+	esac
+
+	local filename="Screenshot-$(date +"%Y-%b-%d_at_%H.%M.%S").png"
+
+	case "$mode" in
+		window)    screencapture -w    "$filename" ;;
+		select)    screencapture -s    "$filename" ;;
+		no-shadow) screencapture -w -o "$filename" ;;
+	esac
+
+	[[ -f "$filename" ]] && echo "Saved: $filename"
 }
 # --------------------------------------------------
-
-# ------------ Aria2c Function ---------------
-# Function to download content using aria2c
-# function ari() {
-# 	Display download information
-#	print -P "aria2c %B%F{cyan}==> [ %F{yellow}URL: %F{magenta}$(pbpaste)%F{cyan} ] <==%f%b"
-
-# 	--force-sequential=true \
-# 	--remove-control-file \
-
-# 	# Execute aria2c command
-# 	command aria2c \
-# 		--dir="$PWD" \
-# 		"$@" "$(pbpaste)"
-# }
 
 function streem-aria2c() {
 	# Display download information

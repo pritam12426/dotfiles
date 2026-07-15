@@ -113,10 +113,10 @@ esac
 case "$lower_input" in
 	c | cxx | c++ | wx)
 		cpp_extras=(
-			"c-cpp-template/common_template/src/CmakeConfig.h.in | $PROJECT/src/CmakeConfig.h.in"
-			"c-cpp-template/common_template/zed | $PROJECT/.zed"
-			"c-cpp-template/common_template/CMakePresets.json | $PROJECT/CMakePresets.json"
-			"c-cpp-template/common_template/clangd.yml | $PROJECT/.clangd"
+			"c-cpp-template/common_template/src/CmakeConfig.h.in|$PROJECT/src/CmakeConfig.h.in"
+			"c-cpp-template/common_template/zed|$PROJECT/.zed"
+			"c-cpp-template/common_template/CMakePresets.json|$PROJECT/CMakePresets.json"
+			"c-cpp-template/common_template/clangd.yml|$PROJECT/.clangd"
 		)
 		for pair in "${cpp_extras[@]}"; do
 			copy_if_missing "${pair%%|*}" "${pair##*|}"
@@ -129,12 +129,13 @@ esac
 # ---------------------------------------------------------------------------
 printf "\nCommon project boiler code files:\n"
 common_files=(
-	"c-cpp-template/common_template/TODO.txt | $PROJECT/TODO.txt"
-	"c-cpp-template/common_template/REFERENCES.md | $PROJECT/REFERENCES.md"
-	"c-cpp-template/common_template/clang-tidy.yml | $PROJECT/.clang-tidy"
-	"c-cpp-template/common_template/gitattributes | $PROJECT/.gitattributes"
-	"c-cpp-template/common_template/gitignore | $PROJECT/.gitignore"
-	"c-cpp-template/common_template/README.md | $PROJECT/README.md"
+	"c-cpp-template/common_template/TODO.txt|$PROJECT/TODO.txt"
+	"c-cpp-template/common_template/REFERENCES.md|$PROJECT/REFERENCES.md"
+	"c-cpp-template/common_template/clang-tidy.yml|$PROJECT/.clang-tidy"
+	"c-cpp-template/common_template/gitattributes|$PROJECT/.gitattributes"
+	"c-cpp-template/common_template/editorconfig|$PROJECT/.editorconfig"
+	"c-cpp-template/common_template/gitignore|$PROJECT/.gitignore"
+	"c-cpp-template/common_template/README.md|$PROJECT/README.md"
 )
 for pair in "${common_files[@]}"; do
 	copy_if_missing "${pair%%|*}" "${pair##*|}"

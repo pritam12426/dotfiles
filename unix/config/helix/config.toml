@@ -2,7 +2,7 @@ theme = "ayu_evolve"
 
 [editor]
 	# lsp.enable = false # This turns off all LSP features for all languages
-	scrolloff = 15
+	scrolloff = 5
 	# color = true
 	auto-format = false
 	line-number = "relative"
@@ -13,9 +13,9 @@ theme = "ayu_evolve"
 		select = "underline"
 
 	[editor.indent-guides]
-		# render = true
-		character = "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
-		skip-levels = 1
+		render = true
+		character = "┊" # Some characters that work well: "▏", "┆", "┊", "⸽"
+		# skip-levels = 1
 
 	[editor.whitespace]
 		[editor.whitespace.render]
@@ -39,8 +39,8 @@ theme = "ayu_evolve"
 		focus-lost = true
 
 	[editor.statusline]
-		left = ["mode", "spinner"]
-		center = ["file-name"]
+		left = ["mode", "spinner", "read-only-indicator"]
+		center = ["file-name", "file-modification-indicator"]
 		right = [
 			"diagnostics",
 			"selections",
@@ -49,14 +49,25 @@ theme = "ayu_evolve"
 			"file-line-ending",
 			"file-type",
 		]
+
 		separator = "│"
-		mode.normal = "NORMAL"
-		mode.insert = "INSERT"
-		mode.select = "SELECT"
+		mode.normal = "NOR"
+		mode.insert = "INS"
+		mode.select = "SEL"
 		diagnostics = ["warning", "error"]
 		workspace-diagnostics = ["warning", "error"]
 
+	[editor.auto-pairs]
+		'(' = ')'
+		'{' = '}'
+		'[' = ']'
+		'"' = '"'
+		'`' = '`'
+		'<' = '>'
+
 [keys.normal]
+	# Print the current line's git blame information to the statusline.
+	space.B = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
 	G = "goto_last_line"
 	[keys.normal."z"]
 		o = ":run-shell-command zed --existing %{buffer_name}"

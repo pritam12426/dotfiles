@@ -216,7 +216,8 @@ alias FIT="for i in /dev/ttys???; do fit > "$i"; done"
 # alias o.='open .'                                                                          # Open current directory in Finder
 alias o='open .'                                                                           # Open current directory in Finder
 alias c.='code .'                                                                          # Open current directory in VS Code
-alias z.='zed .'                                                                           # Open current directory in Zed editor
+alias zed='zed --existing'
+alias z.='command zed .'                                                                           # Open current directory in Zed editor
 alias v='${__MPV_CMD[@]}'
 alias cdn='cd "$($DOT_FILE/bin_scripts/cdN.sh)"'
 alias zed_editor='export EDITOR="zed--wait"'                                               # setting EDITOR = zed
@@ -286,8 +287,10 @@ alias rclone_gui='rclone rcd --rc-web-gui --rc-no-auth'                         
 # --- Local servers ---
 # alias live-server='open 'http://localhost:8085/'  &&  python3 -m http.server 8085'                     # Start live server with python
 # alias bk='(sleep 0.5; open "https://[::]:8443/")&  https-server -d ~/Developer/web-dev/LocalMarks'     # Open bookmarks server with https
-alias bk='live-server -K 0 -P 8086 -B open -I ~/Developer/web-dev/LocalMarks'                            # Open bookmarks server
+alias bkk='live-server -K 0 -P 8086 -B open -I ~/Developer/web-dev/LocalMarks'                            # Open bookmarks server
+alias bk='local-mark -K 0 -P 8086 -B open ~/.local/share/bookmarks/*.json'                                # Open bookmarks server
 # alias bk='open "http://localhost:8080/"  &&  shiori server'                                            # Open bookmarks server
+
 
 alias https-server='python3 -m http.server 8443 --tls-key "$MK_CERT_DIR/localhost+2-key.pem" --tls-cert "$MK_CERT_DIR/localhost+2.pem"'
 

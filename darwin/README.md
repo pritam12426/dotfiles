@@ -22,6 +22,14 @@ export DOT_FILE="$PWD"
 - [pkgsrc](https://www.pkgsrc.org/) `Nice tool`
 - [asdf](https://github.com/asdf-vm/asdf)
 
+## TERMINAL SHARING OVER THE WEB
+
+- [sshx](https://github.com/ekzhang/sshx) (Not Regularly Used)
+- [gotty](https://github.com/yudai/gotty) (Not Regularly Used)
+- [ttyd](https://github.com/tsl0922/ttyd) (Not Regularly Used)
+- [shellinabox](https://github.com/shellinabox/shellinabox) (Not Regularly Used)
+- [zellij](https://github.com/zellij-org/zellij) (Not Regularly Used)
+
 ## INSTALL WITH BIN COMMAND
 
 - [adbtuifm](https://github.com/darkhz/adbtuifm) (Not Regularly Used)

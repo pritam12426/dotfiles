@@ -1,6 +1,74 @@
+# https://github.com/morlinbrot/helix-webdev-config
+
+[language-server.tinymist]
+	command = "tinymist"
+
+	config = { preview.background.enabled = true, preview.background.args = [
+		"--data-plane-host=127.0.0.1:23635",
+		"--invert-colors='{'rest': 'always', 'image': 'never'}'",
+		"--open",
+	] }
+
+	# "--invert-colors=never",
+	# "--invert-colors='{'rest': 'always', 'image': 'never'}'",
+
+	# formatterIndentSize = 4
+	# formatterMode = "typstyle"
+	# compileStatus = "enable"
+
+[language-server.clangd]
+	command = "clangd"
+	args = [
+		# "--header-insertion=never",
+		"--function-arg-placeholders=0",
+		"--clang-tidy",
+		# "--background-index",
+		"--all-scopes-completion",
+	]
+
 [[language]]
 	name = "go"
 	formatter = { command = "gopls", args = ["format", "%{buffer_name}"] }
+
+[[language]]
+	name = "markdown"
+	formatter = { command = "dprint", args = [
+		"fmt",
+		"--config-discovery=global",
+		"--no-gitignore",
+		"--stdin",
+		"%{buffer_name}",
+	] }
+
+[[language]]
+	name = "css"
+	formatter = { command = "dprint", args = [
+		"fmt",
+		"--config-discovery=global",
+		"--no-gitignore",
+		"--stdin",
+		"%{buffer_name}",
+	] }
+
+[[language]]
+	name = "html"
+	formatter = { command = "dprint", args = [
+		"fmt",
+		"--config-discovery=global",
+		"--no-gitignore",
+		"--stdin",
+		"%{buffer_name}",
+	] }
+
+[[language]]
+	name = "yaml"
+	formatter = { command = "dprint", args = [
+		"fmt",
+		"--config-discovery=global",
+		"--no-gitignore",
+		"--stdin",
+		"%{buffer_name}",
+	] }
 
 [[language]]
 	name = "java"
@@ -19,10 +87,7 @@
 
 [[language]]
 	name = "c"
-	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
-		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/common_template/clang-format.yml",
-		"--assume-filename=%{buffer_name}",
-	] }
+	formatter = { command = "clang_format_cpp_c_wrap", args = ["--assume-filename=%{buffer_name}"] }
 
 [[language]]
 	name = "protobuf"
@@ -33,10 +98,7 @@
 
 [[language]]
 	name = "cpp"
-	formatter = { command = "/Library/Developer/CommandLineTools/usr/bin/clang-format", args = [
-		"--style=file:/Users/pritam/Developer/git_repository/dotfiles/global/c-cpp-template/common_template/clang-format.yml",
-		"--assume-filename=%{buffer_name}",
-	] }
+	formatter = { command = "clang_format_cpp_c_wrap", args = ["--assume-filename=%{buffer_name}"] }
 
 [[language]]
 	name = "json"
@@ -54,11 +116,7 @@
 
 [[language]]
 	name = "python"
-	formatter = { command = "ruff", args = [
-		"format",
-		"--config=~/.config/ruff/ruff.toml",
-		"--stdin-filename=%{buffer_name}",
-	] }
+	language-servers = ["ruff"]
 
 [[language]]
 	name = "xml"
@@ -70,20 +128,4 @@
 
 [language-server.ruff]
 	command = "ruff"
-	args = ["server"]
-
-[language-server.tinymist]
-	command = "tinymist"
-
-	config = { preview.background.enabled = true, preview.background.args = [
-		"--data-plane-host=127.0.0.1:23635",
-		"--invert-colors='{'rest': 'always', 'image': 'never'}'",
-		"--open",
-	] }
-
-	# "--invert-colors=never",
-	# "--invert-colors='{'rest': 'always', 'image': 'never'}'",
-
-	# formatterIndentSize = 4
-	# formatterMode = "typstyle"
-	# compileStatus = "enable"
+	args = ["--config=/Users/pritam/.config/ruff/ruff.toml", "server"]

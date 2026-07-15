@@ -172,7 +172,7 @@ nnn_plug+=('i:cdpath')
 
 # nnn_plug+=("M:$NNN_GUI_PLUG/mpv_playlist >/dev/null 2>&1")
 
-nnn_plug+=('Z:-!&zed -- "$nnn" ')
+nnn_plug+=('Z:-!&zed --existing -- "$nnn" ')
 nnn_plug+=('r:-!tidy-mv -SHn -0 < "$NNN_SEL"  &&  printf '-' > "$NNN_SEL" *')
 nnn_plug+=('d:-!git diff -- "$nnn" *')
 nnn_plug+=('E:-!get-frame --random --preview --output-dir "$TMPDIR" "$nnn" *')
