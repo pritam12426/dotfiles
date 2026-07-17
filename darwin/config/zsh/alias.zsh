@@ -240,6 +240,7 @@ alias chownself='sudo chown -R pritam:staff'                                    
 
 # --- Preview / power / hardware ---
 # alias peek='qlmanage -p >/dev/null 2>&1  -- '                                              # Preview a file using Quick Look
+alias batt_heath='system_profiler SPPowerDataType | grep -E "Condition|Cycle Count|Maximum Capacity"'
 alias poweroff='sudo poweroff'
 
 # --- Tree / directory listing ---

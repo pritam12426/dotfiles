@@ -1,4 +1,4 @@
-# Generated: 2026-07-06 16:54:46 UTC
+# Generated: 2026-07-17 07:46:25 UTC
 
 # ========== Fonts list ==========
 3270_nerd_font_(ibm_3270)-v3.4.0
@@ -110,6 +110,7 @@ Numbers.app
 Pages.app
 Pixelmator Pro Creator Studio.app
 Qt Creator.app
+Reeder.app
 RustDesk.app
 Safari.app
 Shottr.app
@@ -138,7 +139,8 @@ D: cpython-v3.14.2
 D: dotnet-sdk-v10.0.101
 D: eget-v1.3.4
 D: fastfetch-v2.56.1
-D: ffmpeg-v8.1
+D: ffmpeg-v8.1.2
+D: frankenphp-v1.12.4
 D: go-v1.26.4
 D: golangci-lint-langserver-v0.0.11
 D: golangci-lint-v2.8.0
@@ -159,6 +161,7 @@ D: node-v24.18.0
 D: nvim-v0.11.5
 D: pandoc-3.10
 D: pastel-v0.11.0
+D: rss_web_ui
 D: ruby-lsp-v0.10.4
 D: rustup
 D: scrcpy-v4.0
@@ -167,7 +170,7 @@ D: syncthing-v2.0.11
 D: tectonic-v0.16.9
 D: wasm-pack-v0.13.1
 D: wireguard-tools-v1.0.20250521
-D: yt_dlp-v2026.06.09
+D: yt_dlp-v2026.07.04
 D: zig-v0.16.0
 
 

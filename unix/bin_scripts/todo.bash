@@ -57,7 +57,8 @@ find|F)
 "")
 	touch "$TODO_FILE"
 	# bat --theme gruvbox-dark --style=plain --paging=always "$todo_file"
-	less "$TODO_FILE"
+	# less "$TODO_FILE"
+	glow --pager "$TODO_FILE"
 	;;
 
 *)

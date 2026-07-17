@@ -97,7 +97,7 @@ function headless() {
 
 	nohup "$@" > /dev/null 2>&1 &
 	local pid=$!
-	disown 2>/dev/null
+	disown 2> /dev/null
 	echo "Started '$1' in background (PID: $pid)"
 }
 alias MPV='headless ${__MPV_CMD[@]}'
@@ -124,14 +124,13 @@ function awake4() {
 	echo "[Caffeinate -i]: waiting for '$command_name' to (terminate / finish) :: pid=[$pid]"
 	# caffeinate -s — keep it fully awake as long as it's plugged in (great for long downloads)
 	# -u — "I'm actively using this right now!"
-		# If the screen is off, this wakes it up and keeps it awake —
-		# like nudging the kid and saying "stay up, I need you."
-		# By itself it only lasts 5 seconds unless you also give it a -t timer.
+	# If the screen is off, this wakes it up and keeps it awake —
+	# like nudging the kid and saying "stay up, I need you."
+	# By itself it only lasts 5 seconds unless you also give it a -t timer.
 
 	# $ pmset -g  <run this for more info>
 	caffeinate -iw "$pid"
 }
-
 
 # ------------ Utility Functions ------------
 function find-duplicate() {
@@ -161,7 +160,10 @@ function ww() {
 	# echo "${command[*]} '$URL'" >> "$HISTFILE"
 
 	command+=("$URL")
-	(sleep 0.5; caffeinate -iw "$(pgrep wget)")&
+	(
+		sleep 0.5
+		caffeinate -iw "$(pgrep wget)"
+	) &
 
 	"${command[@]}"
 	error_code="$?"
@@ -220,33 +222,38 @@ function screenshot() {
 	local mode="window"
 
 	case "$1" in
-		--window|-w|"")
-			mode="window" ;;
-		--select|-s)
-			mode="select" ;;
-		--no-shadow|-o)
-			mode="no-shadow" ;;
-		--help|-h)
-			echo "Usage: screenshot [--window|-w] [--select|-s] [--no-shadow|-o]"
-			echo "  --window,    -w   Capture a window, with shadow (default)"
-			echo "  --select,    -s   Drag-select a region (no shadow — it's not a window)"
-			echo "  --no-shadow, -o   Capture a window, shadow removed"
-			return 0 ;;
-		*)
-			echo "screenshot: unknown option '$1'" >&2
-			echo "Usage: screenshot [--window|-w] [--select|-s] [--no-shadow|-o]" >&2
-			return 1 ;;
+	--window | -w | "")
+		mode="window"
+		;;
+	--select | -s)
+		mode="select"
+		;;
+	--no-shadow | -o)
+		mode="no-shadow"
+		;;
+	--help | -h)
+		echo "Usage: screenshot [--window|-w] [--select|-s] [--no-shadow|-o]"
+		echo "  --window,    -w   Capture a window, with shadow (default)"
+		echo "  --select,    -s   Drag-select a region (no shadow — it's not a window)"
+		echo "  --no-shadow, -o   Capture a window, shadow removed"
+		return 0
+		;;
+	*)
+		echo "screenshot: unknown option '$1'" >&2
+		echo "Usage: screenshot [--window|-w] [--select|-s] [--no-shadow|-o]" >&2
+		return 1
+		;;
 	esac
 
 	local filename="Screenshot-$(date +"%Y-%b-%d_at_%H.%M.%S").png"
 
 	case "$mode" in
-		window)    screencapture -w    "$filename" ;;
-		select)    screencapture -s    "$filename" ;;
-		no-shadow) screencapture -w -o "$filename" ;;
+	window) screencapture -w "$filename" ;;
+	select) screencapture -s "$filename" ;;
+	no-shadow) screencapture -w -o "$filename" ;;
 	esac
 
-	[[ -f "$filename" ]] && echo "Saved: $filename"
+	[[ -f $filename ]] && echo "Saved: $filename"
 }
 # --------------------------------------------------
 
@@ -360,35 +367,35 @@ function yt() {
 	fi
 
 	case "$URL" in
-		*youtube.com/watch* )
-			notificationDomain="YouTube Video"
-			command+=(--cookies-from-browser firefox)
-			run_caff=true
-			;;
-		*youtube.com/playlist* )
-			notificationDomain="YouTube Playlist"
-			command+=(
-				--pList
-				--cookies-from-browser firefox
-			)
-			run_caff=true
-			;;
-		*youtube.com/shorts* )
-			notificationDomain="YouTube Short"
-			command+=(--st)
-			;;
-		*music.youtube.com* )
-			notificationDomain="YouTube Music"
-			command+=(--ysong)
-			;;
-		*instagram.com* )
-			notificationDomain="Instagram Reel"
-			command+=(--st)
-			;;
-		*jiosaavn.com* )
-			notificationDomain="Jio Savan Song"
-			command+=(--savan)
-			;;
+	*youtube.com/watch*)
+		notificationDomain="YouTube Video"
+		command+=(--cookies-from-browser firefox)
+		run_caff=true
+		;;
+	*youtube.com/playlist*)
+		notificationDomain="YouTube Playlist"
+		command+=(
+			--pList
+			--cookies-from-browser firefox
+		)
+		run_caff=true
+		;;
+	*youtube.com/shorts*)
+		notificationDomain="YouTube Short"
+		command+=(--st)
+		;;
+	*music.youtube.com*)
+		notificationDomain="YouTube Music"
+		command+=(--ysong)
+		;;
+	*instagram.com*)
+		notificationDomain="Instagram Reel"
+		command+=(--st)
+		;;
+	*jiosaavn.com*)
+		notificationDomain="Jio Savan Song"
+		command+=(--savan)
+		;;
 	esac
 
 	command+=("$@")
@@ -404,7 +411,10 @@ function yt() {
 	fi
 
 	if [[ $run_caff == "true" ]]; then
-		(sleep 0.5; caffeinate -iw "$(pgrep yt-dlp)")&
+		(
+			sleep 0.5
+			caffeinate -iw "$(pgrep yt-dlp)"
+		) &
 	fi
 
 	"${command[@]}"
@@ -449,3 +459,43 @@ function pc() {
 	fi
 }
 # ---------------------------------------------
+
+# Stream everything live
+logf() {
+	log stream --style compact "$@"
+}
+
+# Stream logs from a process
+logp() {
+	log stream --style compact \
+		--predicate "process == \"$1\""
+}
+
+# Stream logs from a process with a minimum level
+logpl() {
+	log stream --style compact \
+		--level "${2:-debug}" \
+		--predicate "process == \"$1\""
+}
+
+# Show previous logs from a process
+logshow() {
+	log show --style compact \
+		--last "${2:-10m}" \
+		--predicate "process == \"$1\""
+}
+
+
+logkernel() {
+	log stream --style compact \
+		--predicate 'subsystem == "com.apple.kernel"' "$@"
+}
+
+# Search messages
+loggrep() {
+	log show --style compact \
+		--last "${2:-1h}" \
+		--predicate "eventMessage CONTAINS[c] \"$1\"" logkernel
+}
+alias logerr='log stream --style compact --predicate "messageType == error"'                 # Follow only errors
+alias logfault='log stream --style compact --predicate "messageType == fault"'               # Follow only faults

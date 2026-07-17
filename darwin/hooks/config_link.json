@@ -72,6 +72,7 @@
 			"clang_format_cpp_c_wrap.sh": "clang_format_cpp_c_wrap",
 			"dictation.py": "dictation",
 			"dot_deploy.bash": "dot_deploy",
+			"gh-stars.bash": "gh-stars",
 			"extract_cookies.py": "extract_cookies",
 			"extractor.sh": "ex",
 			"f.sh": "f",

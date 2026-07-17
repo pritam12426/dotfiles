@@ -51,6 +51,10 @@ export LOCAL_HOST_TLS_CERT="$MK_CERT_DIR/localhost+2.pem"
 export LIVE_SERVER_TLS_KEY="$LOCAL_HOST_TLS_KEY"
 export LIVE_SERVER_TLS_CERT="$LOCAL_HOST_TLS_CERT"
 
+export YARR_KEYFILE="$LOCAL_HOST_TLS_KEY"
+export YARR_CERTFILE="$LOCAL_HOST_TLS_CERT"
+export YARR_ADDR="0.0.0.0:8087"
+
 # FOR THE DEVELOPER===========================================================================================
 export CXX="/usr/bin/clang++"
 export CC="/usr/bin/clang"

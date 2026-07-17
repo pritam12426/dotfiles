@@ -5,6 +5,9 @@ brew "argp-standalone"
 # ANSI C library for parsing GNU-style command-line options
 brew "argtable3"
 
+# Terminal bandwidth utilization tool
+brew "bandwhich"
+
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 
@@ -14,11 +17,17 @@ brew "bun"
 # Scan for endpoints, secrets, API keys, file extensions, tokens and more
 brew "cariddi"
 
+# Hacker News in your terminal
+brew "circumflex"
+
 # Cross-platform make
 brew "cmake"
 
 # Fast and Easy to use microframework for the web
 brew "crow"
+
+# Embeddable SQL OLAP Database Management System
+brew "duckdb"
 
 # Utility to bundle libraries into executables for macOS
 brew "dylibbundler"
@@ -34,6 +43,9 @@ brew "libunistring"
 
 # GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
+
+# JSON parser for C
+brew "json-c"
 
 # XML-based font configuration API for X Windows
 brew "fontconfig"
@@ -56,8 +68,11 @@ brew "glfw"
 # Perl compatible regular expressions library with a new API
 brew "pcre2"
 
-# CLI for passbolt
-brew "go-passbolt-cli"
+# Render markdown on the CLI
+brew "glow"
+
+# Command-line interface for pushing messages to gotify/server
+brew "gotify"
 
 # Command-line tool for decrypting and exporting browser data
 brew "hack-browser-data"
@@ -74,9 +89,6 @@ brew "irssi"
 # Command-line pager for JSON data
 brew "jless"
 
-# JSON parser for C
-brew "json-c"
-
 # Handy way to save and run project-specific commands
 brew "just"
 
@@ -92,6 +104,9 @@ brew "lftp"
 # Configuration file processing library
 brew "libconfig"
 
+# Find what models run on your hardware
+brew "llmfit"
+
 # Powerful, lightweight programming language
 brew "lua"
 
@@ -100,6 +115,9 @@ brew "luajit"
 
 # Fast, async, resource-friendly link checker
 brew "lychee"
+
+# Personal Knowledge Management System for the LSP
+brew "markdown-oxide"
 
 # Terminal e-mail client and e-mail client library
 brew "meli"
@@ -113,6 +131,9 @@ brew "mole"
 # CLI tool for saving complete web pages as a single HTML file
 brew "monolith"
 
+# Interactive cheatsheet tool for the command-line
+brew "navi"
+
 # Another cmake lsp
 brew "neocmakelsp"
 
@@ -125,11 +146,11 @@ brew "newsboat"
 # JSON for modern C++
 brew "nlohmann-json"
 
-# Statically typed programming language for scientific computations
-brew "numbat"
-
 # Command-line Git information tool
 brew "onefetch"
+
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@4"
 
 # Reverse engineering framework
 brew "radare2"
@@ -143,8 +164,17 @@ brew "ruff"
 # Low-level access to audio, keyboard, mouse, joystick, and graphics
 brew "sdl3"
 
+# Modern terminal IRC client
+brew "senpai"
+
+# Export command-line tools to web based terminal emulator
+brew "shellinabox"
+
 # Fuzzy Finder in rust!
 brew "sk"
+
+# CLI tool for formatting SQL
+brew "sleek"
 
 # Prettier way to inspect network connections
 brew "snitch"
@@ -160,9 +190,6 @@ brew "television"
 
 # Powerful free data recovery utility
 brew "testdisk"
-
-# Official documentation format of the GNU project
-brew "texinfo"
 
 # Command-line time tracking application
 brew "timewarrior"

@@ -1,7 +1,7 @@
 theme = "ayu_evolve"
 
 [editor]
-	# lsp.enable = false # This turns off all LSP features for all languages
+	# rsp.enable = false # This turns off all LSP features for all languages
 	scrolloff = 5
 	# color = true
 	auto-format = false
@@ -33,7 +33,7 @@ theme = "ayu_evolve"
 
 	[editor.lsp]
 		display-inlay-hints = true
-		enable = false
+		# enable = false
 
 	[editor.auto-save]
 		focus-lost = true
