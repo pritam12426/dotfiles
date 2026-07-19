@@ -354,12 +354,13 @@ alias -g NULL=' > /dev/null 2>&1'
 # Suffix alias: open files directly by extension
 alias -s json=jless
 alias -s txt=less
-alias -s md=bat
 alias -s log=lnav
-alias -s html=open   # macOS: open in default browser
+alias -s html=open
 alias -s yaml=bat
 alias -s yml=bat
 alias -s csv=bat
+# alias -s md=bat
+alias -s md=glow
 
 # ============================================================================================================
 # Hotkey Insertions - Text Snippets

@@ -48,7 +48,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 		case 'F': G_Arguments.log_file      = arg;  break;
 		case 'B': G_Arguments.browser       = arg;  break;
 		case 'I': G_Arguments.dir           = arg;  break;
-		case 'L':
+		case 'L': {
 			if      (strcmp(arg, "error") == 0) log_set_level(LOG_LEVEL_ERROR);
 			else if (strcmp(arg, "warn")  == 0) log_set_level(LOG_LEVEL_WARN);
 			else if (strcmp(arg, "info")  == 0) log_set_level(LOG_LEVEL_INFO);
@@ -56,6 +56,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 			else     argp_error(state, "Invalid log level: '%s'. Use: error, warn, info, debug.", arg);
 			G_Arguments.log_level = log_get_level();
 			break;
+		}
 		case ARGP_KEY_END: break;
 		default: return ARGP_ERR_UNKNOWN;
 	}

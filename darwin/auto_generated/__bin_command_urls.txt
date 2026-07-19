@@ -1,4 +1,4 @@
-# Generated: 2026-07-17 07:46:25 UTC
+# Generated: 2026-07-19 08:56:05 UTC
 # ========== BIN INSTALL LINKS ==========
 
 https://codeberg.org/readeck/readeck
@@ -25,6 +25,7 @@ https://github.com/muesli/duf
 https://github.com/mvdan/sh
 https://github.com/naggie/dstask
 https://github.com/ncruces/zenity
+https://github.com/nkanaev/yarr
 https://github.com/o2sh/onefetch
 https://github.com/ogham/dog
 https://github.com/pimalaya/cardamum

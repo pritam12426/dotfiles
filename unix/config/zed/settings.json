@@ -390,10 +390,12 @@
 			"*.ino",
 			"*.hpp"
 		],
+		"TOML": [
+			".editorconfig"
+		],
 		// "TypeScript": [
 		// 	"*.js"
 		// ]
-		// "Git Config": ["*config*"],
 	},
 
 	// LANGUAGES

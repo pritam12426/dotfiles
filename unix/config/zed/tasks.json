@@ -22,7 +22,7 @@
 
 	{
 		"label": "Run Current file",
-		"command": "rr $ZED_FILE",
+		"command": "rr '$ZED_FILE'",
 		"show_command": false,
 		"shell": "system"
 	}

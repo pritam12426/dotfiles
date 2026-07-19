@@ -268,6 +268,7 @@ alias findcommand='apropos'
 alias seelog='tail -n 1 -f --'                                                             # Tail logs
 alias exportlib='source $LIBS_DIR/env'                                                     # Load library environment
 alias exportembdlib='source $DOT_FILE/../global/embedded/embedded-ENV.sh'                  # Load embedded environment
+alias rss='yarr -open'
 alias hfind='grep < "$HISTFILE"'
 alias colorPicker='pastel pick 2> /dev/null | pastel format hex | tr -d "\012" |  pbcopy'  #
 alias sk='sk --case=smart --reverse'
