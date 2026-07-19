@@ -259,4 +259,4 @@ export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 # https://ftp.gnu.org/old-gnu/Manuals/glibc-2.2.3/html_node/libc_538.html
 export ARGP_HELP_FMT="rmargin=120"
 
-source ~/.config/broot/launcher/bash/br
+# source ~/.config/broot/launcher/bash/br

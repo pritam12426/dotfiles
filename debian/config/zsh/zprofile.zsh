@@ -106,42 +106,7 @@ if [[ -n $ANDROID_HOME && -d $ANDROID_HOME ]]; then
 	alias dex-tools='"$ANDROID_HOME/reverse-engineering/dex-tools-v2.4/bin/dex-tools"'
 fi
 
-if [[ -d "$HOME/.config/homebrew" && -d "/opt/homebrew" ]]; then
-	source "$HOME/.config/homebrew/__brew_envs__"
-	# /opt/homebrew/bin/brew shellenv > $HOME/.config/homebrew/__brew_envs__
-	export HOMEBREW_GITHUB_API_TOKEN="$GITHUB_AUTH_TOKEN"
-	export HOMEBREW_GITHUB_PACKAGES_TOKEN="$GITHUB_AUTH_TOKEN"
-	export HOMEBREW_BUNDLE_FILE_GLOBAL="${XDG_CONFIG_HOME}/homebrew/Brewfile"
-
-	cppflags+=("-I$HOMEBREW_PREFIX/include")
-	cflags+=("-I$HOMEBREW_PREFIX/include")
-	ldflags+=("-L$HOMEBREW_PREFIX/lib")
-	# export CXXFLAGS="$CPPFLAGS $CXXFLAGS"
-
-	# ldflags+=("-L/opt/homebrew/opt/ruby/lib")
-	# cppflags+=("-I/opt/homebrew/opt/ruby/include")
-	# pkg_config_path+=("/opt/homebrew/opt/ruby/lib/pkgconfig")
-	# path+=("/opt/homebrew/opt/ruby/bin")
-
-	pkg_config_path+=("$HOMEBREW_PREFIX/lib/pkgconfig")
-	cmake_prefix_path+=("$HOMEBREW_PREFIX/lib/cmake")
-	# dyld_library_path+=("$HOMEBREW_PREFIX/lib")  # this line causes and problem with (ffplay && mpv command line)
-else
-	if [[ $- = *i* ]]; then
-		if hash brew; then
-			echo "Install the brew shell env... \a"
-			echo "/opt/homebrew/bin/brew shellenv > \$HOME/.config/homebrew/__brew_envs__"
-		fi
-	fi
-fi
-
 if (( $+commands[zig] )); then
 	export C_INCLUDE_PATH="$CFLAGS"
 	export CPLUS_INCLUDE_PATH="$CPPFLAGS"
-fi
-
-# Homebrew Ruby
-if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-	path+=("/opt/homebrew/opt/ruby/bin")
-	path+=("/opt/homebrew/lib/ruby/gems/4.0.0/bin")
 fi
