@@ -230,8 +230,8 @@ alias sp2tab='perl -i -pe '\''1 while s/^(\t*) {4}/$1\t/mg'\'''                 
 
 # --- Environment / misc info ---
 alias envpath='envinspector | less'                                                        # Print the environment variable in prettiest form
-alias nq='networkquality -s'                                                               # Check network quality
-alias search='command ls -AF | grep -i'                                                    # Search files in current directory
+# alias nq='networkquality -s'                                                               # Check network quality
+alias sf='command ls -AF | grep -i'                                                        # Search files in current directory
 alias findcommand='apropos'
 alias seelog='tail -n 1 -f --'                                                             # Tail logs
 alias exportlib='source $LIBS_DIR/env'                                                     # Load library environment
@@ -240,8 +240,8 @@ alias hfind='grep < "$HISTFILE"'
 alias colorPicker='pastel pick 2> /dev/null | pastel format hex | tr -d "\012" |  pbcopy'  #
 
 # --- Archives ---
-alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes
-alias ex='bsdtar -vxf'                                                                     # Extract archives
+# alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes
+alias ex='tar -vxf'                                                                          # Extract archives
 
 # --- Downloads / transfer ---
 alias wget='caffeinate -iw "$(pgrep wget)" & wget -c'                                      # Download with wget

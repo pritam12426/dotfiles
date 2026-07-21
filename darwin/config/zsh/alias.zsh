@@ -263,7 +263,7 @@ alias sp2tab='perl -i -pe '\''1 while s/^(\t*) {4}/$1\t/mg'\'''                 
 # --- Environment / misc info ---
 alias envpath='envinspector | less'                                                        # Print the environment variable in prettiest form
 alias nq='networkquality -s'                                                               # Check network quality
-alias search='command ls -AF | grep -i'                                                    # Search files in current directory
+alias sf='command ls -AF | grep -i'                                                        # Search files in current directory
 alias findcommand='apropos'
 alias seelog='tail -n 1 -f --'                                                             # Tail logs
 alias exportlib='source $LIBS_DIR/env'                                                     # Load library environment
@@ -303,6 +303,7 @@ alias host_rclone_http_server='rclone serve http . --addr 0.0.0.0:2121 --user $U
 alias host_ftp_server='python3 -m pyftpdlib --write --username $USER --password 12426'
 alias host_sftp_server='sudo systemsetup -setremotelogin on' # The port will be 22
 
+alias ocw='caffeinate -i opencode web --log-level INFO'                                      # Download with wget
 
 # ============================================================================
 # EXIFTOOL / METADATA

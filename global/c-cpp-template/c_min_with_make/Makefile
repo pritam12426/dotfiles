@@ -47,7 +47,7 @@ ifneq ($(filter debug,$(MAKECMDGOALS)),)
 endif
 
 ifeq ($(strip $(O_DEBUG)),1)
-	CFLAGS += -g3 -DDEBUG -DLOG_SHOW_SOURCE_LOCATION
+	CFLAGS += -g3 -DDEBUG
 
 	LDFLAGS += -fsanitize=address -fsanitize=undefined
 	CFLAGS += -fstack-usage \

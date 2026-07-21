@@ -160,10 +160,7 @@ function ww() {
 	# echo "${command[*]} '$URL'" >> "$HISTFILE"
 
 	command+=("$URL")
-	(
-		sleep 0.5
-		caffeinate -iw "$(pgrep wget)"
-	) &
+	(sleep 0.5; caffeinate -iw "$(pgrep wget)")&
 
 	"${command[@]}"
 	error_code="$?"
@@ -367,35 +364,35 @@ function yt() {
 	fi
 
 	case "$URL" in
-	*youtube.com/watch*)
-		notificationDomain="YouTube Video"
-		command+=(--cookies-from-browser firefox)
-		run_caff=true
-		;;
-	*youtube.com/playlist*)
-		notificationDomain="YouTube Playlist"
-		command+=(
-			--pList
-			--cookies-from-browser firefox
-		)
-		run_caff=true
-		;;
-	*youtube.com/shorts*)
-		notificationDomain="YouTube Short"
-		command+=(--st)
-		;;
-	*music.youtube.com*)
-		notificationDomain="YouTube Music"
-		command+=(--ysong)
-		;;
-	*instagram.com*)
-		notificationDomain="Instagram Reel"
-		command+=(--st)
-		;;
-	*jiosaavn.com*)
-		notificationDomain="Jio Savan Song"
-		command+=(--savan)
-		;;
+		*youtube.com/watch* )
+			notificationDomain="YouTube Video"
+			command+=(--cookies-from-browser firefox)
+			run_caff=true
+			;;
+		*youtube.com/playlist* )
+			notificationDomain="YouTube Playlist"
+			command+=(
+				--pList
+				--cookies-from-browser firefox
+			)
+			run_caff=true
+			;;
+		*youtube.com/shorts* )
+			notificationDomain="YouTube Short"
+			command+=(--st)
+			;;
+		*music.youtube.com* )
+			notificationDomain="YouTube Music"
+			command+=(--ysong)
+			;;
+		*instagram.com* )
+			notificationDomain="Instagram Reel"
+			command+=(--st)
+			;;
+		*jiosaavn.com* )
+			notificationDomain="Jio Savan Song"
+			command+=(--savan)
+			;;
 	esac
 
 	command+=("$@")
@@ -411,10 +408,7 @@ function yt() {
 	fi
 
 	if [[ $run_caff == "true" ]]; then
-		(
-			sleep 0.5
-			caffeinate -iw "$(pgrep yt-dlp)"
-		) &
+		(sleep 0.5; caffeinate -iw "$(pgrep yt-dlp)")&
 	fi
 
 	"${command[@]}"

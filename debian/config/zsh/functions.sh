@@ -6,13 +6,13 @@ function cdf() {
 	local path dir
 
 	if [[ $# -gt 0 ]]; then
-		 path=$1
+		path=$1
 	else
 		IFS= read -r path
 	fi
 
-	if [[ -f "$path" ]]; then
-		dir=${path:h}  # zsh equivalent of dirname
+	if [[ -f $path ]]; then
+		dir=${path:h} # zsh equivalent of dirname
 	else
 		dir=$path
 	fi
@@ -40,12 +40,13 @@ function bytes() {
 
 function headless() {
 	if [[ $# -eq 0 ]]; then
-		echo "Usage: headless <command> [args...]"
+		echo "Usage: headless <command> [args...]" >&2
 		return 1
 	fi
 
-	nohup "$@" > /dev/null 2>&1 &!
+	nohup "$@" > /dev/null 2>&1 &
 	local pid=$!
+	disown 2> /dev/null
 	echo "Started '$1' in background (PID: $pid)"
 }
 alias MPV='headless ${__MPV_CMD[@]}'
@@ -112,44 +113,6 @@ function wi() {
 	readlink -f $(which -a "$1")
 }
 
-# Open documentation file using skim (fzf)
-function lldoc() {
-	local doc
-
-	# Ensure doc list exists
-	if [[ ! -f "$CPP_LIB_DIR/doc.txt" ]]; then
-		echo "✘ doc list not found: $CPP_LIB_DIR/doc.txt"
-		return 1
-	fi
-
-	doc=$(sk --prompt="Docs > " --height=40% < "$CPP_LIB_DIR/doc.txt") || return
-	# doc=$(fzf --prompt="Docs > " < "$CPP_LIB_DIR/doc.txt") || return
-
-	# Empty selection
-	[[ -z $doc ]] && return 1
-
-	# Expand ~ if present
-	# doc="${doc/#\~/$HOME}"
-
-	if [[ $doc =~ ^https?:// ]]; then
-		open "$doc"
-	elif [[ -f $doc ]]; then
-		open "file://$doc"
-	else
-		echo "✘ Not found: $doc"
-		return 1
-	fi
-}
-
-# Take a screenshot with shadow
-function ss() {
-	screencapture -w "./Screen–short–$(date +"%Y-%b-%d_at_%H.%M.%S").png"
-}
-
-# Take a screenshot without shadow
-function sss() {
-	screencapture -s "./Screen–short–$(date +"%Y-%b-%d_at_%H.%M.%S").png"
-}
 # --------------------------------------------------
 
 # ------------ Aria2c Function ---------------

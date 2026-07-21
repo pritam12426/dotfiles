@@ -10,12 +10,12 @@ const char *argp_program_bug_address = PROJECT_HOMEPAGE_URL "/issues" "\n" AUTH_
 static char doc[]                    = MAIN_BINARY " - " PROJECT_SHORT_DESC;
 
 static struct argp_option options[] = {
-	{ "log-level",     'L', "LEVEL",   0, "Set log level: [error|warn|info|debug] (default: info)" },
-	{ "log-file",      'F', "FILE",    0, "Set logging file"                                       },
-	{ "print-request", 'R', 0,         0, "Log each client request and headers"                    },
-	{ "host",          'H', "HOST",    0, "Set the listener host (default: localhost)"             },
-	{ "browser",       'B', "BROWSER", 0, "Open page in this browser on startup"                   },
-	{ "dir",           'I', "DIR",     0, "Directory to serve (default: .)"                        },
+	{ "log-level",     'L', "LEVEL",   0, "Set log level: [off|fatal|error|warn|info|debug|trace] (default: info)" },
+	{ "log-file",      'F', "FILE",    0, "Set logging file"                                                       },
+	{ "print-request", 'R', 0,         0, "Log each client request and headers"                                    },
+	{ "host",          'H', "HOST",    0, "Set the listener host (default: localhost)"                             },
+	{ "browser",       'B', "BROWSER", 0, "Open page in this browser on startup"                                   },
+	{ "dir",           'I', "DIR",     0, "Directory to serve (default: .)"                                        },
 
 	{ 0 }
 };
@@ -49,11 +49,14 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 		case 'B': G_Arguments.browser       = arg;  break;
 		case 'I': G_Arguments.dir           = arg;  break;
 		case 'L': {
-			if      (strcmp(arg, "error") == 0) log_set_level(LOG_LEVEL_ERROR);
+			if      (strcmp(arg, "off")   == 0) log_set_level(LOG_LEVEL_OFF);
+			else if (strcmp(arg, "fatal") == 0) log_set_level(LOG_LEVEL_FATAL);
+			else if (strcmp(arg, "error") == 0) log_set_level(LOG_LEVEL_ERROR);
 			else if (strcmp(arg, "warn")  == 0) log_set_level(LOG_LEVEL_WARN);
 			else if (strcmp(arg, "info")  == 0) log_set_level(LOG_LEVEL_INFO);
 			else if (strcmp(arg, "debug") == 0) log_set_level(LOG_LEVEL_DEBUG);
-			else     argp_error(state, "Invalid log level: '%s'. Use: error, warn, info, debug.", arg);
+			else if (strcmp(arg, "trace") == 0) log_set_level(LOG_LEVEL_TRACE);
+			else     argp_error(state, "Invalid log level: '%s'. Use: off, fatal, error, warn, info, debug, trace.", arg);
 			G_Arguments.log_level = log_get_level();
 			break;
 		}
@@ -68,7 +71,7 @@ static struct argp argp = { .options = options, .parser = parse_opt, .doc = doc 
 int main(int argc, char *argv[])
 {
 	argp_parse(&argp, argc, argv, 0, 0, 0);
-	log_init(G_Arguments.log_file);
+	log_init(G_Arguments.log_file, G_Arguments.log_level, LOG_FLAG_SHOW_TIMESTAMP | LOG_FLAG_SHOW_SOURCE);
 
 	if (log_get_level() == LOG_LEVEL_DEBUG) {
 		LOG_CUSTOM(LOG_LEVEL_DEBUG, false, "Command-line args: [");
