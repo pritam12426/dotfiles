@@ -100,9 +100,6 @@
 		}
 	},
 
-
-	"restore_on_startup": "empty_tab",
-
 	"hide_mouse": "on_typing_and_action",
 
 	"use_system_path_prompts": false,
@@ -114,12 +111,13 @@
 		"html": false,
 		"toml": true,
 		"git-firefly": true,
+		"auto-file-header": true,
 		"make": true,
 		"basher": true,
+		"log": true,
 		// "sql": true,
 		// "java": true,
 		// "neocmake": true,
-		// "log": true
 	},
 
 	"auto_update_extensions": {
