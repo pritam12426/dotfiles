@@ -1,13 +1,9 @@
-#include <argp.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "log.h"
 #include "project_config.h"
-
-const char *argp_program_version     = MAIN_BINARY " " PROJECT_VERSION;
-const char *argp_program_bug_address = PROJECT_HOMEPAGE_URL "/issues" "\n" AUTH_MESSAGE;
-static char doc[]                    = MAIN_BINARY " - " PROJECT_SHORT_DESC;
+#include "command_line.h"
 
 static struct argp_option options[] = {
 	{ "log-level",     'L', "LEVEL",   0, "Set log level: [off|fatal|error|warn|info|debug|trace] (default: info)" },
@@ -20,25 +16,6 @@ static struct argp_option options[] = {
 	{ 0 }
 };
 
-typedef struct {
-	bool        print_request;
-	const char *dir;
-	const char *browser;
-	const char *host;
-	const char *log_file;
-
-	Log_level_t log_level;
-} Arguments;
-
-static Arguments G_Args = {
-	.print_request = false,
-	.dir           = ".",
-	.browser       = NULL,
-	.log_file      = NULL,
-	.host          = "localhost",
-
-	.log_level     = LOG_LEVEL_INFO
-};
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
 {
