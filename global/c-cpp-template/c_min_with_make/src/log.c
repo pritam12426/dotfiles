@@ -212,9 +212,20 @@ void log_record(Log_level_t level,
 	if (fmt == NULL) return;
 
 	if (g_log_stream == NULL) {
+
+#ifdef LOG_SHOW_TIME_STAMP
+		fprintf(stderr,
+		        "%s[%s:%d:%s]%s ",
+		        COLOR_DIM,
+		        file,
+		        line,
+		        func,
+		        COLOR_RESET);
+#endif  // defined(LOG_SHOW_SOURCE_LOCATION) && defined(DEBUG)
+
 		fprintf(stderr, COLOR_BOLD_RED "[LOG] error: log_init() not called — dropping message" COLOR_RESET);
 		if (new_line) fputc('\n', stderr);
-		return;
+		return ;
 	}
 
 	// Take a mutex so only one thread writes at a time
