@@ -93,7 +93,7 @@ help:  ## Show this help
 	@echo
 	@echo "Targets:"
 	@grep -hE '^[a-zA-Z_-]+:.*  ## ' $(MAKEFILE_LIST) | \
-	awk 'BEGIN {FS="  ## "}; {printf "  \033[33m%-30s\033[0m %s\n", $$1, $$2}'
+	awk 'BEGIN {FS="  ## "}; {printf "  \033[33m%-15s\033[0m %s\n", $$1, $$2}'
 
 $(BUILD):  ## Create build directories automatically
 	mkdir -p $(BUILD)

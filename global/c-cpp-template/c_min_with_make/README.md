@@ -16,6 +16,7 @@
 ## Build
 
 ```sh
+make help     # show available targets
 make                                # optimised release build -O3
 make debug -B O_DEBUG=1             # debug build with -g3 -DDEBUG
 make install                        # install to /usr/local/bin (use PREFIX= to override)
@@ -31,11 +32,11 @@ main-binary [OPTION...] [TARGET(s)...]
 
 ### Options
 
-| Flag          | Short | Place shoulder | Description                                                   |
-| ------------- | ----- | -------------- | ------------------------------------------------------------- |
-| `--dry-run`   | `-n`  | —              | Show what would change without making any changes             |
-| `--log-level` | `-L`  | `LEVEL`        | Set log verbosity: `error`, `warn`, `info` (default), `debug` |
-| `--log-file`  | `-F`  | `FILE`         | Set logging file                                              |
+| Flag          | Short | Place shoulder | Description                                                     |
+| ------------- | ----- | -------------- | --------------------------------------------------------------- |
+| `--dry-run`   | `-n`  | —              | Show what would change without making any changes               |
+| `--log-level` | `-L`  | `info`         | `off` , `fatal` , `error` , `warn` , `info` , `debug` , `trace` |
+| `--log-file`  | `-F`  | `FILE`         | Set logging file                                                |
 
 ### Examples
 
@@ -65,4 +66,11 @@ main-binary --log-level debug
 
 ## License
 
-See [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
+
+---
+
+## See Also
+
+- [PROJECT_BRIEF.md](PROJECT_BRIEF.md) — Architecture, module guide, mental model
+- [AGENTS.md](AGENTS.md) — Agent instructions for this repo
