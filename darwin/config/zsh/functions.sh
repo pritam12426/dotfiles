@@ -301,10 +301,12 @@ function gly() {
 		case "$1" in
 		--pwd)
 			dest="$PWD"
+			command+=(--destination "$dest")
 			shift
 			;;
 		--xx)
 			dest+="/../.dlpxx/post"
+			command+=(--destination "$dest")
 			shift
 			;;
 		*)
@@ -315,7 +317,6 @@ function gly() {
 
 	mkdir -p "$dest" || return 1
 
-	command+=(--destination "$dest")
 	command+=("$@")
 
 	# print -s -- "${command[*]} '$URL'"

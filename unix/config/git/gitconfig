@@ -120,6 +120,7 @@
 	cm   = commit
 	a    = add
 	df   = diff
+	o    = open
 
 	# Print the name of the most recently-tagged release
 	latest-tag = for-each-ref \
