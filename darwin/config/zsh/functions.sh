@@ -3,13 +3,17 @@
 [[ $- != *i* ]] && return
 
 function cdf() {
-	local path dir
+	local path dir git
 	local book_mark_file="$HOME/.cache/_cdf.txt"
 
 	case "$1" in
 	-e | --edit)
 		"${EDITOR:-vi}" "$book_mark_file"
 		return
+		;;
+	-G | --git)
+		shift
+		git=true
 		;;
 	-a | --append)
 		local target="${2:-$PWD}"
@@ -46,6 +50,12 @@ function cdf() {
 			cd -- "$path"
 			return
 		fi
+	elif [[ $git == "true" ]]; then
+		# path=$(/opt/homebrew/bin/sk --prompt="Chdir > " --case=smart --reverse --height=40% < "$XDG_DATA_HOME/gitm/registered_repos.txt")
+		# path=${path%%:*}
+
+		path=$(/usr/bin/cut -d':' -f1 "$XDG_DATA_HOME/gitm/registered_repos.txt" |
+			/opt/homebrew/bin/sk --prompt="Chdir > " --case=smart --reverse --height=40%)  || return 0
 	elif [[ -t 0 ]]; then
 		[[ -s $book_mark_file ]] || {
 			echo "cdf: no bookmarks yet, run 'cdf --append' first" >&2
