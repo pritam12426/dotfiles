@@ -303,7 +303,11 @@ alias host_rclone_http_server='rclone serve http . --addr 0.0.0.0:2121 --user $U
 alias host_ftp_server='python3 -m pyftpdlib --write --username $USER --password 12426'
 alias host_sftp_server='sudo systemsetup -setremotelogin on' # The port will be 22
 
-alias ocw='caffeinate -i opencode web --log-level INFO'                                      # Download with wget
+# ============================================================================
+# Opencode
+# ============================================================================
+alias oc='opencode'                      # Download with wget
+alias ocw='caffeinate -i opencode web'   # Download with wget
 
 # ============================================================================
 # EXIFTOOL / METADATA

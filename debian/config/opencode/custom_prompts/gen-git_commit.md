@@ -1,0 +1,1 @@
+../../../../unix/config/opencode/custom_prompts/gen-git_commit.md

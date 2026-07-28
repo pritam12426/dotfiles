@@ -1,0 +1,1 @@
+../../../../../unix/config/opencode/skills/perf-hotspots/SKILL.md

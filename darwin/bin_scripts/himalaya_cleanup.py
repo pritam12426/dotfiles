@@ -1,0 +1,1 @@
+../../unix/bin_scripts/himalaya_cleanup.py

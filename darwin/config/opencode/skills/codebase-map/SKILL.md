@@ -1,0 +1,1 @@
+../../../../../unix/config/opencode/skills/codebase-map/SKILL.md

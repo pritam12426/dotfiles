@@ -1,1 +1,0 @@
-../../../../../unix/config/opencode/skills/doc-refactor/SKILL.md

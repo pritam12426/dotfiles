@@ -1,0 +1,1 @@
+../../../../../unix/config/opencode/skills/security-pass/SKILL.md

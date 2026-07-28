@@ -1,0 +1,1 @@
+../../../../../unix/config/opencode/skills/dead-code-hunt/SKILL.md
