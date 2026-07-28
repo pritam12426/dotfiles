@@ -239,7 +239,7 @@ alias chownroot='sudo chown -R root:wheel'                                      
 alias chownself='sudo chown -R pritam:staff'                                               # Change ownership to user
 
 # --- Preview / power / hardware ---
-# alias peek='qlmanage -p >/dev/null 2>&1  -- '                                              # Preview a file using Quick Look
+alias peek='qlmanage -p >/dev/null 2>&1  -- '                                              # Preview a file using Quick Look
 alias batt_heath='system_profiler SPPowerDataType | grep -E "Condition|Cycle Count|Maximum Capacity"'
 alias poweroff='sudo poweroff'
 
@@ -320,7 +320,7 @@ alias stripmeta='exiftool -All= -overwrite_original'
 # IP AND MAC ADDRESS
 # ============================================================================
 # Fetch WAN (public) IP address
-alias myip="curl -sL https://ifconfig.me/ip   &&   curl -s http://checkip.dyndns.org/ | sed 's/[a-zA-Z<>/ :]//g'"
+alias myip="curl -sL https://ifconfig.me/ip   &&   echo   ' '   &&   curl -s http://checkip.dyndns.org/ | sed 's/[a-zA-Z<>/ :]//g'"
 
 # Fetch LAN (local) IP address
 alias lanip='ipconfig getifaddr en0'
