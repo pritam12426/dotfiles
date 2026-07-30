@@ -1,4 +1,4 @@
-# Generated: 2026-07-17 07:46:25 UTC
+# Generated: 2026-07-30 15:51:22 UTC
 
 # ========== Fonts list ==========
 3270_nerd_font_(ibm_3270)-v3.4.0
@@ -96,7 +96,6 @@ D: wxsqlite3-4.10.7
 # ========== GUI applications ==========
 AppCleaner.app
 DB Browser for SQLite.app
-Final Cut Pro Creator Studio.app
 Firefox.app
 GPG Keychain.app
 Godot.app
@@ -109,9 +108,6 @@ Maccy.app
 Numbers.app
 Pages.app
 Pixelmator Pro Creator Studio.app
-Qt Creator.app
-Reeder.app
-RustDesk.app
 Safari.app
 Shottr.app
 Stats.app
@@ -155,7 +151,9 @@ D: language-server-1.52.0
 D: lib-CSFML-v3.0.0-dev
 D: lib-asio-standalone1.36.0-dev
 D: lib-protobuf-35.1-dev
+D: libgit2-1.9.6-dev
 D: lnav-v0.14.0
+D: manim-env
 D: nmap-v7.98
 D: node-v24.18.0
 D: nvim-v0.11.5
@@ -167,7 +165,6 @@ D: rustup
 D: scrcpy-v4.0
 D: shadowsocks-v1.23.5
 D: syncthing-v2.0.11
-D: tectonic-v0.16.9
 D: wasm-pack-v0.13.1
 D: wireguard-tools-v1.0.20250521
 D: yt_dlp-v2026.07.04

@@ -299,15 +299,16 @@ alias https-server='python3 -m http.server 8443 --tls-key "$MK_CERT_DIR/localhos
 # alias host_ftp_server='rclone serve ftp "$PWD" --addr :2121 --user $USER --pass 12426'
 # alias host_sftp_server='rclone serve sftp "$PWD" --addr :2121 --user u --pass s'
 
-alias host_rclone_http_server='rclone serve http . --addr 0.0.0.0:2121 --user $USER --pass s'
-alias host_ftp_server='python3 -m pyftpdlib --write --username $USER --password 12426'
+alias host_rclone_http_server='rclone serve http . --addr 0.0.0.0:2121 --user $USER --pass $OPENCODE_SERVER_PASSWORD'
+alias host_ftp_server='python3 -m pyftpdlib --write --username $USER --password $OPENCODE_SERVER_PASSWORD'
 alias host_sftp_server='sudo systemsetup -setremotelogin on' # The port will be 22
 
 # ============================================================================
 # Opencode
 # ============================================================================
-alias oc='opencode'                      # Download with wget
+alias oc='opencode --continue'                                          # Download with wget
 alias ocw='caffeinate -i opencode web'   # Download with wget
+# alias ocw='caffeinate -i opencode serve --port 4096 --hostname 0.0.0.0'   # Download with wget
 
 # ============================================================================
 # EXIFTOOL / METADATA

@@ -55,7 +55,7 @@ function cdf() {
 		# path=${path%%:*}
 
 		path=$(/usr/bin/cut -d':' -f1 "$XDG_DATA_HOME/gitm/registered_repos.txt" |
-			/opt/homebrew/bin/sk --prompt="Chdir > " --case=smart --reverse --height=40%)  || return 0
+			/opt/homebrew/bin/sk --prompt="Git directory > " --case=smart --reverse --height=40%)  || return 0
 	elif [[ -t 0 ]]; then
 		[[ -s $book_mark_file ]] || {
 			echo "cdf: no bookmarks yet, run 'cdf --append' first" >&2

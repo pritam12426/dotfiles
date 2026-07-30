@@ -2,17 +2,53 @@
 	"$schema": "https://opencode.ai/config.json",
 	"lsp": true,
 
-	"command": {
-		"doc-ref": {
-			"template": "Follow these rules:\n\n!`cat ~/.config/opencode/custom_prompts/doc-refactor.md`\n\nNow refactor the documentation.",
-			"description": "Reflected documentation"
+	"formatter": {
+		"prettier": {
+			"disabled": true
 		},
-		"gen-git_commit": {
-			"template": "`cat ~/.config/opencode/custom_prompts/gen-git_commit.md`",
-			"description": "Get git commit message for you changes",
+		"dprint": {
+			"command": [
+				"dprint",
+				"fmt",
+				"--config-discovery=global",
+				"--no-gitignore",
+				"$FILE"
+			],
+			"extensions": [
+				".md",
+				".css",
+				".html",
+				".yaml",
+				".yml"
+			]
 		}
 	},
 
+	"default_agent": "plane",
+	"model": "crof/deepseek-v4-flash",
+	"small_model": "opencode/big-pickle",
+
+	// https://opencode.ai/docs/rules/#manual-instructions-in-agentsmd
+	"instructions": [
+		// "CONTRIBUTING.md",
+		// "docs/guidelines.md",
+		".cursor/rules/*.md",
+		".opencode/rules/*.md"
+	],
+
+	"command": {
+		"doc-ref": {
+			"template": "Follow these rules:\n\n!`cat ~/.config/opencode/custom_prompts/doc-refactor.md`\n\nNow refactor the documentation.",
+			"description": "Reflected documentation",
+			"model": "opencode/big-pickle"
+		},
+		"gen-git_commit": {
+			"template": "!`cat ~/.config/opencode/custom_prompts/gen-git_commit.md`",
+			"agent": "plane",
+			"description": "Get git commit message for you changes",
+			"model": "opencode/big-pickle"
+		}
+	},
 
 	"mcp": {
 		"context7": {
@@ -23,11 +59,10 @@
 				"CONTEXT7_API_KEY": "ctx7sk-1085b385-cc36-4337-baf8-d192defd374e"
 			}
 		},
-
 		"git-mcp": {
 			"type": "local",
 			"command": [
-				"mcp-server-git"
+				"gitforge"
 			],
 			"enabled": true
 		},

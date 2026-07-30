@@ -49,17 +49,18 @@
 		// Turn off this shit
 	},
 
+	"disable_ai": true,
 	// https://zed.dev/docs/ai/mcp
 	// ai / agents
-	// "agent_servers": {
-	// 	"opencode": {
-	// 		"default_config_options": {
-	// 			"model": "opencode/nemotron-3-ultra-free",
-	// 			"default_mode": "ask"
-	// 		},
-	// 		"type": "registry"
-	// 	}
-	// },
+	"agent_servers": {
+		"opencode": {
+			"default_config_options": {
+				"model": "opencode/nemotron-3-ultra-free",
+				"default_mode": "ask"
+			},
+			"type": "registry"
+		}
+	},
 
 	"agent": {
 		"profiles": {
@@ -111,7 +112,6 @@
 		"html": false,
 		"toml": true,
 		"git-firefly": true,
-		"auto-file-header": true,
 		"make": true,
 		"basher": true,
 		"log": true,

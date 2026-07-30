@@ -1,8 +1,9 @@
-# Generated: 2026-07-19 08:56:05 UTC
+# Generated: 2026-07-30 15:47:59 UTC
 # ========== BIN INSTALL LINKS ==========
 
 https://codeberg.org/readeck/readeck
 https://github.com/0x2E/fusion
+https://github.com/anomalyco/opencode
 https://github.com/astral-sh/ty
 https://github.com/atanunq/viu
 https://github.com/BurntSushi/ripgrep
@@ -17,7 +18,7 @@ https://github.com/hzqtc/taproom
 https://github.com/Julien-cpsn/ATAC  # NOT USING
 https://github.com/koalaman/shellcheck
 https://github.com/lycheeverse/lychee
-https://github.com/maaslalani/sheets
+https://github.com/maaslalani/sheets  # NOT USING
 https://github.com/marcosnils/bin
 https://github.com/matthart1983/netwatch
 https://github.com/mr-karan/doggo
