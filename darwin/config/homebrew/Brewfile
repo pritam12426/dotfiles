@@ -8,35 +8,14 @@ brew "argtable3"
 # Terminal bandwidth utilization tool
 brew "bandwhich"
 
+# C++ build system
+brew "boost-build"
+
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 
 # Incredibly fast JavaScript runtime, bundler, test runner, and package manager
 brew "bun"
-
-# Scan for endpoints, secrets, API keys, file extensions, tokens and more
-brew "cariddi"
-
-# Hacker News in your terminal
-brew "circumflex"
-
-# Cross-platform make
-brew "cmake"
-
-# Fast and Easy to use microframework for the web
-brew "crow"
-
-# Embeddable SQL OLAP Database Management System
-brew "duckdb"
-
-# Utility to bundle libraries into executables for macOS
-brew "dylibbundler"
-
-# Run arbitrary commands when files change
-brew "entr"
-
-# Simple, fast and user-friendly alternative to find
-brew "fd"
 
 # C string library for manipulating Unicode strings
 brew "libunistring"
@@ -50,6 +29,42 @@ brew "json-c"
 # XML-based font configuration API for X Windows
 brew "fontconfig"
 
+# Perl compatible regular expressions library with a new API
+brew "pcre2"
+
+# Vector graphics library with cross-device output support
+brew "cairo"
+
+# Scan for endpoints, secrets, API keys, file extensions, tokens and more
+brew "cariddi"
+
+# Hacker News in your terminal
+brew "circumflex"
+
+# Ultralightweight JSON parser in ANSI C
+brew "cjson"
+
+# Statistics utility to count lines of code
+brew "cloc"
+
+# Cross-platform make
+brew "cmake"
+
+# Fast and Easy to use microframework for the web
+brew "crow"
+
+# Select default apps for documents and URL schemes on macOS
+brew "duti"
+
+# Utility to bundle libraries into executables for macOS
+brew "dylibbundler"
+
+# Run arbitrary commands when files change
+brew "entr"
+
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+
 # Command-line fuzzy finder written in Go
 brew "fzf"
 
@@ -59,20 +74,17 @@ brew "xz"
 # Zstandard is a real-time compression algorithm
 brew "zstd"
 
+# WebDriver <-> Marionette proxy
+brew "geckodriver"
+
 # GitHub command-line tool
 brew "gh"
 
 # Multi-platform library for OpenGL applications
 brew "glfw"
 
-# Perl compatible regular expressions library with a new API
-brew "pcre2"
-
 # Render markdown on the CLI
 brew "glow"
-
-# Command-line interface for pushing messages to gotify/server
-brew "gotify"
 
 # Command-line tool for decrypting and exporting browser data
 brew "hack-browser-data"
@@ -91,9 +103,6 @@ brew "jless"
 
 # Handy way to save and run project-specific commands
 brew "just"
-
-# Simple terminal UI for git commands
-brew "lazygit"
 
 # TUI for logs from journalctl, file system, Docker, Podman and Kubernetes pods
 brew "lazyjournal"
@@ -190,6 +199,9 @@ brew "television"
 
 # Powerful free data recovery utility
 brew "testdisk"
+
+# Implementation of the Language Server Protocol for LaTeX
+brew "texlab"
 
 # Command-line time tracking application
 brew "timewarrior"

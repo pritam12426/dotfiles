@@ -1,4 +1,4 @@
-# Generated: 2026-07-30 15:47:59 UTC
+# Generated: 2026-08-04 09:39:37 UTC
 # ========== BIN INSTALL LINKS ==========
 
 https://codeberg.org/readeck/readeck
@@ -13,6 +13,7 @@ https://github.com/dduan/tre
 https://github.com/dgr8akki/nano-ffmpeg
 https://github.com/dprint/dprint
 https://github.com/evcxr/evcxr
+https://github.com/go-shiori/shiori
 https://github.com/Graphixa/FontGet
 https://github.com/hzqtc/taproom
 https://github.com/Julien-cpsn/ATAC  # NOT USING
@@ -37,6 +38,7 @@ https://github.com/sharkdp/bat
 https://github.com/sharkdp/fd
 https://github.com/shshemi/tabiew
 https://github.com/tealdeer-rs/tealdeer
+https://github.com/tectonic-typesetting/tectonic
 https://github.com/terrastruct/d2
 https://github.com/Valkyrie00/bold-brew  # NOT USING
 https://github.com/wader/fq

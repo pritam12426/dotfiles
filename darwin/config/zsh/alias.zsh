@@ -273,6 +273,7 @@ alias hfind='grep < "$HISTFILE"'
 alias colorPicker='pastel pick 2> /dev/null | pastel format hex | tr -d "\012" |  pbcopy'  #
 alias sk='sk --case=smart --reverse'
 alias find_font='fc-list : family | sk'
+alias ghetags='gh repo edit --add-topic'
 
 # --- Archives ---
 alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes
@@ -307,8 +308,8 @@ alias host_sftp_server='sudo systemsetup -setremotelogin on' # The port will be 
 # Opencode
 # ============================================================================
 alias oc='opencode --continue'                                          # Download with wget
-alias ocw='caffeinate -i opencode web'   # Download with wget
-# alias ocw='caffeinate -i opencode serve --port 4096 --hostname 0.0.0.0'   # Download with wget
+# alias ocw='caffeinate -i opencode web'   # Download with wget
+alias ocs='caffeinate -i opencode serve --port 4096 --hostname 0.0.0.0'   # Download with wget
 
 # ============================================================================
 # EXIFTOOL / METADATA

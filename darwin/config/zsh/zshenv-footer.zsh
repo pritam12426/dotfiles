@@ -55,6 +55,10 @@ export YARR_KEYFILE="$LOCAL_HOST_TLS_KEY"
 export YARR_CERTFILE="$LOCAL_HOST_TLS_CERT"
 export YARR_ADDR="0.0.0.0:8087"
 
+export WAYPOINT_DB_FILE="$HOME/.local/share/waypoint/waypoint.sqlite"
+export WAYPOINT_SERVE_HOST="localhost"
+export WAYPOINT_SERVE_PORT="8086"
+
 # FOR THE DEVELOPER===========================================================================================
 export CXX="/usr/bin/clang++"
 export CC="/usr/bin/clang"
@@ -166,8 +170,8 @@ typeset -gTU NNN_PLUG nnn_plug ';'   &&   export NNN_PLUG
 nnn_plug+=('q:-personal/preview_with_quicklook')
 nnn_plug+=('Q:-personal/preview_thumbnail')
 nnn_plug+=('e:-personal/fetch_metadata')
-nnn_plug+=('M:personal/mpv_playlist')
-nnn_plug+=('C:-personal/copy_path')
+# nnn_plug+=('M:personal/mpv_playlist')
+# nnn_plug+=('C:-personal/copy_path')
 
 # nnn_plug+=('B:personal/zoxide')
 
@@ -176,6 +180,7 @@ nnn_plug+=('i:cdpath')
 
 # nnn_plug+=("M:$NNN_GUI_PLUG/mpv_playlist >/dev/null 2>&1")
 
+nnn_plug+=('I:!gitm list | sk --prompt='\''Git dir: '\'' --case=smart --reverse --height=40% | awk '\''{printf "0c%s", $NF}'\'' > "$NNN_PIPE" *')
 nnn_plug+=('Z:-!&zed --existing -- "$nnn" ')
 nnn_plug+=('r:-!tidy-mv -SHn -0 < "$NNN_SEL"  &&  printf '-' > "$NNN_SEL" *')
 nnn_plug+=('d:-!git diff -- "$nnn" *')
@@ -188,8 +193,9 @@ nnn_plug+=('H:-!|hexdump -C --  "$nnn" ')
 nnn_plug+=('O:-!openr -l --  "$nnn" *')
 #nnn_plug+=('m:-!mpv --no-config --profile=fast --loop-file=inf --mute --geometry=1280+50%+50% -- "$nnn" *')
 nnn_plug+=('m:-!mpv --no-config --profile=fast --force-window=immediate --loop-file=inf --mute --autofit=1280 -- "$nnn" * *')
-nnn_plug+=('F:-!&ffplay -alwaysontop -loop -1 -sn -loglevel level+warning -seek_interval 5 -- "$nnn" ')
-nnn_plug+=('f:-!ffplay  -alwaysontop -loop -1 -sn -loglevel warning -stats -seek_interval 5 -- "$nnn" *')
+nnn_plug+=('M:-!&mpv --no-config --profile=fast --force-window=immediate --loop-file=inf --mute --autofit=1280 -- "$nnn" * *')
+nnn_plug+=('F:-!&ffplay -loop -1 -sn -loglevel level+warning -seek_interval 5 -- "$nnn" ')
+nnn_plug+=('f:-!ffplay -loop -1 -sn -loglevel warning -stats -seek_interval 5 -- "$nnn" *')
 
 
 export NNN_COLORS='5236'                                # Set NNN color scheme

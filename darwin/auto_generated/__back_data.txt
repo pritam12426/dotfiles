@@ -1,4 +1,4 @@
-# Generated: 2026-07-30 15:51:22 UTC
+# Generated: 2026-08-04 09:39:37 UTC
 
 # ========== Fonts list ==========
 3270_nerd_font_(ibm_3270)-v3.4.0
@@ -95,6 +95,7 @@ D: wxsqlite3-4.10.7
 
 # ========== GUI applications ==========
 AppCleaner.app
+Chromium.app
 DB Browser for SQLite.app
 Firefox.app
 GPG Keychain.app
@@ -122,6 +123,7 @@ brew-browser.app
 iaito.app
 mpv.app
 qbittorrent.app
+uBlock Origin Lite.app
 
 
 # ========== Dev-tools ==========

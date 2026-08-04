@@ -25,8 +25,8 @@
 	},
 
 	"default_agent": "plane",
-	"model": "crof/deepseek-v4-flash",
-	"small_model": "opencode/big-pickle",
+	// "model": "crof/deepseek-v4-flash",
+	// "small_model": "opencode/big-pickle",
 
 	// https://opencode.ai/docs/rules/#manual-instructions-in-agentsmd
 	"instructions": [
@@ -42,6 +42,7 @@
 			"description": "Reflected documentation",
 			"model": "opencode/big-pickle"
 		},
+
 		"gen-git_commit": {
 			"template": "!`cat ~/.config/opencode/custom_prompts/gen-git_commit.md`",
 			"agent": "plane",
@@ -62,10 +63,11 @@
 		"git-mcp": {
 			"type": "local",
 			"command": [
-				"gitforge"
+				// "gitforge"
+				"mcp-server-git"
 			],
 			"enabled": true
-		},
+		}
 	},
 
 	"permission": {

@@ -14,11 +14,11 @@
 
 		"instagram": {
 			"cookies": "~/.cache/safari_cookies.txt",
-			"filename": "Instagram-{username}_{shortcode}.{extension}"
+			"filename": "{category}-{subcategory}_{username}_{post_id}.{extension}"
 		},
 
 		"reddit": {
-			"filename": "sub_{subreddit}_{author}_{title}_{id}.{extension}"
+			"filename": "{category}-{subreddit}_{author}_{id}_{filename}.{extension}"
 		},
 
 		"twitter": {
