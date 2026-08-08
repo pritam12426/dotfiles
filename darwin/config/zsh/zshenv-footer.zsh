@@ -55,9 +55,21 @@ export YARR_KEYFILE="$LOCAL_HOST_TLS_KEY"
 export YARR_CERTFILE="$LOCAL_HOST_TLS_CERT"
 export YARR_ADDR="0.0.0.0:8087"
 
+# https://github.com/0x2E/fusion/blob/main/.env.example
+# export FUSION_PASSWORD="changeme"
+# export FUSION_LOG_FORMAT=json
+# export FUSION_LOG_LEVEL=debug
+export FUSION_ALLOW_EMPTY_PASSWORD=true
+export FUSION_PULL_CONCURRENCY=12
+export FUSION_FEVER_USERNAME="$USER"
+export FUSION_DB_PATH="$HOME/.local/share/fusion/fusion.sqlite"
+export FUSION_PORT="8087"
+
+export WAYPOINT_CACHE_DIR="$HOME/.cache/waypoint/media-cache.json"
 export WAYPOINT_DB_FILE="$HOME/.local/share/waypoint/waypoint.sqlite"
 export WAYPOINT_SERVE_HOST="localhost"
 export WAYPOINT_SERVE_PORT="8086"
+
 
 # FOR THE DEVELOPER===========================================================================================
 export CXX="/usr/bin/clang++"
@@ -76,6 +88,7 @@ cmake_prefix_path+=("$PREFIX/lib/cmake")
 
 # export Protobuf_DIR="$HOME/.local/dev-tools/lib-protobuf-35.1-dev"
 # pkg_config_path+=($HOME/.local/dev-tools/lib-protobuf-35.1-dev/lib/pkgconfig)
+dyld_library_path+=("$RUSTUP_HOME/toolchains/stable-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib")
 
 
 export Boost_DIR='/usr/local/boost-1.87.0'

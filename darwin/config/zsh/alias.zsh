@@ -255,6 +255,9 @@ alias sayy='pbpaste | command say -i'                                           
 alias agg='agg -v --idle-time-limit 0.7 --fps-cap 30 --font-size 20 --font-family "JetBrains Mono"'
 
 # --- Language / dev tools ---
+alias co='cargo'                                                                            # Use rust cargo as co
+alias cob='RUSTFLAGS="-C prefer-dynamic" cargo build'                                       # dynamic-linked debug build
+
 alias python='python3 -u'                                                                  # Use Python 3 as default
 alias ninja_tree='ninja -t targets'                                                        # Display Ninja build targets
 alias tokei='tokei --sort code --num-format commas'

@@ -1,5 +1,6 @@
 {
 	// general
+	"diff_view_style": "unified",
 	"cli_default_open_behavior": "new_window",
 
 	"diagnostics": {
@@ -400,16 +401,22 @@
 	"languages": {
 		"Typst": {},
 
-		"HTML+ERB": {
-			"enable_language_server": false
-		},
+		// "HTML+ERB": {
+		// 	"enable_language_server": false
+		// },
 
 
-		"JS+ERB": {
-			"enable_language_server": false
-		},
+		// "JS+ERB": {
+		// 	"enable_language_server": false
+		// },
 
 		"TSX": {
+			"language_servers": [
+				"deno",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint"
+			],
 			"enable_language_server": false
 		},
 
@@ -454,6 +461,12 @@
 
 		"JavaScript": {
 			"enable_language_server": false,
+			"language_servers": [
+				"deno",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint"
+			],
 			"formatter": {
 				"external": {
 					"command": "/Library/Developer/CommandLineTools/usr/bin/clang-format",
@@ -467,6 +480,12 @@
 
 		"TypeScript": {
 			// "show_wrap_guides": true,
+			"language_servers": [
+				"deno",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint"
+			],
 			"enable_language_server": false,
 			"formatter": {
 				"external": {
@@ -597,8 +616,10 @@
 
 		"Python": {
 			"language_servers": [
+				"ty",
 				"ruff",
-				"pyright"
+				"!pyright",
+				"!basedpyright"
 			],
 
 			"formatter": [
@@ -727,6 +748,14 @@
 	},
 
 	"lsp": {
+		"deno": {
+			"settings": {
+				"deno": {
+					"enable": true
+				}
+			}
+		},
+
 		"jdtls": {
 			"settings": {
 				"java_home": "/Users/pritam/.local/dev-tools/jdk-21.0.8.jdk/Contents/Home",
@@ -773,6 +802,15 @@
 			}
 		},
 
+		"ty": {
+			"binary": {
+				"ignore_system_version": false,
+				"arguments": [
+					"server"
+				]
+			}
+		},
+
 		"clangd": {
 			"fetch": {
 				"pre_release": true,
@@ -795,6 +833,28 @@
 				"clangdFileStatus": true,
 				"index": {
 					"background": true
+				}
+			}
+		},
+
+		"json-language-server": {
+			"settings": {
+				"json": {
+					"schemas": [
+						{
+							"fileMatch": [
+								"deno.json",
+								"deno.jsonc"
+							],
+							"url": "https://raw.githubusercontent.com/denoland/deno/refs/heads/main/cli/schemas/config-file.v1.json"
+						},
+						{
+							"fileMatch": [
+								"package.json"
+							],
+							"url": "https://www.schemastore.org/package"
+						}
+					]
 				}
 			}
 		},

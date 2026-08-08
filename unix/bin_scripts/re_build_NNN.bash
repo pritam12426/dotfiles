@@ -8,7 +8,7 @@ UPDATE=false
 NNN_GIT_RIPO="$HOME/Developer/git_repository/online-repos/nnn"
 LOCAL_PLUGIN_DIR="$HOME/.config/nnn/plugins"
 PATCHS_DIR="$DOT_FILE/config/nnn/patchs"
-CHECKOUT_VERISON_HASH="5b0919af16d2abe00c15cbf20a8f2057eb9c485f"
+CHECKOUT_VERISON_HASH="53fdae65eef6cb35afaf1e1c2abef3242f48153b"
 # ---------------------------------------
 
 # ---------------- LOGGING ----------------

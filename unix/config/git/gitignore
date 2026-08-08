@@ -55,5 +55,16 @@ bld/
 [Tt]emp*
 !templates
 
+###--------------------###
+###  TopTal: Opencode  ###
+###--------------------###
+ROUGH_IDEA.md
+AGENTS.md
+.opencode/
+.graphifyignore
+graphify-out/
+
+
+
 /compile_commands.json
 /.cache/
