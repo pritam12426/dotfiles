@@ -1,2 +1,5 @@
-hard_tabs = true
+edition = "2024"
 tab_spaces = 4
+hard_tabs = true
+newline_style = "Auto"
+fn_params_layout = "Tall"

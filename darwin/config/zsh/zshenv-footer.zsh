@@ -56,16 +56,16 @@ export YARR_CERTFILE="$LOCAL_HOST_TLS_CERT"
 export YARR_ADDR="0.0.0.0:8087"
 
 # https://github.com/0x2E/fusion/blob/main/.env.example
+# export FUSION_FEVER_USERNAME="$USER"
 # export FUSION_PASSWORD="changeme"
 # export FUSION_LOG_FORMAT=json
 # export FUSION_LOG_LEVEL=debug
+# export FUSION_PULL_CONCURRENCY=12
 export FUSION_ALLOW_EMPTY_PASSWORD=true
-export FUSION_PULL_CONCURRENCY=12
-export FUSION_FEVER_USERNAME="$USER"
 export FUSION_DB_PATH="$HOME/.local/share/fusion/fusion.sqlite"
 export FUSION_PORT="8087"
 
-export WAYPOINT_CACHE_DIR="$HOME/.cache/waypoint/media-cache.json"
+export WAYPOINT_CACHE_DIR="$HOME/.cache/waypoint/"
 export WAYPOINT_DB_FILE="$HOME/.local/share/waypoint/waypoint.sqlite"
 export WAYPOINT_SERVE_HOST="localhost"
 export WAYPOINT_SERVE_PORT="8086"
@@ -198,7 +198,8 @@ nnn_plug+=('Z:-!&zed --existing -- "$nnn" ')
 nnn_plug+=('r:-!tidy-mv -SHn -0 < "$NNN_SEL"  &&  printf '-' > "$NNN_SEL" *')
 nnn_plug+=('d:-!git diff -- "$nnn" *')
 nnn_plug+=('E:-!get-frame --random --preview --output-dir "$TMPDIR" "$nnn" *')
-nnn_plug+=('l:-!&finder_locate "$nnn" ')
+nnn_plug+=('L:-!&finder_locate "$nnn" ')
+nnn_plug+=('l:-!less "$nnn" *')
 nnn_plug+=('c:-!&pathCopy "$nnn" | pbcopy')
 nnn_plug+=('o:-!|otool -L -  "$nnn" ')
 nnn_plug+=('R:-!mmv -0 < "$NNN_SEL"  &&  printf '-' > "$NNN_SEL" *')

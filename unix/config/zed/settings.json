@@ -43,10 +43,12 @@
 	// "colorize_brackets": true,
 
 	"snippet_sort_order": "top",
-	"show_edit_predictions": true,
+	"show_edit_predictions": false,
+	//// /
 
 	"edit_predictions": {
 		"provider": null,
+		"mode": "subtle",
 		// Turn off this shit
 	},
 
@@ -202,9 +204,10 @@
 		"JetBrainsMono Nerd Font Mono"
 	],
 
-
 	// TERMINAL
 	"terminal": {
+		"detect_venv": "off",
+		"show_count_badge": true,
 		"max_scroll_history_lines": 1000,
 		"default_height": 300.0,
 		"button": true,
@@ -664,7 +667,7 @@
 		},
 
 		"Markdown": {
-			"enable_language_server": false,
+			// "enable_language_server": false,
 			"formatter": {
 				"external": {
 					"command": "dprint",
@@ -856,6 +859,12 @@
 						}
 					]
 				}
+			}
+		},
+
+		"markdown-oxide": {
+			"binary": {
+				"ignore_system_version": false
 			}
 		},
 
