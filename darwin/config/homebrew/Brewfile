@@ -8,32 +8,14 @@ brew "argtable3"
 # Terminal bandwidth utilization tool
 brew "bandwhich"
 
-# C++ build system
-brew "boost-build"
+# Toolchain of the web
+brew "biome"
 
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 
 # Incredibly fast JavaScript runtime, bundler, test runner, and package manager
 brew "bun"
-
-# C string library for manipulating Unicode strings
-brew "libunistring"
-
-# GNU internationalization (i18n) and localization (l10n) library
-brew "gettext"
-
-# JSON parser for C
-brew "json-c"
-
-# XML-based font configuration API for X Windows
-brew "fontconfig"
-
-# Perl compatible regular expressions library with a new API
-brew "pcre2"
-
-# Vector graphics library with cross-device output support
-brew "cairo"
 
 # Scan for endpoints, secrets, API keys, file extensions, tokens and more
 brew "cariddi"
@@ -50,6 +32,9 @@ brew "cloc"
 # Cross-platform make
 brew "cmake"
 
+# C++ Requests, a spiritual port of Python Requests
+brew "cpr"
+
 # Fast and Easy to use microframework for the web
 brew "crow"
 
@@ -65,6 +50,18 @@ brew "entr"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 
+# C string library for manipulating Unicode strings
+brew "libunistring"
+
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
+
+# JSON parser for C
+brew "json-c"
+
+# XML-based font configuration API for X Windows
+brew "fontconfig"
+
 # Command-line fuzzy finder written in Go
 brew "fzf"
 
@@ -74,20 +71,20 @@ brew "xz"
 # Zstandard is a real-time compression algorithm
 brew "zstd"
 
-# WebDriver <-> Marionette proxy
-brew "geckodriver"
-
 # GitHub command-line tool
 brew "gh"
+
+# GitHub Model Context Protocol server for AI tools
+brew "github-mcp-server"
 
 # Multi-platform library for OpenGL applications
 brew "glfw"
 
+# Perl compatible regular expressions library with a new API
+brew "pcre2"
+
 # Render markdown on the CLI
 brew "glow"
-
-# Command-line tool for decrypting and exporting browser data
-brew "hack-browser-data"
 
 # CLI email client written in Rust
 brew "himalaya"
@@ -115,9 +112,6 @@ brew "libconfig"
 
 # Find what models run on your hardware
 brew "llmfit"
-
-# Powerful, lightweight programming language
-brew "lua"
 
 # Just-In-Time Compiler (JIT) for the Lua programming language
 brew "luajit"

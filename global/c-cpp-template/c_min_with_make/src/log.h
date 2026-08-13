@@ -33,12 +33,13 @@ extern "C" {
 // Log severity levels (lower number = higher priority)
 typedef enum {
 	LOG_LEVEL_OFF   = 0,
-	LOG_LEVEL_FATAL = 1,
-	LOG_LEVEL_ERROR = 2,
-	LOG_LEVEL_WARN  = 3,
-	LOG_LEVEL_INFO  = 4,
-	LOG_LEVEL_DEBUG = 5,
-	LOG_LEVEL_TRACE = 6,
+	LOG_LEVEL_NONE  = 1,
+	LOG_LEVEL_FATAL = 2,
+	LOG_LEVEL_ERROR = 3,
+	LOG_LEVEL_WARN  = 4,
+	LOG_LEVEL_INFO  = 5,
+	LOG_LEVEL_DEBUG = 6,
+	LOG_LEVEL_TRACE = 7,
 } Log_level_t;
 
 // Initialise the logger. Thread-safe; may be called multiple times.

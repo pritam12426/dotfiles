@@ -1,10 +1,38 @@
 #!/usr/bin/env python3
 
 import argparse
-import json
+from json import dump
 from pathlib import Path
 from urllib.parse import urlparse
 
+URL_SCHEMES = (
+	"http://",
+	"https://",
+	"file://",
+	"ftp://",
+	"ftps://",
+	"sftp://",
+	"ws://",
+	"wss://",
+	"ssh://",
+	"git://",
+	"mailto:",
+	"tel:",
+	"sms:",
+	"geo:",
+	"magnet:",
+	"gemini://",
+	"gopher://",
+	"data:",
+	"ipfs://",
+	"ipns://",
+	"webcal://",
+	"spotify:",
+	"steam://",
+	"slack://",
+	"zoommtg://",
+	"discord://",
+)
 
 def format_category_name(filename: str) -> str:
 	"""Format filename to nice category name"""
@@ -48,7 +76,7 @@ def parse_bookmark_line(line: str):
 	tags = []
 
 	for part in parts:
-		if part.startswith(("http://", "https://")):
+		if part.startswith(URL_SCHEMES):
 			url = part
 		elif part.startswith("#"):
 			tags.extend(tag.replace("#", "").strip() for tag in part.split() if tag.startswith("#") and tag.replace("#", "").strip())
@@ -70,25 +98,27 @@ def parse_bookmark_line(line: str):
 
 
 parser = argparse.ArgumentParser(prog="dotmason", description="Convert bookmark .txt files to JSON database")
-parser.add_argument("inputdir", type=Path, help="Input directory containing .txt bookmark files")
-parser.add_argument("outputdir", type=Path, help="Output directory where bookmarks.json will be saved")
+parser.add_argument("inputs", type=Path, nargs="+", help="Input .txt bookmark files (or directories of them)")
 args = parser.parse_args()
 
-if not args.inputdir.is_dir():
-	parser.error(f"Input directory does not exist: {args.inputdir}")
+txt_files = []
 
-args.outputdir.mkdir(parents=True, exist_ok=True)
+for path in args.inputs:
+	if path.is_dir():
+		txt_files.extend(sorted(path.glob("*.txt")))
+	elif path.is_file() and path.suffix == ".txt":
+		txt_files.append(path)
+	else:
+		parser.error(f"Input must be a .txt file or a directory of .txt files: {path}")
+
+txt_files = sorted(set(txt_files))
+
+# args.outputdir.mkdir(parents=True, exist_ok=True)
 
 print("🚀 Starting Bookmark Generator...")
-print(f"📂 Reading from: {args.inputdir}")
+print(f"📂 Reading from: {', '.join(str(p) for p in args.inputs)}")
 
 book_marks = []
-domain_counter = {}  # domain -> counter
-seen_domains = set()
-
-print("📖 Scanning .txt files...")
-
-txt_files = sorted(args.inputdir.glob("*.txt"))
 
 for file_path in txt_files:
 	category_name = format_category_name(file_path.name)
@@ -105,32 +135,17 @@ for file_path in txt_files:
 
 		bookmarks.append(bookmark)
 
-		# Track unique domains for hash
-		domain = get_domain(bookmark["url"])
-		if domain and domain not in seen_domains:
-			seen_domains.add(domain)
-			domain_counter[domain] = 1  # Start counter at 0
-		else:
-			domain_counter[domain] += 1
-
 	if bookmarks:
 		book_marks.append({"category": category_name, "bookmarks": bookmarks})
 		print(f"   📄 Processing: {file_path.name} ({len(bookmarks)} bookmarks)")
 
 
-# New structure: list containing one dictionary (domain: counter)
-book_marks_hash = [domain_counter]
-
-# Final data structure
-final_data = {"book_Marks": book_marks, "book_marks_hash": book_marks_hash}
-
 output_file = args.outputdir / "bookmarks.json"
 
 with output_file.open("w", encoding="utf-8") as f:
-	json.dump(final_data, f, indent="\t", ensure_ascii=False)
+	dump(book_marks, f, indent=2, ensure_ascii=False)
 
-print("\n✅ SUCCESS! Bookmarks have been updated")
-print(f"📊 Total Categories: {len(book_marks)}")
+
+print(f"\n📊 Total Categories: {len(book_marks)}")
 print(f"📈 Total Bookmarks: {sum(len(cat['bookmarks']) for cat in book_marks)}")
-print(f"🔢 Unique Domains in hash: {len(domain_counter)}")
 print(f"💾 Saved to: {output_file}")

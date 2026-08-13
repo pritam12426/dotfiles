@@ -1,43 +1,47 @@
 UNAME_S := $(shell uname -s)
 
 PREFIX ?= /usr/local
-MANPREFIX ?= $(PREFIX)/share/man
+BINPREFIX ?= $(PREFIX)/bin
+MANPREFIX ?= $(PREFIX)/share/man/man1
 
 STRIP ?= strip
 PKG_CONFIG ?= pkg-config
 INSTALL ?= install
 
-BUILD = build
-BIN   = main-binary
+BUILD_TYPE      ?= release
+PROJECT_EXE_NAME = main-binary
+BUILD            = build/$(BUILD_TYPE)
+BIN              = $(BUILD)/$(PROJECT_EXE_NAME)
 
 HEADERS   = $(wildcard src/*.h)
 SRC       = $(wildcard src/*.c)
 
-CFLAGS += -Isrc -std=c17 -DCOMPILED_TIME_PREFIX='"$(PREFIX)"'
+# Common flags
+CFLAGS += -Isrc -std=c23
 
 CFLAGS +=  -Wshadow -Wconversion \
            -Wall -Wextra -Wpedantic \
            -Wno-missing-field-initializers \
            -Wstrict-prototypes -Wmissing-prototypes
 
-# Common flags
-CFLAGS += -Isrc -std=c17
 LDLIBS += -lpthread
 
 # Build options (set via command line, e.g. `make O_DEBUG=1`)
 O_DEBUG := 0                     ## Enable debug build (ASan, UBSan, -g3)
-O_LOG_SHOW_SOURCE_LOCATION := 0  ## Prepend [file:line:func] to log output
-O_LOG_SHOW_TIME_STAMP := 0       ## Prepend [HH:MM:SS.ffffff] to log output
+O_LOG_SHOW_SOURCE_LOCATION := 1  ## Prepend [file:line] to log output
+O_LOG_SHOW_FUN_NAME := 0         ## Prepend [file:line:func] to log output
+O_LOG_SHOW_TIME_STAMP := 1       ## Prepend [HH:MM:SS.ffffff] to log output
 
 # Auto-enable flags for debug builds
 ifneq ($(filter debug,$(MAKECMDGOALS)),)
 	O_DEBUG := 1
-	O_LOG_SHOW_SOURCE_LOCATION := 1
+	O_LOG_SHOW_FUN_NAME := 1
 	O_LOG_SHOW_TIME_STAMP := 1
+	O_LOG_SHOW_SOURCE_LOCATION := 1
 endif
 
 ifeq ($(strip $(O_DEBUG)),1)
-	CFLAGS += -g3 -DDEBUG -DLOG_SHOW_SOURCE_LOCATION
+	CFLAGS += -g3 -DDEBUG -DLOG_SHOW_SOURCE_LOCATION -DLOG_SHOW_FUN_NAME
 
 	LDFLAGS += -fsanitize=address -fsanitize=undefined
 	CFLAGS += -fstack-usage \
@@ -56,6 +60,10 @@ ifeq ($(strip $(O_LOG_SHOW_SOURCE_LOCATION)),1)
 	CFLAGS += -DLOG_SHOW_SOURCE_LOCATION
 endif
 
+ifeq ($(strip $(O_LOG_SHOW_FUN_NAME)),1)
+	CFLAGS += -DLOG_SHOW_FUN_NAME
+endif
+
 ifeq ($(strip $(O_LOG_SHOW_TIME_STAMP)),1)
 	CFLAGS += -DLOG_SHOW_TIME_STAMP
 endif
@@ -69,16 +77,7 @@ else
 	CFLAGS += -D_GNU_SOURCE
 endif
 
-
-# ── Third-party libs ─────────────────────────────────────────────────────────────────
-# ifeq ($(shell $(PKG_CONFIG) --exists sdl3 && echo 1),1)
-# 	CFLAGS  += $(shell $(PKG_CONFIG) --cflags sdl3)
-# 	LDFLAGS += $(shell $(PKG_CONFIG) --libs   sdl3)
-# else
-#     $(error "sdl3 not found. Install it via your package manager.")
-# endif
-
-OUT += $(SRC:%.c=$(BUILD)/%.o)
+OUT = $(SRC:%.c=$(BUILD)/%.o)
 
 all: $(BIN)
 
@@ -102,20 +101,26 @@ $(BUILD)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BIN): $(SRC) $(OUT)  ## Build the linkrot binary
+$(BIN): $(OUT)  ## Build the main-binary binary
 	$(CC) $(LDFLAGS) -o $@ $(OUT) $(LDLIBS)
+	ln -sf $(BIN) $(PROJECT_EXE_NAME)
 
-debug: $(BIN)  ## Build the debug binary run `make debug -B O_DEBUG=1`
+debug:  ## Build the debug binary with `make debug O_DEBUG=1`
+	$(MAKE) BUILD_TYPE="debug" O_DEBUG=1
 
-install: all  ## Install the main-binary binary
-	$(INSTALL) -m 0755 -d $(DESTDIR)$(PREFIX)/bin
-	$(INSTALL) -m 0755 $(BIN) $(DESTDIR)$(PREFIX)/bin
+install: strip  ## Install the main-binary binary
+	$(INSTALL) -m 0755 -d $(DESTDIR)$(BINPREFIX)
+	$(INSTALL) -m 0755 $(BIN) $(DESTDIR)$(BINPREFIX)
 
-clean:  ## Clean up main-binary artifacts
-	$(RM) -f $(OUT) $(BIN)
+	$(INSTALL) -m 0755 -d $(DESTDIR)$(MANPREFIX)
+	$(INSTALL) -m 0755 main-binary.1 $(DESTDIR)$(MANPREFIX)
 
-uninstall:  ## Uninstall the main-binary binary
-	$(RM) $(DESTDIR)$(PREFIX)/bin/$(BIN)
+clean:  ## Clean up build artifacts
+	$(RM) -rf $(OUT) $(BIN)
+
+uninstall: ## Uninstall the main-binary binary
+	$(RM) $(DESTDIR)$(BINPREFIX)/$(BIN)
+	$(RM) $(DESTDIR)$(MANPREFIX)/main-binary.1
 
 strip: $(BIN)  ## Strip the main-binary binary
 	$(STRIP) $^

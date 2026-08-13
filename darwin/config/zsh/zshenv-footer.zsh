@@ -65,10 +65,11 @@ export FUSION_ALLOW_EMPTY_PASSWORD=true
 export FUSION_DB_PATH="$HOME/.local/share/fusion/fusion.sqlite"
 export FUSION_PORT="8087"
 
-export WAYPOINT_CACHE_DIR="$HOME/.cache/waypoint/"
-export WAYPOINT_DB_FILE="$HOME/.local/share/waypoint/waypoint.sqlite"
-export WAYPOINT_SERVE_HOST="localhost"
-export WAYPOINT_SERVE_PORT="8086"
+export WAYPOINTD_CACHE_DIR="$HOME/.cache/waypoint/"
+export WAYPOINTD_DB_FILE="$HOME/.local/share/waypoint/waypoint.sqlite"
+export WAYPOINTD_LOG_LEVEL="info"
+export WAYPOINTD_SERVE_HOST="localhost"
+export WAYPOINTD_SERVE_PORT="8086"
 
 
 # FOR THE DEVELOPER===========================================================================================

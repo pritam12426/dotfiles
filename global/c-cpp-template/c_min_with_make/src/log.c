@@ -212,20 +212,9 @@ void log_record(Log_level_t level,
 	if (fmt == NULL) return;
 
 	if (g_log_stream == NULL) {
-
-#ifdef LOG_SHOW_TIME_STAMP
-		fprintf(stderr,
-		        "%s[%s:%d:%s]%s ",
-		        COLOR_DIM,
-		        file,
-		        line,
-		        func,
-		        COLOR_RESET);
-#endif  // defined(LOG_SHOW_SOURCE_LOCATION) && defined(DEBUG)
-
 		fprintf(stderr, COLOR_BOLD_RED "[LOG] error: log_init() not called — dropping message" COLOR_RESET);
 		if (new_line) fputc('\n', stderr);
-		return ;
+		return;
 	}
 
 	// Take a mutex so only one thread writes at a time
@@ -238,6 +227,8 @@ void log_record(Log_level_t level,
 			return;
 		}
 
+		if (level == LOG_LEVEL_NONE) goto print_message;
+
 #ifdef LOG_SHOW_TIME_STAMP
 		log_time_stamp_handler(g_log_stream, g_use_color);
 #endif  // LOG_SHOW_TIME_STAMP
@@ -248,6 +239,7 @@ void log_record(Log_level_t level,
 			default_log_handler(g_log_stream, level);
 
 #ifdef LOG_SHOW_SOURCE_LOCATION
+	#ifdef LOG_SHOW_FUN_NAME
 		fprintf(g_log_stream,
 		        "%s[%s:%d:%s]%s ",
 		        g_use_color ? COLOR_DIM : "",
@@ -255,8 +247,17 @@ void log_record(Log_level_t level,
 		        line,
 		        func,
 		        g_use_color ? COLOR_RESET : "");
+	#else
+		fprintf(g_log_stream,
+		        "%s[%s:%d]%s ",
+		        g_use_color ? COLOR_DIM : "",
+		        file,
+		        line,
+		        g_use_color ? COLOR_RESET : "");
+	#endif
 #endif  // LOG_SHOW_SOURCE_LOCATION
 
+print_message:
 		va_list args;
 		va_start(args, fmt);
 		vfprintf(g_log_stream, fmt, args);

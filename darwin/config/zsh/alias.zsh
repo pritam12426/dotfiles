@@ -18,7 +18,9 @@ alias bl='b leaves'
 alias bs='b search'
 alias bdtree='b deps --tree'
 alias bino='b info'
-alias bupdate='bin update -ayc'
+alias buses='b uses --installed'
+
+alias binup='bin update -ayc'
 
 
 # ============================================================================
@@ -271,12 +273,14 @@ alias findcommand='apropos'
 alias seelog='tail -n 1 -f --'                                                             # Tail logs
 alias exportlib='source $LIBS_DIR/env'                                                     # Load library environment
 alias exportembdlib='source $DOT_FILE/../global/embedded/embedded-ENV.sh'                  # Load embedded environment
-alias rss='yarr -open'
 alias hfind='grep < "$HISTFILE"'
 alias colorPicker='pastel pick 2> /dev/null | pastel format hex | tr -d "\012" |  pbcopy'  #
 alias sk='sk --case=smart --reverse'
 alias find_font='fc-list : family | sk'
 alias ghetags='gh repo edit --add-topic'
+
+alias rss='yarr -open'
+alias rssht='rss -db $XDG_DATA_HOME/yarr/hindustan_times.sqlite'
 
 # --- Archives ---
 alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes

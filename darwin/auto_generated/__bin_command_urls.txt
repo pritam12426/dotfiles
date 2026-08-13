@@ -1,4 +1,4 @@
-# Generated: 2026-08-04 09:39:37 UTC
+# Generated: 2026-08-13 14:37:26 UTC
 # ========== BIN INSTALL LINKS ==========
 
 https://codeberg.org/readeck/readeck
@@ -37,6 +37,7 @@ https://github.com/retlehs/quien
 https://github.com/sharkdp/bat
 https://github.com/sharkdp/fd
 https://github.com/shshemi/tabiew
+https://github.com/taigrr/spank
 https://github.com/tealdeer-rs/tealdeer
 https://github.com/tectonic-typesetting/tectonic
 https://github.com/terrastruct/d2
