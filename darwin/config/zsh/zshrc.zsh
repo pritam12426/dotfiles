@@ -261,40 +261,114 @@ autoload -Uz add-zsh-hook
 
 # Track command execution time
 # Using add-zsh-hook instead of plain preexec/precmd so plugins can't clobber these
+typeset -gA ERRNO_NAMES=(
+	 1  EPERM           2 ENOENT        3 ESRCH            4 EINTR
+	 5  EIO             6 ENXIO         7 E2BIG            8 ENOEXEC
+	 9  EBADF          10 ECHILD       11 EDEADLK         12 ENOMEM
+	13  EACCES         14 EFAULT       15 ENOTBLK         16 EBUSY
+	17  EEXIST         18 EXDEV        19 ENODEV          20 ENOTDIR
+	21  EISDIR         22 EINVAL       23 ENFILE          24 EMFILE
+	25  ENOTTY         26 ETXTBSY      27 EFBIG           28 ENOSPC
+	29  ESPIPE         30 EROFS        31 EMLINK          32 EPIPE
+	33  EDOM           34 ERANGE       35 EAGAIN          36 EINPROGRESS
+	37  EALREADY       38 ENOTSOCK     39 EDESTADDRREQ    40 EMSGSIZE
+	41  EPROTOTYPE     42 ENOPROTOOPT  43 EPROTONOSUPPORT 44 ESOCKTNOSUPPORT
+	45  ENOTSUP        46 EPFNOSUPPORT 47 EAFNOSUPPORT    48 EADDRINUSE
+	49  EADDRNOTAVAIL  50 ENETDOWN     51 ENETUNREACH     52 ENETRESET
+	53  ECONNABORTED   54 ECONNRESET   55 ENOBUFS         56 EISCONN
+	57  ENOTCONN       58 ESHUTDOWN    59 ETOOMANYREFS    60 ETIMEDOUT
+	61  ECONNREFUSED   62 ELOOP        63 ENAMETOOLONG    64 EHOSTDOWN
+	65  EHOSTUNREACH   66 ENOTEMPTY    67 EPROCLIM        68 EUSERS
+	69  EDQUOT         70 ESTALE       71 EREMOTE         72 EBADRPC
+	73  ERPCMISMATCH   74 EPROGUNAVAIL 75 EPROGMISMATCH   76 EPROCUNAVAIL
+	77  ENOLCK         78 ENOSYS       79 EFTYPE          80 EAUTH
+	81  ENEEDAUTH      82 EPWROFF      83 EDEVERR         84 EOVERFLOW
+	85  EBADEXEC       86 EBADARCH     87 ESHLIBVERS      88 EBADMACHO
+	89  ECANCELED      90 EIDRM        91 ENOMSG          92 EILSEQ
+	93  ENOATTR        94 EBADMSG      95 EMULTIHOP       96 ENODATA
+	97  ENOLINK        98 ENOSR        99 ENOSTR         100 EPROTO
+	101 ETIME         102 EOPNOTSUPP  103 ENOPOLICY      104 ENOTRECOVERABLE
+	105 EOWNERDEAD    106 EQFULL
+)
+
 _timer_preexec() { timer=$EPOCHREALTIME }
+
+# Common POSIX signal names for the 128+N convention
+typeset -gA SIGNAL_NAMES=(
+	 1 SIGHUP   2 SIGINT   3 SIGQUIT  4 SIGILL   5 SIGTRAP  6 SIGABRT
+	 8 SIGFPE   9 SIGKILL 10 SIGBUS  11 SIGSEGV 13 SIGPIPE 14 SIGALRM
+	15 SIGTERM 24 SIGXCPU 25 SIGXFSZ 28 SIGWINCH
+)
+
+typeset -gA _EXIT_KIND_COLOR=(
+  signal   "%B%F{magenta}"
+  exec     "%B%F{208}"
+  errno    "%B%F{yellow}"
+  unknown  "%B%F{red}"
+)
+
+_exit_code_kind() {
+	local code=$1
+	if (( code > 128 && code < 160 )); then
+		echo signal
+	elif (( code == 126 || code == 127 )); then
+		echo exec
+	elif (( ${+ERRNO_NAMES[$code]} )); then
+		echo errno
+	else
+		echo unknown
+	fi
+}
+
+_exit_code_label() {
+	local code=$1
+	if ((code > 128 && code < 160)); then
+		local sig=$((code - 128))
+		echo "${SIGNAL_NAMES[$sig]:-SIG$sig}"
+	elif ((code == 127)); then
+		echo "CMD_NOT_FOUND"
+	elif ((code == 126)); then
+		echo "NOT_EXECUTABLE"
+	elif ((${+ERRNO_NAMES[$code]})); then
+		echo "${ERRNO_NAMES[$code]}"
+	else
+		echo ""
+	fi
+}
 
 _timer_precmd() {
 	if [[ -n $timer ]]; then
 		local exit_code=${pipestatus[1]}
 		local now=$EPOCHREALTIME
 		local start_int=${timer%.*} start_frac=${timer#*.}
-		local now_int=${now%.*}     now_frac=${now#*.}
-
-		(( elapsed_ms = (now_int - start_int) * 1000 + (10#${now_frac:0:3} - 10#${start_frac:0:3}) ))
-		(( elapsed_ms < 0 )) && (( elapsed_ms += 1000 ))
-
-		local ms=$(( elapsed_ms % 1000 ))
-		local total_s=$(( elapsed_ms / 1000 ))
-		local s=$(( total_s % 60 ))
-		local m=$(( total_s / 60 ))
-
+		local now_int=${now%.*} now_frac=${now#*.}
+		((elapsed_ms = (now_int - start_int) * 1000 + (10#${now_frac:0:3} - 10#${start_frac:0:3})))
+		((elapsed_ms < 0)) && ((elapsed_ms += 1000))
+		local ms=$((elapsed_ms % 1000))
+		local total_s=$((elapsed_ms / 1000))
+		local s=$((total_s % 60))
+		local m=$((total_s / 60))
 		local timer_show
-		if (( total_s == 0 )); then
+		if ((total_s == 0)); then
 			timer_show="${ms}ms"
-		elif (( m == 0 )); then
+		elif ((m == 0)); then
 			timer_show="${s}.$(printf '%03d' $ms)s"
 		else
 			timer_show="${m}m ${s}.$(printf '%03d' $ms)s"
 		fi
-
 		local dim="%F{245}" superdim="%F{240}" err="%B%F{red}" err_time="%B%F{208}"
-
-		if (( exit_code == 0 )); then
+		if ((exit_code == 0)); then
 			RPROMPT="${superdim}[ ${timer_show} ]%f%b"
 		else
-			RPROMPT="${dim}[ ERR ${err}${exit_code}${dim} ] : ${err_time}${timer_show}%f%b"
-		fi
+			local label=$(_exit_code_label $exit_code)
+			local kind=$(_exit_code_kind $exit_code)
+			local label_color="${_EXIT_KIND_COLOR[$kind]}"
+			local code_color="%B%F{red}"
 
+			local err_tag="${code_color}${exit_code}%f%b"
+			[[ -n $label ]] && err_tag="${err_tag}${dim} : ${label_color}${label}%f%b"
+			RPROMPT="${dim}[ ERR ${err_tag}${dim} ]%f%b : ${err_time}${timer_show}%f%b"
+		fi
 		unset timer
 	else
 		RPROMPT=""
@@ -302,7 +376,7 @@ _timer_precmd() {
 }
 
 add-zsh-hook preexec _timer_preexec
-add-zsh-hook precmd  _timer_precmd
+add-zsh-hook precmd _timer_precmd
 
 # Simple, clean prompt: user@host:dir $
 PROMPT="%F{green}%B%n@%m%b%f:%F{blue}%B%~%b%f%(#.#.$) "

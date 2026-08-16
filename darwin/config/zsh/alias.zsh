@@ -102,13 +102,27 @@ alias af='alias | grep -i --'
 # HIMALAYA CLI MAIL CLIENT
 # ============================================================================
 alias hm='himalaya'
-alias hminbox='himalaya envelope list --folder INBOX'
-alias hmsent='himalaya envelope list --folder "[Gmail]/Sent Mail"'
-alias hmspam='himalaya envelope list --folder "[Gmail]/Spam"'
+alias hmlist='himalaya envelope list'
+alias hmstate='hm mailbox list --counts'
+alias hminbox='hmlist --mailbox INBOX'
+alias hmbin='hmlist --mailbox "[Gmail]/Bin"'
+alias hmdraft='hmlist --mailbox "[Gmail]/Drafts"'
+alias hmsent='hmlist --mailbox "[Gmail]/Sent Mail"'
+alias hmspam='hmlist --mailbox "[Gmail]/Spam"'
 alias hm_down_att='himalaya attachment download'
 alias hmread='himalaya message read'
 alias compose='himalaya message write'
-# alias newmail='hm message write'
+alias newmail='hm message compose'
+
+# export MML_CONFIG="/Users/pritam/Developer/git_repository/dotfiles/darwin/config/himalaya/config.toml"
+
+# "[Gmail]/Important"
+# "[Gmail]/Starred"
+
+# function hmread() {
+# 	himalaya message read $@ --json |
+# 	jq -r '.parts[0].body.Text'
+# }
 
 function hmexport() {
 	himalaya message export $@ \
@@ -297,8 +311,8 @@ alias rclone_gui='rclone rcd --rc-web-gui --rc-no-auth'                         
 # --- Local servers ---
 # alias live-server='open 'http://localhost:8085/'  &&  python3 -m http.server 8085'                     # Start live server with python
 # alias bk='(sleep 0.5; open "https://[::]:8443/")&  https-server -d ~/Developer/web-dev/LocalMarks'     # Open bookmarks server with https
-alias bkk='live-server -K 0 -P 8086 -B open -I ~/Developer/web-dev/LocalMarks'                            # Open bookmarks server
-alias bk='local-mark -K 0 -P 8086 -B open ~/.local/share/bookmarks/*.json'                                # Open bookmarks server
+# alias bkk='live-server -K 0 -P 8086 -B open -I ~/Developer/web-dev/LocalMarks'                            # Open bookmarks server
+alias bk='local-mark -K 0 -P 8087 -B open ~/.local/share/bookmarks/*.json'                                # Open bookmarks server
 # alias bk='open "http://localhost:8080/"  &&  shiori server'                                            # Open bookmarks server
 
 
