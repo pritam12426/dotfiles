@@ -1,6 +1,8 @@
 # https://github.com/pimalaya/himalaya/blob/master/config.sample.toml
+
 display-name = "pritam@Dhanno"
 downloads-dir = "~/Downloads/himhimalaya"
+# table.preset = "││──╞═╪╡┆    ┬┴┌┐└┘"
 
 [accounts.GmailPritam12426]
 	default = true
@@ -19,20 +21,12 @@ downloads-dir = "~/Downloads/himhimalaya"
 
 	envelope.list.page-size = 30 # the number of message to show by page.
 	envelope.list.datetime-fmt = "%a %b-%d-%Y %I:%M %p"
-	envelope.list.table.preset = "││──╞═╪╡┆    ┬┴┌┐└┘"
 	envelope.list.table.unseen-char = "🙈"
 
-	backend.type = "imap"
-	backend.host = "imap.gmail.com"
-	backend.port = 993
-	backend.login = "example@gmail.com"
-	backend.encryption.type = "tls"
-	backend.auth.type = "password"
-	backend.auth.raw = "<get this pass form>" # https://myaccount.google.com/security
-	message.send.backend.type = "smtp"
-	message.send.backend.host = "smtp.gmail.com"
-	message.send.backend.port = 465
-	message.send.backend.login = "<example@gmail.com>"
-	message.send.backend.encryption.type = "tls"
-	message.send.backend.auth.type = "password"
-	message.send.backend.auth.raw = "<get this pass form>" # https://myaccount.google.com/security
+	imap.sasl.plain.authcid = "pritamkumar12426@gmail.com"
+	imap.sasl.plain.passwd.command = "cat /Users/pritam/.cache/google_auth_key_temp.txt"  # https://myaccount.google.com/security
+	imap.server = "imaps://imap.gmail.com:993"
+	mailbox.alias.inbox = "INBOX"
+	smtp.sasl.plain.authcid = "pritamkumar12426@gmail.com"
+	smtp.sasl.plain.passwd.command = "cat /Users/pritam/.cache/google_auth_key_temp.txt"
+	smtp.server = "smtps://smtp.gmail.com:465"

@@ -2,10 +2,7 @@
 	{
 		"label": "Build Current Project",
 		"command": "make",
-		"args": [
-			"all",
-			// "--target run"
-		],
+		"args": [],
 		"show_command": false,
 		"shell": {
 			"with_arguments": {

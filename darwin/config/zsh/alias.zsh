@@ -296,6 +296,9 @@ alias ghetags='gh repo edit --add-topic'
 alias rss='yarr -open'
 alias rssht='rss -db $XDG_DATA_HOME/yarr/hindustan_times.sqlite'
 
+alias RatsSearch='/Applications/RatsSearch.app/Contents/MacOS/RatsSearch --share-db=off -c -p 4445 -d 4446 -s --data-dir "$XDG_DATA_HOME/rats_search"'
+alias RatsSearch-gui='/Applications/RatsSearch.app/Contents/MacOS/RatsSearch --share-db=off -p 4445 -d 4446 -s --data-dir "$XDG_DATA_HOME/rats_search"'
+
 # --- Archives ---
 alias bsdtar='bsdtar --acls --fflags --xattrs --mac-metadata'                              # Archive macOS-specific filesystem attributes
 alias ex='bsdtar -vxf'                                                                     # Extract archives

@@ -5,7 +5,7 @@ description: Builds an accurate high-level architecture map of an open-source re
 
 # Codebase Map
 
-Produce a single accurate `CODEBASE_MAP.md` that describes the current repository. Do not invent structure, modules, or relationships.
+Produce a single accurate `./CODEBASE_MAP.md` that describes the current repository. Do not invent structure, modules, or relationships.
 
 ## Mandatory First Steps
 
@@ -64,7 +64,7 @@ Explicitly list anything that could not be determined from the repository. Never
 ## Rules
 
 - Every statement must be traceable to files that currently exist.
-- Prefer cross-references to `README.md`, `DEV.md`, or `DEV_IN_DEPTH.md` instead of duplicating long explanations.
+- Prefer cross-references to `README.md`, `./docs/DEV.md`, or `./docs/DEV_IN_DEPTH.md` instead of duplicating long explanations.
 - If the repository already contains an architecture document, update it in place rather than creating a conflicting second document, unless the user explicitly requests a new file.
-- Keep the map high-level. Deep implementation details belong in `DEV_IN_DEPTH.md` or a follow-up skill.
+- Keep the map high-level. Deep implementation details belong in `./docs/DEV_IN_DEPTH.md` or a follow-up skill.
 - Use consistent module and package names exactly as they appear in the code.

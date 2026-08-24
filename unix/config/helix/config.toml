@@ -33,7 +33,7 @@ theme = "ayu_evolve"
 
 	[editor.lsp]
 		display-inlay-hints = true
-		# enable = false
+		enable = false
 
 	[editor.auto-save]
 		focus-lost = true

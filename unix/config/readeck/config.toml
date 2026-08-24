@@ -12,7 +12,7 @@
 	# port = 8872
 
 [database]
-	source = "sqlite3:/Users/pritam/Library/Application Support/readeck/db.sqlite3"
+	source = "sqlite3:/Users/pritam/.local/share/readeck/db.sqlite3"
 
 # [extractor]
 	# ;

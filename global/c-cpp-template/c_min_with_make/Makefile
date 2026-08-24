@@ -28,16 +28,16 @@ LDLIBS += -lpthread
 
 # Build options (set via command line, e.g. `make O_DEBUG=1`)
 O_DEBUG := 0                     ## Enable debug build (ASan, UBSan, -g3)
-O_LOG_SHOW_SOURCE_LOCATION := 1  ## Prepend [file:line] to log output
-O_LOG_SHOW_FUN_NAME := 0         ## Prepend [file:line:func] to log output
 O_LOG_SHOW_TIME_STAMP := 1       ## Prepend [HH:MM:SS.ffffff] to log output
+O_LOG_SHOW_SOURCE_LOCATION := 1  ## Prepend [file:line] to log output
+O_LOG_SHOW_FUN_NAME := 0         ## Prepend [:func] to log output
 
 # Auto-enable flags for debug builds
 ifneq ($(filter debug,$(MAKECMDGOALS)),)
 	O_DEBUG := 1
-	O_LOG_SHOW_FUN_NAME := 1
 	O_LOG_SHOW_TIME_STAMP := 1
 	O_LOG_SHOW_SOURCE_LOCATION := 1
+	O_LOG_SHOW_SOURCE_FUN_SIGN := 1
 endif
 
 ifeq ($(strip $(O_DEBUG)),1)

@@ -72,5 +72,4 @@ MIT — see [LICENSE](LICENSE).
 
 ## See Also
 
-- [PROJECT_BRIEF.md](PROJECT_BRIEF.md) — Architecture, module guide, mental model
-- [AGENTS.md](AGENTS.md) — Agent instructions for this repo
+- [PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md) — Architecture, module guide, mental model

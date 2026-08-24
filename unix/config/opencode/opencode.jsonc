@@ -1,37 +1,74 @@
 {
 	"$schema": "https://opencode.ai/config.json",
-	"lsp": true,
 
-	"formatter": {
-		"prettier": {
+	"plugin": [
+		"@dietrichgebert/ponytail"
+	],
+
+	"lsp": {
+		"pyright": {
 			"disabled": true
 		},
-		"dprint": {
+
+		"ruff": {
 			"command": [
-				"dprint",
-				"fmt",
-				"--config-discovery=global",
-				"--no-gitignore",
-				"$FILE"
+				"ruff",
+				"server"
 			],
 			"extensions": [
-				".md",
-				".css",
-				".html",
-				".yaml",
-				".yml"
+				".py",
+				".pyi"
+			],
+			"initialization": {
+				"settings": {
+					"configuration": "~/.config/ruff/ruff.toml"
+				}
+			}
+		},
+
+		"ty": {
+			"command": [
+				"ty",
+				"server"
+			],
+			"extensions": [
+				".py",
+				".pyi"
 			]
 		}
 	},
 
-	"default_agent": "plane",
+	"formatter": false,
+	// "formatter": {
+	// 	"prettier": {
+	// 		"disabled": true
+	// 	},
+	// 	"dprint": {
+	// 		"command": [
+	// 			"dprint",
+	// 			"fmt",
+	// 			"--config-discovery=global",
+	// 			"--no-gitignore",
+	// 			"$FILE"
+	// 		],
+	// 		"extensions": [
+	// 			".md",
+	// 			".css",
+	// 			".html",
+	// 			".yaml",
+	// 			".yml"
+	// 		]
+	// 	}
+	// },
+
+	// "default_agent": "plane",
 	// "model": "crof/deepseek-v4-flash",
 	// "small_model": "opencode/big-pickle",
 
 	// https://opencode.ai/docs/rules/#manual-instructions-in-agentsmd
 	"instructions": [
-		// "CONTRIBUTING.md",
-		// "docs/guidelines.md",
+		"CONTRIBUTING.md",
+		"docs/guidelines.md",
 		".cursor/rules/*.md",
 		".opencode/rules/*.md"
 	],
@@ -45,7 +82,7 @@
 
 		"gen-git_commit": {
 			"template": "!`cat ~/.config/opencode/custom_prompts/gen-git_commit.md`",
-			"agent": "plane",
+			// "agent": "plane",
 			"description": "Get git commit message for you changes",
 			"model": "opencode/big-pickle"
 		}
@@ -67,6 +104,17 @@
 				"mcp-server-git"
 			],
 			"enabled": true
+		},
+		"github-mcp": {
+			"type": "local",
+			"command": [
+				"github-mcp-server",
+				"stdio"
+			],
+			"environment": {
+				"GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>"
+			},
+			"enabled": false
 		}
 	},
 

@@ -22,8 +22,8 @@
 #define _LOG_H_
 
 
-#include <stdbool.h> // bool
-#include <stdio.h>   // FILE
+#include <stdbool.h>  // bool
+#include <stdio.h>    // FILE
 
 #ifdef __cplusplus
 extern "C" {
@@ -114,14 +114,14 @@ void log_record(Log_level_t level,
 
 // Log with custom newline behaviour (0 = no newline, 1 = with newline)
 // Used internally; prefer LOG_FATAL / LOG_ERROR / LOG_WARN / etc.
-#define LOG_CUSTOM(LOG_LEVEL, NEW_LINE, ...)                                   \
+#define LOG_CUSTOM(LOG_LEVEL, NEW_LINE, ...) \
 	log_record(LOG_LEVEL, 0, 0, 0, NEW_LINE, __VA_ARGS__)
 
 // Log an error and append strerror(errno) (via perror)
-#define LOG_PERROR(...)                                                            \
-	do {                                                                           \
+#define LOG_PERROR(...)                                       \
+	do {                                                      \
 		log_record(LOG_LEVEL_ERROR, 0, 0, 0, 0, __VA_ARGS__); \
-		perror(" ");                                                               \
+		perror(" ");                                          \
 	} while (0)
 
 #define LOG_FATAL(...) \

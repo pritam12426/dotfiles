@@ -62,4 +62,4 @@ Note paths whose cost cannot be judged from static inspection alone.
 - Do not recommend rewrites or new frameworks. Stay inside the current architecture.
 - Prefer concrete references (file + function) over general advice.
 - If the project already has a performance document, update it rather than creating conflicting guidance.
-- Cross-link to `CODEBASE_MAP.md` or `DEV_IN_DEPTH.md` for architectural context.
+- Cross-link to `CODEBASE_MAP.md` or `./docs/DEV_IN_DEPTH.md` for architectural context.

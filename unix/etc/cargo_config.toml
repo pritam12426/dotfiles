@@ -17,4 +17,4 @@
 	jobs = 3
 
 # [install]
-# 	root = "/Users/pritam/.local/rust-install"
+	# root = "/Users/pritam/.local/rust-install"

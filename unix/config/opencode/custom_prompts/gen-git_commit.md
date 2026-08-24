@@ -1,10 +1,19 @@
-Check the current git diff (staged if present, otherwise unstaged; if neither, diff the last commit against HEAD~1) and generate a commit message.
+Check the current git staged diff and generate a detailed commit message.
 
 Rules:
 - Follow Conventional Commits format: <type>(<scope>): <subject>
   Types: feat, fix, refactor, docs, style, test, chore, perf, build, ci
 - Subject line: imperative mood, no period, ≤72 chars, lowercase after the colon
-- Body (only if the change isn't trivially obvious from the subject): explain *why*, not just what — wrap at ~72 chars, separate from subject with a blank line
-- If the diff touches multiple unrelated concerns, say so explicitly and suggest splitting into separate commits instead of forcing one message
-- Base the message only on what's actually in the diff — don't infer intent that isn't visible in the code changes
-- Output just the commit message (and the split-commit note if applicable) — no extra commentary
+- Keep the subject line under **72 characters** and use the imperative mood.
+- Add a blank line after the subject.
+- Write a comprehensive body that explains:
+
+  - What changed.
+  - Why the change was made.
+  - How it was implemented.
+  - Any notable implementation details, edge cases, or tradeoffs.
+  - Any user-visible or developer-facing impact.
+- Group related changes into clear bullet points where appropriate.
+- If multiple files contribute to the same feature or fix, describe them together instead of listing files one by one.
+- Do **not** invent motivations or behavior that are not supported by the diff.
+- Return **only** the final commit message inside a Markdown code block so it can be pasted directly into `git commit`.

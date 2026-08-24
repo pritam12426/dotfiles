@@ -21,7 +21,7 @@ Produce an accurate inventory of every public interface the repository currently
 
 ## Output File
 
-Write or update `./API.md` (or a path the user specifies).
+Write or update `./docs/API.md` (or a path the user specifies).
 
 ## Required Sections
 
@@ -71,6 +71,6 @@ List interfaces whose exact contract could not be fully determined from the code
 
 - Prefer machine-checkable facts (route tables, command definitions, export lists) over prose comments.
 - When multiple languages or packages exist, keep sections clearly separated.
-- Cross-link to `DEV.md` or `DEV_IN_DEPTH.md` for deeper handler implementation details.
+- Cross-link to `./docs/DEV.md` or `./docs/DEV_IN_DEPTH.md` for deeper handler implementation details.
 - Never document removed or commented-out endpoints as live.
 - If the repository already maintains OpenAPI, JSON Schema, or similar, reference those files and only supplement what is missing or inconsistent.

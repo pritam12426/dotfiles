@@ -1,6 +1,6 @@
 # Documentation Refactoring Task
 
-Maintain three docs — `README.md`, `DEV.md`, `DEV_IN_DEPTH.md` — so they always reflect the **current HEAD** of the repo, with zero unnecessary duplication.
+Maintain three docs — `README.md`, `./docs/DEV.md`, `./docs/DEV_IN_DEPTH.md` — so they always reflect the **current HEAD** of the repo, with zero unnecessary duplication.
 
 ## Process (in order)
 
@@ -38,15 +38,15 @@ Map code changes to the doc(s) they touch:
   - **Data flow** — origin → transform → storage → exit
   - Use the correct diagram type for the concept being explained. If in doubt, prefer a diagram over a paragraph of text.
 - If something can't be determined from the code, say so explicitly — don't guess.
-- **Cross-reference integrity.** Every link between docs (e.g. "see DEV.md", "link to DEV_IN_DEPTH.md") must point to content that actually exists in the target doc. Verify this during the rewrite.
+- **Cross-reference integrity.** Every link between docs (e.g. "see ./docs/DEV.md", "link to ./docs/DEV_IN_DEPTH.md") must point to content that actually exists in the target doc. Verify this during the rewrite.
 
 ## README.md — for new users/evaluators ("How do I use this?")
 
 **Tone:** welcoming, minimal jargon, short sentences, goal-oriented ("you can do X").
 Cover: what it is, why it exists, problem solved, main features, install, quickstart, basic usage, common commands, config overview, platform support, high-level build instructions, example workflow, screenshots if available, license, brief contributing (link out).
-Avoid: architecture, implementation details, source tree, internal protocols, deep API docs, design rationale. Link to `DEV.md` for depth.
+Avoid: architecture, implementation details, source tree, internal protocols, deep API docs, design rationale. Link to `./docs/DEV.md` for depth.
 
-## DEV.md — for contributors/API consumers ("How does it behave as a developer?")
+## ./docs/DEV.md — for contributors/API consumers ("How does it behave as a developer?")
 
 **Tone:** precise, technical, reference-like, behavior-oriented ("the server does X when Y").
 
@@ -57,9 +57,9 @@ Avoid: architecture, implementation details, source tree, internal protocols, de
 - **Concurrency**: behavior under many clients, rapid-fire/duplicate requests, long-running requests. Document only what's actually implemented (rate limiting, queuing, locking, worker pools) — explicitly state "not implemented" where absent.
 - **Repo layout**: high-level directory purposes, not a file-by-file list.
 - **Dev guidelines**: existing coding conventions, logging, error handling, testing, debugging.
-  Link to `DEV_IN_DEPTH.md` for implementation details.
+  Link to `./docs/DEV_IN_DEPTH.md` for implementation details.
 
-## DEV_IN_DEPTH.md — for new contributors/architects/AI agents ("How is this actually built?")
+## ./docs/DEV_IN_DEPTH.md — for new contributors/architects/AI agents ("How is this actually built?")
 
 **Tone:** exhaustive, matter-of-fact, explain-why, implementation-oriented ("module X uses Y because Z").
 Single-read source of complete, accurate mental model of what exists (not what should exist):
@@ -84,7 +84,7 @@ Single-read source of complete, accurate mental model of what exists (not what s
 ## Duplication Policy
 
 - `README.md` = how to use it
-- `DEV.md` = how it behaves
-- `DEV_IN_DEPTH.md` = how it's built internally
+- `./docs/DEV.md` = how it behaves
+- `./docs/DEV_IN_DEPTH.md` = how it's built internally
 
 Summarize + link instead of repeating. A new user stops at README. A contributor is comfortable after README + DEV. A contributor/agent gets the full picture only after all three.

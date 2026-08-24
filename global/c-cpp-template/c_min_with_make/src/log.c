@@ -239,22 +239,24 @@ void log_record(Log_level_t level,
 			default_log_handler(g_log_stream, level);
 
 #ifdef LOG_SHOW_SOURCE_LOCATION
+	if (g_use_color) {
+		fprintf(g_log_stream, COLOR_DIM "[%s:%d", file, line);
+	} else {
+		fprintf(g_log_stream, "[%s:%d", file, line);
+	}
 	#ifdef LOG_SHOW_FUN_NAME
-		fprintf(g_log_stream,
-		        "%s[%s:%d:%s]%s ",
-		        g_use_color ? COLOR_DIM : "",
-		        file,
-		        line,
-		        func,
-		        g_use_color ? COLOR_RESET : "");
+		if (g_use_color) {
+			fprintf(g_log_stream, ":%s]" COLOR_RESET " ", func);
+		} else {
+			fprintf(g_log_stream, ":%s] ", func);
+		}
 	#else
-		fprintf(g_log_stream,
-		        "%s[%s:%d]%s ",
-		        g_use_color ? COLOR_DIM : "",
-		        file,
-		        line,
-		        g_use_color ? COLOR_RESET : "");
-	#endif
+		if (g_use_color) {
+			fprintf(g_log_stream, "]" COLOR_RESET " ");
+		} else {
+			fprintf(g_log_stream, "] ");
+		}
+	#endif  // LOG_SHOW_FUN_NAME
 #endif  // LOG_SHOW_SOURCE_LOCATION
 
 print_message:

@@ -1,5 +1,9 @@
 {
+	"profiles": {},
+
+	// https://zed.dev/docs/reference/all-settings#auto-close
 	// general
+	// https://zed.dev/docs/semantic-tokens
 	"diff_view_style": "unified",
 	"cli_default_open_behavior": "new_window",
 
@@ -15,8 +19,10 @@
 	"show_signature_help_after_edits": true,
 
 	"active_pane_modifiers": {
-		"inactive_opacity": 0.7,
+		"inactive_opacity": 0.7
 	},
+
+	"bottom_dock_layout": "full",
 
 	// appearance & ui
 	"theme": {
@@ -48,8 +54,15 @@
 
 	"edit_predictions": {
 		"provider": null,
-		"mode": "subtle",
-		// Turn off this shit
+		"disabled_globs": [
+			"**/.env*",
+			"**/*.pem",
+			"**/*.key",
+			"**/*.cert",
+			"**/*.crt",
+			"**/.dev.vars",
+			"**/secrets.yml"
+		]
 	},
 
 	"disable_ai": true,
@@ -57,8 +70,15 @@
 	// ai / agents
 	"agent_servers": {
 		"opencode": {
+			"favorite_config_option_values": {
+				"model": [
+					"opencode/deepseek-v4-flash-free",
+					"opencode/big-pickle",
+					"opencode/nemotron-3-ultra-free"
+				]
+			},
 			"default_config_options": {
-				"model": "opencode/nemotron-3-ultra-free",
+				"model": "opencode/big-pickle",
 				"default_mode": "ask"
 			},
 			"type": "registry"
@@ -66,50 +86,24 @@
 	},
 
 	"agent": {
-		"profiles": {
-			"container-use": {
-				"name": "Container Use",
-				"tools": {
-					"fetch": true,
-					"copy_path": false,
-					"find_path": true,
-					"delete_path": false,
-					"create_directory": true,
-					"list_directory": true,
-					"diagnostics": false,
-					"read_file": true,
-					"move_path": false,
-					"grep": false,
-					"edit_file": false,
-					"terminal": false
-				},
-				"enable_all_context_servers": false,
-				"context_servers": {
-					"container-use": {
-						"tools": {
-							"environment_create": true,
-							"environment_add_service": true,
-							"environment_update": true,
-							"environment_run_cmd": true,
-							"environment_open": true,
-							"environment_file_write": true,
-							"environment_file_read": true,
-							"environment_file_list": true,
-							"environment_file_delete": true,
-							"environment_checkpoint": true
-						}
-					}
-				}
-			}
-		}
+		"profiles": {}
 	},
 
 	"hide_mouse": "on_typing_and_action",
+	"reduce_motion": "on",
 
 	"use_system_path_prompts": false,
 	"auto_signature_help": true,
 	// this will how the fun definition
 	"scroll_beyond_last_line": "vertical_scroll_margin",
+
+	"centered_layout": {
+		"left_padding": 0,
+		"right_padding": 0
+	},
+
+	"code_lens": "on",
+	"diagnostics_max_severity": "all",
 
 	"auto_install_extensions": {
 		"html": false,
@@ -118,6 +112,7 @@
 		"make": true,
 		"basher": true,
 		"log": true,
+		"markdown-oxide": true
 		// "sql": true,
 		// "java": true,
 		// "neocmake": true,
@@ -153,6 +148,7 @@
 
 	"minimap": {
 		"show": "always",
+		// "thumb_border": "full",
 		// "thumb": "always",
 		// "current_line_highlight": null
 	},
@@ -165,7 +161,9 @@
 	"hard_tabs": true,
 	"auto_update": false,
 	"autosave": "on_focus_change",
-	// "wrap_guides": [83],
+	"wrap_guides": [
+		83
+	],
 
 	"toolbar": {
 		// "code_actions": true,
@@ -415,7 +413,7 @@
 
 		"TSX": {
 			"language_servers": [
-				"deno",
+				"biome",
 				"!typescript-language-server",
 				"!vtsls",
 				"!eslint"
@@ -435,7 +433,12 @@
 		},
 
 		"CSS": {
-			"enable_language_server": false,
+			"language_servers": [
+				"biome",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint"
+			],
 			"formatter": {
 				"external": {
 					"command": "dprint",
@@ -463,9 +466,8 @@
 		},
 
 		"JavaScript": {
-			"enable_language_server": false,
 			"language_servers": [
-				"deno",
+				"biome",
 				"!typescript-language-server",
 				"!vtsls",
 				"!eslint"
@@ -484,7 +486,7 @@
 		"TypeScript": {
 			// "show_wrap_guides": true,
 			"language_servers": [
-				"deno",
+				"biome",
 				"!typescript-language-server",
 				"!vtsls",
 				"!eslint"
@@ -840,29 +842,23 @@
 			}
 		},
 
-		"json-language-server": {
-			"settings": {
-				"json": {
-					"schemas": [
-						{
-							"fileMatch": [
-								"deno.json",
-								"deno.jsonc"
-							],
-							"url": "https://raw.githubusercontent.com/denoland/deno/refs/heads/main/cli/schemas/config-file.v1.json"
-						},
-						{
-							"fileMatch": [
-								"package.json"
-							],
-							"url": "https://www.schemastore.org/package"
-						}
-					]
-				}
+		"biome": {
+			"binary": {
+				"ignore_system_version": false,
+				"path": "/opt/homebrew/bin/biome",
+				"arguments": [
+					"lsp-proxy"
+				]
 			}
 		},
 
 		"markdown-oxide": {
+			"binary": {
+				"ignore_system_version": false
+			}
+		},
+
+		"rust-analyzer": {
 			"binary": {
 				"ignore_system_version": false
 			}

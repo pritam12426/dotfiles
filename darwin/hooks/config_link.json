@@ -64,6 +64,7 @@
 		"system_target_dir": "~/.local/bin",
 		"link_files": {
 			"about_github_repo.py": "about_github_repo",
+			"pimalaya.py": "pimalaya-tools",
 			"abouttorrent.py": "abouttorrent",
 			"re_build_NNN.bash": "re_build_NNN",
 			"bookmarkfmt.py": "bookmarkfmt",
